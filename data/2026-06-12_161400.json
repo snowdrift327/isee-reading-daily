@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_161400",
+  "topic_id": "h15",
+  "topic_title": "Pompeii: a city frozen in volcanic ash",
+  "category": "History",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Argumentative",
+  "length": "Short",
+  "facts": [
+    "Mount Vesuvius erupted on August 24, 79 AD, burying the Roman city of Pompeii under approximately 13 to 20 feet of volcanic ash and pumice.",
+    "Pompeii was home to approximately 11,000 to 15,000 residents before the eruption destroyed the city.",
+    "Archaeologists discovered the city of Pompeii in 1748 when engineer Rocque Joaquin de Alcubierre began excavations under the direction of King Charles VII of Naples.",
+    "Pliny the Younger, a Roman author who witnessed the eruption from across the Bay of Naples, wrote detailed letters describing the volcanic cloud rising from Vesuvius in the shape of a pine tree.",
+    "The volcanic ash preserved everyday objects in Pompeii including loaves of bread still sitting in ovens, colorful wall frescoes, and graffiti written on walls.",
+    "Giuseppe Fiorelli, director of excavations from 1863 to 1875, developed a technique of pouring plaster into cavities left by decomposed bodies, creating casts that show the final moments of Pompeii's victims.",
+    "Excavations have uncovered more than 1,150 bodies in Pompeii since digging began in the 18th century.",
+    "The Forum, Pompeii's main public square, measured approximately 157 feet by 125 feet and served as the center of political, religious, and commercial life in the city."
+  ],
+  "title": "Why Pompeii Matters More Than Any Other Ruin",
+  "passage": "Loaves of bread still rest in ancient ovens, their crusts charred but <vocab>intact|whole and undamaged</vocab> after nearly two thousand years. This frozen moment in time makes Pompeii the most valuable archaeological site from the Roman world, offering unmatched insight into daily life that no other ruin can provide.\n\nWhen Mount Vesuvius erupted on August 24, 79 AD, it buried approximately 11,000 to 15,000 residents under 13 to 20 feet of volcanic ash and pumice. Some argue that Rome's grand monuments teach us more about ancient civilization. However, Pompeii's sudden destruction created something <vocab>extraordinary|remarkable and unusual</vocab>: a complete snapshot of ordinary existence. The volcanic ash didn't just destroy—it preserved colorful wall frescoes and even graffiti scrawled on walls, revealing how common people actually lived, not merely how emperors ruled.\n\nThis preservation allows <vocab>meticulous|extremely careful and detailed</vocab> study impossible elsewhere. Giuseppe Fiorelli, excavation director from 1863 to 1875, developed an <vocab>ingenious|clever and inventive</vocab> technique of pouring plaster into cavities left by decomposed bodies. These casts capture victims' final moments with haunting clarity. Roman author Pliny the Younger witnessed the eruption from across the Bay of Naples, writing <vocab>vivid|producing clear and powerful images</vocab> descriptions of the volcanic cloud rising like a pine tree.\n\nSince engineer Rocque Joaquin de Alcubierre began excavations in 1748 under King Charles VII of Naples, archaeologists have uncovered more than 1,150 bodies and <vocab>countless|too many to count</vocab> artifacts. Pompeii doesn't just show us ruins—it reveals Romans as living, breathing people.",
+  "vocab": [
+    {
+      "word": "intact",
+      "definition": "whole and undamaged"
+    },
+    {
+      "word": "extraordinary",
+      "definition": "remarkable and unusual"
+    },
+    {
+      "word": "meticulous",
+      "definition": "extremely careful and detailed"
+    },
+    {
+      "word": "ingenious",
+      "definition": "clever and inventive"
+    },
+    {
+      "word": "vivid",
+      "definition": "producing clear and powerful images"
+    },
+    {
+      "word": "countless",
+      "definition": "too many to count"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Pompeii provides unique insight into Roman daily life that makes it more valuable than other archaeological sites.",
+        "Mount Vesuvius destroyed Pompeii on August 24, 79 AD, killing thousands of residents.",
+        "Giuseppe Fiorelli invented an important technique for creating plaster casts of volcano victims.",
+        "Archaeologists have been studying Pompeii since excavations began in 1748."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage argues that Pompeii is the most valuable Roman site because its preservation reveals daily life uniquely. Options B, C, and D state facts from the passage but miss the argumentative claim about Pompeii's superior value."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions bread in ovens in order to",
+      "options": [
+        "explain how Romans baked their food in ancient times",
+        "illustrate the type of everyday details that Pompeii's preservation captured",
+        "describe the main diet of people living in Pompeii",
+        "prove that volcanic ash can preserve organic materials for centuries"
+      ],
+      "correct_index": 1,
+      "explanation": "The bread serves as a specific example supporting the claim that Pompeii preserved ordinary daily life. Option A is a reasonable inference but not the author's purpose. Options C and D are partially true but miss the rhetorical function of the detail."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that",
+      "options": [
+        "Rome's monuments show only the lives of powerful leaders, not common citizens",
+        "Pliny the Younger was the only person to document the eruption of Vesuvius",
+        "Giuseppe Fiorelli was the first archaeologist to excavate Pompeii",
+        "volcanic eruptions always preserve cities better than other natural disasters"
+      ],
+      "correct_index": 0,
+      "explanation": "The passage contrasts Rome's 'grand monuments' showing 'how emperors ruled' with Pompeii revealing 'how common people actually lived,' implying Rome's monuments lack ordinary perspectives. Options B and C contradict stated facts, while D overgeneralizes beyond the passage's scope."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"ingenious\" most nearly means",
+      "options": [
+        "honest and sincere",
+        "clever and inventive",
+        "difficult and complex",
+        "ancient and historical"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage describes Fiorelli's plaster technique as 'ingenious,' referring to its clever innovation. The embedded definition confirms this meaning, while other options don't fit the context of praising a creative solution."
+    },
+    {
+      "type": "organization",
+      "stem": "Which best describes how the passage is organized?",
+      "options": [
+        "describing events in chronological order from 79 AD to the present",
+        "comparing Pompeii's excavation methods with those used at other sites",
+        "presenting a claim about Pompeii's value, then supporting it with specific examples",
+        "explaining the causes of Mount Vesuvius's eruption and its effects on the region"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage opens with the claim that Pompeii is 'the most valuable archaeological site,' then provides supporting evidence (preservation of artifacts, Fiorelli's technique, Pliny's accounts). While dates appear, they're not the organizing principle, eliminating option A."
+    }
+  ]
+}

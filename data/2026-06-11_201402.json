@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-11_201402",
+  "topic_id": "s12",
+  "topic_title": "Katherine Johnson: the math that sent astronauts to the moon",
+  "category": "Science",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Informational",
+  "length": "Short",
+  "facts": [
+    "Katherine Johnson was born on August 26, 1918, in White Sulphur Springs, West Virginia.",
+    "Johnson graduated from West Virginia State College at age 18 in 1937 with degrees in mathematics and French.",
+    "In 1953, Johnson began working at the National Advisory Committee for Aeronautics (NACA), which later became NASA, at the Langley Research Center in Hampton, Virginia.",
+    "Johnson calculated the trajectory for Alan Shepard's flight on May 5, 1961, making him the first American in space.",
+    "Before the 1962 Friendship 7 mission, astronaut John Glenn specifically requested that Johnson verify the electronic computer's calculations for his orbital flight, saying he wanted 'the girl' to check the numbers.",
+    "Johnson's calculations were critical to the success of the Apollo 11 mission that landed astronauts Neil Armstrong and Buzz Aldrin on the moon on July 20, 1969.",
+    "In 2015, President Barack Obama awarded Katherine Johnson the Presidential Medal of Freedom, the highest civilian honor in the United States.",
+    "Johnson worked at NASA for 33 years, retiring in 1986 after contributing to the Space Shuttle program and Earth Resources Satellite."
+  ],
+  "title": "The Mathematics Behind the Moon Landing",
+  "passage": "On a February morning in 1962, astronaut John Glenn stood before a launch that would make him the first American to orbit Earth. Yet he refused to board until one person checked the computer's numbers. \"Get the girl to check it,\" he insisted, referring to Katherine Johnson. Only after Johnson <vocab>verified|confirmed to be accurate</vocab> every calculation would Glenn trust his life to the mission.\n\nJohnson's journey to that moment began in White Sulphur Springs, West Virginia, where she was born on August 26, 1918. Her <vocab>exceptional|unusually outstanding</vocab> talent for mathematics became clear early. By age 18 in 1937, she had already graduated from West Virginia State College with degrees in mathematics and French. In 1953, Johnson joined the National Advisory Committee for Aeronautics (NACA) at Langley Research Center in Hampton, Virginia. This organization later became NASA.\n\nJohnson's work required <vocab>meticulous|extremely careful and precise</vocab> attention to detail. She calculated the <vocab>trajectory|curved path</vocab> for Alan Shepard's historic flight on May 5, 1961, making him the first American in space. Her <vocab>precision|exactness</vocab> proved even more <vocab>crucial|extremely important</vocab> for Apollo 11, which landed Neil Armstrong and Buzz Aldrin on the moon on July 20, 1969.\n\nAfter 33 years contributing to NASA's achievements, including the Space Shuttle program, Johnson retired in 1986. In 2015, President Barack Obama awarded her the Presidential Medal of Freedom. Johnson's calculations didn't just send astronauts skyward—they proved that brilliance knows no boundaries.",
+  "vocab": [
+    {
+      "word": "verified",
+      "definition": "confirmed to be accurate"
+    },
+    {
+      "word": "exceptional",
+      "definition": "unusually outstanding"
+    },
+    {
+      "word": "meticulous",
+      "definition": "extremely careful and precise"
+    },
+    {
+      "word": "trajectory",
+      "definition": "curved path"
+    },
+    {
+      "word": "precision",
+      "definition": "exactness"
+    },
+    {
+      "word": "crucial",
+      "definition": "extremely important"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Katherine Johnson's mathematical skills were essential to America's early space exploration successes.",
+        "John Glenn was the first American astronaut to orbit Earth in 1962.",
+        "NASA employed many talented mathematicians during the Space Race.",
+        "The Apollo 11 mission required more complex calculations than previous space flights."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on Johnson's critical role in multiple space missions through her mathematical work. Option B is a true detail but not the main idea. Option C is not mentioned in the passage. Option D may be true but is not discussed in the passage."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions John Glenn's request in order to",
+      "options": [
+        "explain why astronauts were nervous about early space missions",
+        "illustrate the trust and respect Johnson earned through her work",
+        "describe the typical procedures astronauts followed before launch",
+        "compare computer calculations with human mathematical abilities"
+      ],
+      "correct_index": 1,
+      "explanation": "Glenn specifically requesting Johnson to verify the numbers demonstrates the high level of trust he placed in her abilities. Option A is not the author's purpose. Option C is incorrect as this was Glenn's specific request, not standard procedure. Option D is not the focus of this anecdote."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that",
+      "options": [
+        "Johnson's work on the Space Shuttle program was her most important contribution to NASA.",
+        "Computer technology in the 1960s was not always considered reliable for critical calculations.",
+        "Johnson was the only mathematician working at NASA during the 1960s.",
+        "Most astronauts preferred human calculations over computer calculations for all missions."
+      ],
+      "correct_index": 1,
+      "explanation": "Glenn's insistence that Johnson verify the computer's calculations implies he didn't fully trust the computer alone. Option A is not suggested as the passage emphasizes her earlier work. Option C contradicts the passage. Option D makes a broad claim not supported by the single example given."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word 'trajectory' most nearly means",
+      "options": [
+        "the curved path of a moving object",
+        "the speed of a spacecraft",
+        "the distance traveled in space",
+        "the launch sequence of a rocket"
+      ],
+      "correct_index": 0,
+      "explanation": "In context, 'trajectory' refers to the calculated path that Shepard's spacecraft would follow. Options B, C, and D describe other aspects of space flight but not the specific meaning of trajectory."
+    },
+    {
+      "type": "organization",
+      "stem": "Which best describes how the passage is organized?",
+      "options": [
+        "A dramatic moment is presented, followed by chronological background and achievements.",
+        "A problem is stated, then multiple solutions are compared and evaluated.",
+        "Two contrasting viewpoints are presented, then synthesized into a conclusion.",
+        "A general claim is made, then contradicted with specific counterexamples."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage opens with the Glenn anecdote from 1962, then moves back to Johnson's birth and education, then forward through her career chronologically. Options B, C, and D describe organizational patterns not used in this passage."
+    }
+  ]
+}

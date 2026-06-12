@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_152943",
+  "topic_id": "h09",
+  "topic_title": "The Treaty of Tordesillas: how two nations drew a line through the world",
+  "category": "History",
+  "is_china": false,
+  "is_challenge": true,
+  "genre": "Descriptive",
+  "length": "Long",
+  "facts": [
+    "On June 7, 1494, Spain and Portugal signed the Treaty of Tordesillas in the town of Tordesillas, located in northwestern Spain.",
+    "The treaty established an imaginary line running north to south approximately 370 leagues (about 1,770 kilometers or 1,100 miles) west of the Cape Verde Islands.",
+    "Under the treaty's terms, Spain received rights to all newly discovered lands west of the line, while Portugal received rights to all lands east of the line.",
+    "Pope Alexander VI, who was Spanish by birth, had issued a papal bull in 1493 that originally divided the world, but Portugal objected because the line was too close to Africa.",
+    "The Treaty of Tordesillas gave Portugal the rights to Brazil, which Pedro Álvares Cabral claimed for Portugal in 1500 when he landed on its coast.",
+    "Spain gained rights to most of the Americas, including territories that became Mexico, Peru, and large parts of Central and South America.",
+    "King John II of Portugal and King Ferdinand and Queen Isabella of Spain authorized their representatives to negotiate and sign the treaty.",
+    "The treaty remained in effect until 1777, when Spain and Portugal signed the Treaty of San Ildefonso, which established new boundaries for their colonial territories in South America."
+  ],
+  "title": "Drawing a Line Through the New World",
+  "passage": "In the dusty Castilian town of Tordesillas, diplomats gathered in a stone hall on June 7, 1494, their quill pens scratching across parchment as they divided the entire world between two European kingdoms. Spain and Portugal, the era's greatest maritime powers, had come to settle a bitter <vocab>dispute|disagreement</vocab> over who owned the lands that explorers were discovering across the Atlantic Ocean.\n\nThe problem had begun a year earlier when Pope Alexander VI, born in Spain, issued a papal bull that split the world along an imaginary line. Portugal's King John II immediately protested. The Pope's line ran too close to Africa, threatening Portugal's profitable trade routes and future discoveries. Portugal's representatives demanded a better arrangement, one that would grant them more room to explore eastward.\n\nThe treaty they signed that June day in northwestern Spain established an invisible boundary running north to south approximately 370 leagues—about 1,770 kilometers or 1,100 miles—west of the Cape Verde Islands. This <vocab>arbitrary|based on random choice rather than reason</vocab> line sliced through the Atlantic Ocean, though no one yet knew what lands it might cross. Under the treaty's terms, Spain received rights to all newly discovered territories west of the line, while Portugal claimed everything east of it. King Ferdinand and Queen Isabella of Spain authorized their representatives to negotiate these terms with King John II's diplomats.\n\nThe consequences of this agreement stretched across centuries. When Portuguese navigator Pedro Álvares Cabral landed on Brazil's coast in 1500, he claimed it for Portugal because it lay east of the treaty line. Meanwhile, Spain gained rights to most of the Americas, including the lands that became Mexico, Peru, and vast expanses of Central and South America. Spanish conquistadors would march through steaming jungles and scale mountain peaks, planting their flag in territories the treaty promised them.\n\nFor nearly three centuries, this <vocab>audacious|bold and daring</vocab> agreement remained in effect. The two nations <vocab>adhered|stuck to</vocab> to their imaginary boundary, even as they built empires and extracted gold, silver, and other resources from their <vocab>respective|belonging to each separately</vocab> territories. Only in 1777, when Spain and Portugal signed the Treaty of San Ildefonso, did they finally establish new boundaries for their South American colonies.\n\nThe Treaty of Tordesillas stands as a remarkable example of European <vocab>presumption|the act of assuming something without proof</vocab>—two nations calmly dividing lands they had never seen, inhabited by millions of people whose opinions they never asked. That line drawn in a Spanish town reshaped the future of two continents, determining which languages would be spoken, which cultures would blend, and which nations would eventually emerge from colonial rule.",
+  "vocab": [
+    {
+      "word": "dispute",
+      "definition": "disagreement"
+    },
+    {
+      "word": "arbitrary",
+      "definition": "based on random choice rather than reason"
+    },
+    {
+      "word": "audacious",
+      "definition": "bold and daring"
+    },
+    {
+      "word": "adhered",
+      "definition": "stuck to"
+    },
+    {
+      "word": "respective",
+      "definition": "belonging to each separately"
+    },
+    {
+      "word": "presumption",
+      "definition": "the act of assuming something without proof"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "The Treaty of Tordesillas divided newly discovered lands between Spain and Portugal through an imaginary boundary that shaped centuries of colonial history.",
+        "Pope Alexander VI issued a papal bull in 1493 that attempted to split the world between European powers.",
+        "Spain and Portugal were the greatest maritime powers during the Age of Exploration.",
+        "Portugal objected to the Pope's original division because it threatened their trade routes to Africa."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on the treaty itself, its terms, and its long-lasting impact. Options B and D are supporting details, while C is a general statement not central to the passage's focus on the treaty."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions Pedro Álvares Cabral's landing in Brazil in order to",
+      "options": [
+        "demonstrate how Portugal explored more territory than Spain during the Age of Exploration",
+        "illustrate a direct consequence of the treaty's territorial divisions",
+        "explain why Portugal wanted the treaty line moved farther from Africa",
+        "show that Brazil was the most valuable territory discovered in the New World"
+      ],
+      "correct_index": 1,
+      "explanation": "Cabral's claim of Brazil exemplifies how the treaty's line determined which nation controlled specific territories. Option A is not stated, C confuses chronology (the objection came before Cabral), and D makes an unsupported value claim."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that",
+      "options": [
+        "King John II of Portugal was more skilled at diplomacy than Spain's monarchs",
+        "the Treaty of Tordesillas benefited Spain more than Portugal in terms of territory gained",
+        "Pope Alexander VI intentionally favored Spain when drawing the original boundary line",
+        "Portugal's objection to the Pope's original line resulted in terms more favorable to Portuguese interests"
+      ],
+      "correct_index": 3,
+      "explanation": "The passage indicates Portugal protested the original line and then negotiated the treaty, which gave them Brazil and protected their African routes—suggesting their objection improved their position. Options A and B aren't supported, while C states as fact what the passage only implies through mentioning the Pope was Spanish."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"adhered\" most nearly means",
+      "options": [
+        "followed closely",
+        "glued together",
+        "rejected completely",
+        "modified frequently"
+      ],
+      "correct_index": 0,
+      "explanation": "In context, 'adhered' means the nations stuck to or followed their agreement. While 'adhered' can mean physically sticking, the passage uses it figuratively to describe compliance with the treaty terms."
+    },
+    {
+      "type": "detail",
+      "stem": "Which statement best summarizes the relationship between the papal bull of 1493 and the Treaty of Tordesillas?",
+      "options": [
+        "The treaty completely replaced the Pope's authority over territorial disputes between European nations",
+        "The treaty modified the Pope's original boundary line after Portugal raised objections about its placement",
+        "The papal bull and the treaty established identical boundary lines between Spanish and Portuguese territories",
+        "The treaty was signed before the Pope issued his bull dividing the world between the two kingdoms"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage explains that the Pope issued his bull in 1493, Portugal objected to its line placement, and the 1494 treaty established a new line. Option A overstates the treaty's impact, C contradicts the fact that Portugal objected, and D reverses the chronology."
+    }
+  ]
+}

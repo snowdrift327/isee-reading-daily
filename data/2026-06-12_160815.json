@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_160815",
+  "topic_id": "r11",
+  "topic_title": "The 18-year-old who discovered Lascaux cave (1940)",
+  "category": "Art",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Narrative Nonfiction",
+  "length": "Long",
+  "facts": [
+    "On September 12, 1940, Marcel Ravidat, an 18-year-old apprentice mechanic, discovered the entrance to Lascaux Cave near Montignac in the Dordogne region of southwestern France.",
+    "Marcel Ravidat was searching for a rumored underground passage to a nearby manor house when his dog, Robot, disappeared down a hole created by a fallen tree.",
+    "Ravidat returned to the cave on September 12, 1940, with three teenage friends: Jacques Marsal (age 15), Georges Agnel (age 16), and Simon Coencas (age 15).",
+    "The cave walls contain approximately 600 paintings and 1,400 engravings, mostly depicting animals such as horses, aurochs (extinct wild cattle), and deer.",
+    "Scientists determined that prehistoric artists created the Lascaux cave paintings approximately 17,000 years ago during the Upper Paleolithic period.",
+    "The cave opened to the public in 1948, but officials closed it permanently in 1963 because carbon dioxide from 1,200 daily visitors was damaging the ancient paintings.",
+    "The French government designated Lascaux Cave as a historic monument on December 27, 1940, just three months after its discovery.",
+    "In 1979, UNESCO added Lascaux Cave to its World Heritage Sites list as part of the Prehistoric Sites and Decorated Caves of the Vézère Valley."
+  ],
+  "title": "A Dog, A Hole, and 17,000 Years",
+  "passage": "Marcel Ravidat's dog vanished. One moment Robot was sniffing around the roots of a fallen tree near Montignac, France; the next, only silence. The 18-year-old apprentice mechanic peered into the dark hole where his dog had disappeared. This was September 12, 1940, and Ravidat had been searching for a rumored underground passage leading to a nearby manor house. Now, listening to Robot's distant barking echo from somewhere deep below, Ravidat realized he might have found something far more interesting.\n\nRavidat knew he couldn't explore alone. He returned with three teenage friends: Jacques Marsal, age 15, Georges Agnel, 16, and Simon Coencas, also 15. Armed with a knife and a makeshift lamp, the boys <vocab>descended|went down</vocab> into the narrow opening. The passage twisted downward through rock and earth until suddenly the space opened wide. When their lamp light reached the walls, the boys froze.\n\nAnimals surrounded them. Not real creatures, but painted ones—hundreds of horses galloping across stone, massive aurochs (extinct wild cattle) frozen mid-charge, deer leaping in herds. The images seemed to move in the flickering light. The cave walls contained approximately 600 paintings and 1,400 engravings, covering nearly every surface. The boys had stumbled upon an ancient art gallery, and they were its first visitors in thousands of years.\n\nScientists who later examined the paintings determined they were approximately 17,000 years old, created during the Upper Paleolithic period by prehistoric artists whose names would never be known. The French government moved swiftly, designating Lascaux Cave as a historic monument on December 27, 1940—just three months after four teenagers climbed down a hole following a curious dog.\n\nThe cave opened to the public in 1948, and visitors arrived in <vocab>throngs|large crowds</vocab>. By the early 1960s, approximately 1,200 people <vocab>traversed|traveled through</vocab> the cave daily, their breath releasing carbon dioxide that began <vocab>corroding|gradually destroying</vocab> the ancient pigments. Officials faced an <vocab>agonizing|extremely difficult</vocab> choice: share this wonder or protect it. In 1963, they permanently closed Lascaux's doors to preserve what Marcel Ravidat and Robot had discovered. UNESCO added the cave to its World Heritage Sites list in 1979, ensuring that even sealed behind barriers, these 17,000-year-old paintings would remain <vocab>tethered|connected</vocab> to humanity's shared story.\n\nRobot's curiosity had led to one of archaeology's greatest discoveries—proof that the human urge to create art stretches back far beyond recorded history.",
+  "vocab": [
+    {
+      "word": "descended",
+      "definition": "went down"
+    },
+    {
+      "word": "throngs",
+      "definition": "large crowds"
+    },
+    {
+      "word": "traversed",
+      "definition": "traveled through"
+    },
+    {
+      "word": "corroding",
+      "definition": "gradually destroying"
+    },
+    {
+      "word": "agonizing",
+      "definition": "extremely difficult"
+    },
+    {
+      "word": "tethered",
+      "definition": "connected"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "A teenage mechanic and his friends discovered an ancient cave filled with prehistoric artwork, which became an important archaeological site requiring protection.",
+        "Lascaux Cave contains 600 paintings and 1,400 engravings created by prehistoric artists during the Upper Paleolithic period.",
+        "The French government designated Lascaux Cave as a historic monument and later had to close it to prevent damage from visitors.",
+        "Marcel Ravidat was searching for an underground passage when his dog Robot disappeared into a hole near Montignac, France."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage tells the complete story of the cave's discovery and its significance, from finding it to its eventual closure for preservation. Option B is a detail but not the main idea; option C covers only the later history; option D describes only the opening moment."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions that 1,200 people visited Lascaux Cave daily in order to",
+      "options": [
+        "demonstrate why the cave became a World Heritage Site in 1979",
+        "illustrate that the cave was more popular than other French tourist attractions",
+        "explain why officials decided to permanently close the cave in 1963",
+        "show how quickly news of the discovery spread throughout France"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage directly connects the large number of daily visitors (1,200) to the carbon dioxide damage that led to the cave's closure. Option A reverses the chronology; option B makes a comparison not in the passage; option D relates to the discovery rather than the visitor numbers."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that the prehistoric artists who created the Lascaux paintings",
+      "options": [
+        "used the cave as a place of worship and religious ceremonies",
+        "traveled throughout the Vézère Valley decorating multiple caves",
+        "possessed sophisticated artistic abilities despite living thousands of years ago",
+        "created the paintings to mark territorial boundaries for their tribes"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage emphasizes the quality and quantity of the artwork (600 paintings, 1,400 engravings) and describes images that 'seemed to move in the flickering light,' suggesting advanced skill. The other options introduce ideas not supported by the text."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"corroding\" most nearly means",
+      "options": [
+        "gradually destroying",
+        "quickly covering",
+        "slightly changing",
+        "completely removing"
+      ],
+      "correct_index": 0,
+      "explanation": "The context explains that carbon dioxide was damaging the ancient pigments, which matches 'gradually destroying.' The other options suggest either too fast a process or less severe damage than what led to the cave's closure."
+    },
+    {
+      "type": "detail",
+      "stem": "Which statement best summarizes the relationship between Lascaux Cave's popularity and its preservation?",
+      "options": [
+        "The cave's popularity helped scientists study the paintings more thoroughly before they deteriorated.",
+        "Public interest in the cave led to its designation as a World Heritage Site before it opened to visitors.",
+        "The cave remained open to tourists for fifteen years before popularity made continued access unsustainable.",
+        "Officials immediately restricted visitor numbers after the cave opened to prevent any damage to the artwork."
+      ],
+      "correct_index": 2,
+      "explanation": "The passage states the cave opened in 1948 and closed in 1963 (15 years) because visitor breath was damaging the paintings. Option A is not mentioned; option B reverses the timeline (World Heritage designation came in 1979); option D contradicts the fact that 1,200 daily visitors were allowed before closure."
+    }
+  ]
+}

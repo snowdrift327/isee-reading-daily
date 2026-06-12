@@ -1,0 +1,11 @@
+[project]
+name = "reading-daily"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "anthropic>=0.109.1",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.2",
+]

@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_161506",
+  "topic_id": "h02",
+  "topic_title": "Bletchley Park's code breakers: puzzles that won WWII",
+  "category": "History",
+  "is_china": false,
+  "is_challenge": true,
+  "genre": "Narrative Nonfiction",
+  "length": "Short",
+  "facts": [
+    "Bletchley Park, located in Buckinghamshire, England, was the central site where British codebreakers worked to decrypt enemy communications during World War II, employing over 9,000 people by 1945.",
+    "Alan Turing, a mathematician from Cambridge University, designed the Bombe machine in 1939-1940, an electromechanical device that could test thousands of possible Enigma machine settings per hour to break German codes.",
+    "The German Enigma machine had 159 quintillion possible settings (159,000,000,000,000,000,000), making it seem impossible to crack without advanced mathematical techniques and machinery.",
+    "On May 9, 1941, the British captured a German U-boat called U-110 and retrieved an intact Enigma machine along with codebooks, providing crucial information that helped Bletchley Park decipher naval messages.",
+    "Joan Clarke was one of the few female codebreakers at Bletchley Park who worked in Hut 8 alongside Alan Turing, eventually becoming deputy head of her section despite women being paid less than their male colleagues.",
+    "General Dwight D. Eisenhower stated after the war that the intelligence produced at Bletchley Park shortened World War II by at least two years and saved countless lives.",
+    "The Colossus computer, completed in December 1943 by engineer Tommy Flowers, was the world's first programmable electronic computer and was used to break the more complex German Lorenz cipher.",
+    "Bletchley Park codebreakers worked in strict secrecy under the Official Secrets Act, with most staff not revealing their wartime work until the 1970s when information about their activities was declassified."
+  ],
+  "title": "The Secret Puzzles That Saved Millions",
+  "passage": "The mechanical clicking filled the wooden hut as Alan Turing adjusted his strange machine. Outside Bletchley Park in Buckinghamshire, England, war raged across Europe. Inside, over 9,000 people by 1945 worked to crack what seemed impossible: the German Enigma code with its 159 quintillion possible settings—159 followed by eighteen zeros.\n\nTuring's invention, the Bombe machine, completed between 1939 and 1940, could <vocab>scrutinize|examine very closely</vocab> thousands of Enigma settings each hour. Yet even this <vocab>monumental|extremely important and large-scale</vocab> device needed help. On May 9, 1941, came the turning point: British forces captured U-110, a German submarine, retrieving an intact Enigma machine and its codebooks. This treasure transformed Bletchley's capabilities.\n\nIn Hut 8, Joan Clarke worked alongside Turing, eventually becoming deputy head despite the <vocab>tedious|boring and repetitive</vocab> reality that women earned less than men doing identical work. When the even more complex German Lorenz cipher threatened to <vocab>defy|resist or challenge successfully</vocab> their efforts, engineer Tommy Flowers created Colossus in December 1943—the world's first programmable electronic computer.\n\nThese codebreakers labored under the Official Secrets Act, <vocab>compelled|forced</vocab> to <vocab>conceal|hide or keep secret</vocab> their achievements until the 1970s. General Dwight Eisenhower later declared their intelligence shortened World War II by at least two years. The puzzles they solved in those creaking wooden huts saved countless lives—a victory most never knew had been won.",
+  "vocab": [
+    {
+      "word": "scrutinize",
+      "definition": "examine very closely"
+    },
+    {
+      "word": "monumental",
+      "definition": "extremely important and large-scale"
+    },
+    {
+      "word": "tedious",
+      "definition": "boring and repetitive"
+    },
+    {
+      "word": "defy",
+      "definition": "resist or challenge successfully"
+    },
+    {
+      "word": "compelled",
+      "definition": "forced"
+    },
+    {
+      "word": "conceal",
+      "definition": "hide or keep secret"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "British codebreakers at Bletchley Park used advanced machines and captured intelligence to crack German codes, shortening World War II significantly.",
+        "Alan Turing invented the Bombe machine to solve mathematical problems during World War II.",
+        "Women like Joan Clarke faced discrimination while working as codebreakers in England.",
+        "The German Enigma machine was extremely difficult to break because it had many possible settings."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on how Bletchley Park's codebreakers combined technology, captured materials, and human effort to break German codes and shorten the war. The other options address only single aspects without capturing the full scope."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions the capture of U-110 in order to",
+      "options": [
+        "explain why German submarines were dangerous to Allied ships",
+        "describe the typical equipment found on World War II submarines",
+        "illustrate a turning point that significantly improved British codebreaking abilities",
+        "show how British naval forces were superior to German forces"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage explicitly calls the U-110 capture 'the turning point' because the intact Enigma and codebooks 'transformed Bletchley's capabilities.' The other options introduce plausible but unstated purposes."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that Bletchley Park's work remained secret for so long because",
+      "options": [
+        "the codebreakers were embarrassed about their wartime activities",
+        "government officials wanted to continue using similar techniques after the war",
+        "most of the workers had died before they could share their stories",
+        "the workers were legally bound to silence under the Official Secrets Act"
+      ],
+      "correct_index": 3,
+      "explanation": "The passage states workers were 'compelled to conceal their achievements until the 1970s' under the Official Secrets Act, implying legal obligations enforced the secrecy. Option B is plausible in reality but not supported by the passage."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"scrutinize\" most nearly means",
+      "options": [
+        "examine very closely",
+        "destroy completely",
+        "create randomly",
+        "ignore purposefully"
+      ],
+      "correct_index": 0,
+      "explanation": "The context describes the Bombe machine testing thousands of Enigma settings, which requires careful examination. The definition provided matches this meaning."
+    },
+    {
+      "type": "detail",
+      "stem": "Which statement best summarizes the relationship between the Bombe machine and the Colossus computer?",
+      "options": [
+        "The Colossus replaced the Bombe because the Bombe could not break any German codes.",
+        "Both machines were designed by Alan Turing to work together on the same code.",
+        "The Bombe addressed the Enigma cipher while the Colossus tackled the more complex Lorenz cipher.",
+        "The Colossus was built first and served as the model for the later Bombe design."
+      ],
+      "correct_index": 2,
+      "explanation": "The passage distinguishes between the machines' purposes: the Bombe for Enigma (1939-1940) and the Colossus for the 'even more complex German Lorenz cipher' (1943). Option D reverses the chronology, while A and B misrepresent their relationship."
+    }
+  ]
+}

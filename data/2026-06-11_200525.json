@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-11_200525",
+  "topic_id": "p02",
+  "topic_title": "Hedy Lamarr: the actress whose invention powers Wi-Fi",
+  "category": "Pioneers",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Descriptive",
+  "length": "Long",
+  "facts": [
+    "Hedy Lamarr was born Hedwig Eva Maria Kiesler on November 9, 1914, in Vienna, Austria.",
+    "In 1942, Hedy Lamarr and composer George Antheil received U.S. Patent 2,292,387 for their \"Secret Communication System\" designed to prevent radio-controlled torpedoes from being jammed by enemy forces.",
+    "Lamarr's invention used frequency-hopping technology, where radio signals rapidly switched between 88 different frequencies to avoid detection and jamming.",
+    "The U.S. Navy did not implement Lamarr's invention during World War II, but the technology was finally adopted during the Cuban Missile Crisis in 1962.",
+    "Lamarr appeared in more than 25 Hollywood films between 1938 and 1958, including \"Algiers\" (1938) and \"Samson and Delilah\" (1949).",
+    "In 1997, Hedy Lamarr and George Antheil received the Electronic Frontier Foundation Pioneer Award for their frequency-hopping invention.",
+    "The frequency-hopping spread spectrum technology that Lamarr co-invented became the foundation for modern wireless communications including Wi-Fi, Bluetooth, and GPS systems.",
+    "Hedy Lamarr died on January 19, 2000, in Casselberry, Florida, at the age of 85."
+  ],
+  "title": "The Movie Star Who Invented Modern Wireless",
+  "passage": "In a Hollywood studio in 1940, actress Hedy Lamarr leaned over a grand piano beside composer George Antheil, her dark eyes fixed not on a film script but on sketches of radio frequencies. The actress who captivated audiences on silver screens was about to <vocab>devise|come up with or invent</vocab> something far more lasting than any movie role.\n\nBorn Hedwig Eva Maria Kiesler on November 9, 1914, in Vienna, Austria, Lamarr arrived in Hollywood in 1938 with striking beauty and sharp intellect. Between 1938 and 1958, she appeared in more than 25 films, including \"Algiers\" and the <vocab>spectacular|impressive and dramatic</vocab> biblical epic \"Samson and Delilah\" in 1949. Yet beneath the glamorous makeup and studio lights, her mind wrestled with a wartime problem: enemy forces were jamming radio signals that controlled Allied torpedoes.\n\nLamarr's solution was <vocab>ingenious|extremely clever and original</vocab>. Working with Antheil, she developed a \"Secret Communication System\" that made radio signals leap rapidly between 88 different frequencies—like a conversation switching between 88 telephone lines so quickly that eavesdroppers couldn't follow. This frequency-hopping technology prevented enemies from detecting or blocking the signals. The clicking mechanism inside the invention resembled the rotating cylinder in a player piano, an idea inspired by Antheil's musical expertise. In 1942, the pair received U.S. Patent 2,292,387 for their creation.\n\nThe U.S. Navy, however, <vocab>dismissed|rejected or ignored</vocab> the invention during World War II. Perhaps military leaders couldn't imagine that a Hollywood actress could contribute meaningful technology. The patent sat unused, gathering dust in filing cabinets, while Lamarr continued filming movies. Twenty years passed before the Navy finally <vocab>implemented|put into use</vocab> the frequency-hopping system during the tense standoff of the Cuban Missile Crisis in 1962.\n\nBy then, Lamarr's patent had expired, meaning she earned no money from her breakthrough. Yet her frequency-hopping spread spectrum technology became the <vocab>foundation|basic underlying structure</vocab> for inventions that now fill our daily lives: Wi-Fi networks streaming videos, Bluetooth speakers playing music, and GPS systems guiding travelers. In 1997, three years before her death in Casselberry, Florida, at age 85, Lamarr and Antheil received the Electronic Frontier Foundation Pioneer Award. The woman once celebrated merely for her appearance had proven that brilliance takes many forms—and that the most transformative ideas can emerge from the most unexpected places.",
+  "vocab": [
+    {
+      "word": "devise",
+      "definition": "come up with or invent"
+    },
+    {
+      "word": "spectacular",
+      "definition": "impressive and dramatic"
+    },
+    {
+      "word": "ingenious",
+      "definition": "extremely clever and original"
+    },
+    {
+      "word": "dismissed",
+      "definition": "rejected or ignored"
+    },
+    {
+      "word": "implemented",
+      "definition": "put into use"
+    },
+    {
+      "word": "foundation",
+      "definition": "basic underlying structure"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Hedy Lamarr was a talented actress who also invented technology that powers modern wireless communications.",
+        "Hedy Lamarr appeared in more than 25 Hollywood films during her successful acting career.",
+        "The U.S. Navy should have used Hedy Lamarr's invention during World War II instead of waiting.",
+        "Frequency-hopping technology switches between different radio signals to avoid detection."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on both Lamarr's acting career and her groundbreaking invention. Option B only mentions her acting, option C presents an opinion not emphasized in the passage, and option D explains only one technical detail rather than the main idea."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions the player piano mechanism in order to",
+      "options": [
+        "prove that George Antheil was more important to the invention than Lamarr",
+        "show that Lamarr's invention was too complicated for the military to understand",
+        "explain how Antheil's musical background influenced the invention's design",
+        "demonstrate that all musicians can become successful inventors"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage states that the clicking mechanism 'resembled the rotating cylinder in a player piano, an idea inspired by Antheil's musical expertise,' directly linking his musical knowledge to the invention's design. Options A and D make claims not supported by the passage, and option B is partially true but not the reason for mentioning the piano."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that",
+      "options": [
+        "Lamarr received millions of dollars when her patent was finally used in 1962",
+        "the U.S. Navy leaders may have underestimated Lamarr because of her career as an actress",
+        "George Antheil invented the frequency-hopping system without any help from Lamarr",
+        "Lamarr's invention was too complicated to be useful during World War II"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage states 'Perhaps military leaders couldn't imagine that a Hollywood actress could contribute meaningful technology,' suggesting bias. Option A contradicts the passage (her patent had expired), option C contradicts their partnership, and option D is not supported—the passage indicates it was dismissed, not that it was too complicated."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"dismissed\" most nearly means",
+      "options": [
+        "rejected or ignored",
+        "sent away from a job",
+        "ended a meeting",
+        "explained in detail"
+      ],
+      "correct_index": 0,
+      "explanation": "In context, 'dismissed' describes how the Navy treated the invention—they rejected or ignored it. While 'dismissed' can mean sent away from a job or ended a meeting, those meanings don't fit this context."
+    },
+    {
+      "type": "organization",
+      "stem": "Which best describes how the passage is organized?",
+      "options": [
+        "presenting Lamarr's life in chronological order while emphasizing her dual achievements",
+        "comparing Lamarr's acting career with other Hollywood actresses of her time",
+        "listing all the modern technologies that use frequency-hopping systems",
+        "explaining why the U.S. Navy made poor decisions during World War II"
+      ],
+      "correct_index": 0,
+      "explanation": "The passage follows Lamarr's life from her birth in Vienna through her death in Florida, weaving together her acting and inventing careers chronologically. It doesn't compare her to other actresses, doesn't focus on listing technologies, and doesn't primarily criticize Navy decisions."
+    }
+  ]
+}

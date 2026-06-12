@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-11_201311",
+  "topic_id": "p08",
+  "topic_title": "Wang Zhenyi: the Qing Dynasty astronomer",
+  "category": "Pioneers",
+  "is_china": true,
+  "is_challenge": false,
+  "genre": "Narrative Nonfiction",
+  "length": "Short",
+  "facts": [
+    "Wang Zhenyi was born in 1768 in Anhui Province, China, during the Qing Dynasty.",
+    "Wang Zhenyi died at the young age of 29 in 1797, cutting short her scientific career.",
+    "She created a famous experiment using a lamp, a table, and a hanging crystal ball to demonstrate how lunar eclipses occur, showing that the Earth's shadow causes the moon to darken.",
+    "Wang Zhenyi wrote at least 12 volumes of scientific works, including books on astronomy and mathematics.",
+    "She translated difficult astronomical and mathematical texts from classical Chinese into simpler language so that more people could understand scientific concepts.",
+    "Wang Zhenyi wrote the phrase 'Are women inferior to men?' in one of her poems, challenging the social restrictions placed on women's education during her time.",
+    "She studied the movements of the sun, moon, and planets, and wrote detailed explanations of astronomical phenomena including solar eclipses and equinoxes.",
+    "Wang Zhenyi came from a scholarly family with an extensive library that included books on astronomy, mathematics, medicine, and geography, which she used to educate herself."
+  ],
+  "title": "The Lamp That Explained the Moon",
+  "passage": "In a dimly lit room in 1790s China, Wang Zhenyi arranged three ordinary objects on a table: a glowing lamp, a crystal ball dangling from a thread, and a wooden surface. Born in 1768 in Anhui Province during the Qing Dynasty, she had spent years <vocab>contemplating|thinking deeply about</vocab> a mystery that puzzled many scholars—why did the moon sometimes darken during an eclipse?\n\nWang positioned the lamp to represent the sun, the table as Earth, and the suspended crystal as the moon. As she moved the pieces, shadows fell across the ball's surface. The demonstration was elegant and clear: Earth's shadow caused lunar eclipses. This simple experiment would become one of her most celebrated contributions to astronomy.\n\nYet Wang's ambitions extended far beyond this single discovery. She <vocab>scrutinized|examined very closely</vocab> the movements of the sun, moon, and planets, producing detailed explanations of solar eclipses and equinoxes. Her scholarly family had <vocab>accumulated|gathered over time</vocab> an extensive library filled with books on astronomy, mathematics, medicine, and geography—resources she used to educate herself in subjects typically forbidden to women.\n\nWang recognized that complex scientific texts remained <vocab>inaccessible|unable to be reached or understood</vocab> to most people. She translated difficult astronomical and mathematical works from classical Chinese into simpler language, authoring at least twelve volumes of scientific writings. In one <vocab>defiant|boldly resisting</vocab> poem, she challenged her era's restrictions by writing, \"Are women inferior to men?\"\n\nWhen Wang died in 1797 at merely twenty-nine years old, her <vocab>premature|happening too early</vocab> death ended a career that had illuminated both the heavens and the path forward for future scholars.",
+  "vocab": [
+    {
+      "word": "contemplating",
+      "definition": "thinking deeply about"
+    },
+    {
+      "word": "scrutinized",
+      "definition": "examined very closely"
+    },
+    {
+      "word": "accumulated",
+      "definition": "gathered over time"
+    },
+    {
+      "word": "inaccessible",
+      "definition": "unable to be reached or understood"
+    },
+    {
+      "word": "defiant",
+      "definition": "boldly resisting"
+    },
+    {
+      "word": "premature",
+      "definition": "happening too early"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Wang Zhenyi overcame educational barriers to make significant contributions to astronomy and science accessibility during the Qing Dynasty.",
+        "Wang Zhenyi invented a famous experiment using a lamp and crystal ball to explain lunar eclipses.",
+        "Women in eighteenth-century China faced severe restrictions on their education and career opportunities.",
+        "Wang Zhenyi came from a wealthy family that owned many books on science and mathematics."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on Wang's achievements in astronomy and her efforts to make science accessible despite gender restrictions, not just the eclipse experiment (option 2), general historical conditions (option 3), or her family background (option 4)."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions Wang's translation work in order to",
+      "options": [
+        "explain how she learned classical Chinese from her family's library",
+        "demonstrate her commitment to making scientific knowledge available to more people",
+        "show that she mastered both astronomy and literature during her lifetime",
+        "prove that mathematical texts were originally written in a foreign language"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage states Wang 'translated difficult astronomical and mathematical works from classical Chinese into simpler language' so 'more people could understand scientific concepts,' emphasizing accessibility rather than her own learning (option 1), literary mastery (option 3), or foreign languages (option 4)."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that Wang Zhenyi's family background was important because it",
+      "options": [
+        "allowed her to travel throughout China to study with famous astronomers",
+        "guaranteed she would receive formal education at the imperial academy",
+        "provided access to learning resources typically unavailable to women of her time",
+        "enabled her to publish her scientific works in multiple languages"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage indicates her family's extensive library helped her 'educate herself in subjects typically forbidden to women,' suggesting she gained unusual access to resources. The passage doesn't mention travel (option 1), formal schooling (option 2), or multilingual publishing (option 4)."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"scrutinized\" most nearly means",
+      "options": [
+        "examined very closely",
+        "quickly dismissed",
+        "carefully avoided",
+        "roughly estimated"
+      ],
+      "correct_index": 0,
+      "explanation": "The context describes Wang studying celestial movements in detail and producing explanations, which aligns with 'examined very closely' rather than dismissing, avoiding, or estimating."
+    },
+    {
+      "type": "organization",
+      "stem": "Which best describes how the passage is organized?",
+      "options": [
+        "It presents a specific example, then broadens to describe Wang's wider scientific achievements and impact.",
+        "It compares Wang's methods with those of other Qing Dynasty astronomers.",
+        "It describes a problem Wang faced, then explains how she solved it through persistence.",
+        "It lists Wang's accomplishments in order from least to most important."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage opens with the specific eclipse experiment, then expands to discuss her broader work in astronomy, translation, and advocacy for women's education. It doesn't compare her to others (option 2), follow a problem-solution structure (option 3), or rank achievements (option 4)."
+    }
+  ]
+}

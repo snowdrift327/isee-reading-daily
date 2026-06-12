@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-11_195325",
+  "topic_id": "m08",
+  "topic_title": "Boyan Slat: the Dutch teen who designed an ocean cleanup machine",
+  "category": "Modern",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Argumentative",
+  "length": "Long",
+  "facts": [
+    "Boyan Slat was born on July 27, 1994, in Delft, Netherlands.",
+    "In 2011, at age 16, Boyan Slat went scuba diving in Greece and was surprised to see more plastic bags than fish in the water.",
+    "Boyan Slat founded The Ocean Cleanup in 2013 when he was 18 years old.",
+    "In 2014, Boyan Slat's crowdfunding campaign raised over $2 million from donors in 160 countries to develop his ocean cleanup technology.",
+    "The Ocean Cleanup launched its first cleanup system, called System 001, in September 2018 in the Great Pacific Garbage Patch.",
+    "The Great Pacific Garbage Patch, where Boyan Slat's cleanup system operates, is located between Hawaii and California and contains approximately 1.8 trillion pieces of plastic.",
+    "In 2014, Boyan Slat received the United Nations Champion of the Earth award, becoming one of the youngest recipients of this environmental honor.",
+    "By October 2019, The Ocean Cleanup successfully extracted plastic from the Great Pacific Garbage Patch using an improved system called System 001/B."
+  ],
+  "title": "One Teen's Vision to Clean the Oceans",
+  "passage": "In 2011, sixteen-year-old Boyan Slat descended beneath the turquoise waters off the coast of Greece, expecting to glimpse schools of colorful fish darting through coral formations. Instead, he encountered a disturbing sight: plastic bags drifting past his mask outnumbered the fish. The underwater landscape resembled a floating garbage dump more than a marine ecosystem. That shocking dive sparked an idea that would eventually transform ocean conservation.\n\nBoyan Slat, born in Delft, Netherlands, on July 27, 1994, could have simply lamented the pollution problem and moved on with his life. Instead, he chose to <vocab>contemplate|think deeply about</vocab> an <vocab>ingenious|extremely clever and inventive</vocab> solution. By age eighteen, in 2013, he founded The Ocean Cleanup, an organization dedicated to removing plastic waste from the world's oceans. Many skeptics doubted whether a teenager could solve a problem that had <vocab>defied|successfully resisted or challenged</vocab> scientists and environmental experts for decades. Yet Slat refused to abandon his vision.\n\nSlat's approach deserves support for two compelling reasons. First, he demonstrated that his technology could actually work. While some critics argued that ocean cleanup was impossible or too expensive, Slat proved them wrong. His crowdfunding campaign in 2014 raised over $2 million from donors in 160 countries, showing worldwide confidence in his mission. In September 2018, The Ocean Cleanup launched System 001 in the Great Pacific Garbage Patch, located between Hawaii and California. This massive accumulation zone contains approximately 1.8 trillion pieces of plastic. Though the initial system required improvements, by October 2019, an upgraded version called System 001/B successfully extracted plastic from the ocean. Second, Slat's achievement inspired global recognition of youth leadership in environmental action. In 2014, he received the United Nations Champion of the Earth award, becoming one of the youngest recipients of this <vocab>prestigious|highly respected and honored</vocab> distinction.\n\nSome argue that preventing plastic from entering oceans in the first place would be more effective than cleaning it up afterward. This perspective has merit. However, with 1.8 trillion pieces already contaminating our waters, cleanup remains a <vocab>monumental|extremely important and large-scale</vocab> necessity alongside prevention efforts.\n\nSlat's journey from shocked teenage diver to award-winning innovator proves that age need not limit impact. His <vocab>perseverance|continued effort despite difficulties</vocab> transformed an underwater nightmare into a blueprint for ocean recovery.",
+  "vocab": [
+    {
+      "word": "contemplate",
+      "definition": "think deeply about"
+    },
+    {
+      "word": "ingenious",
+      "definition": "extremely clever and inventive"
+    },
+    {
+      "word": "defied",
+      "definition": "successfully resisted or challenged"
+    },
+    {
+      "word": "prestigious",
+      "definition": "highly respected and honored"
+    },
+    {
+      "word": "monumental",
+      "definition": "extremely important and large-scale"
+    },
+    {
+      "word": "perseverance",
+      "definition": "continued effort despite difficulties"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Boyan Slat's innovative ocean cleanup technology deserves support because it has proven effective and inspired global environmental leadership.",
+        "The Great Pacific Garbage Patch contains 1.8 trillion pieces of plastic and requires immediate attention from world governments.",
+        "Teenage entrepreneurs can raise millions of dollars through crowdfunding campaigns if they present compelling environmental projects.",
+        "Ocean pollution has become so severe that swimming and diving in many coastal areas is no longer safe for young people."
+      ],
+      "correct_index": 0,
+      "explanation": "This is an argumentative passage that presents a clear claim (Slat's approach deserves support) backed by two specific reasons (proven technology and inspiring youth leadership). The other options focus on details rather than the overall argument."
+    },
+    {
+      "type": "detail",
+      "stem": "Which detail from the passage best supports the idea that Slat's project gained international confidence?",
+      "options": [
+        "He founded The Ocean Cleanup in 2013 when he was eighteen years old.",
+        "His 2014 crowdfunding campaign raised over $2 million from donors in 160 countries.",
+        "System 001/B successfully extracted plastic from the ocean by October 2019.",
+        "He received the United Nations Champion of the Earth award in 2014."
+      ],
+      "correct_index": 1,
+      "explanation": "The detail about donors from 160 countries demonstrates worldwide confidence and international support. While the UN award shows recognition, it doesn't directly show confidence in the project's viability. The other options are facts but don't specifically demonstrate international confidence."
+    },
+    {
+      "type": "detail",
+      "stem": "Which of the following is NOT mentioned in the passage as a reason why Slat's approach deserves support?",
+      "options": [
+        "His technology prevented new plastic from entering the ocean.",
+        "His upgraded system successfully removed plastic from the Great Pacific Garbage Patch.",
+        "He inspired global recognition of youth environmental leadership.",
+        "He received one of the United Nations' highest environmental honors."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage explicitly states that prevention is an alternative approach suggested by critics, not something Slat's technology does. The passage supports his work based on successful extraction (cleanup) and inspiring youth leadership, making the other options incorrect."
+    },
+    {
+      "type": "inference",
+      "stem": "Based on the passage, we can conclude that",
+      "options": [
+        "Slat's initial cleanup system required modifications before it could effectively remove ocean plastic.",
+        "Most environmental scientists supported Slat's idea from the very beginning of his project.",
+        "The Great Pacific Garbage Patch is the only ocean area that contains significant plastic pollution.",
+        "Slat's diving trip to Greece was specifically planned to study ocean pollution problems."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage states System 001 launched in 2018 but 'required improvements,' and then System 001/B (an upgraded version) successfully extracted plastic in 2019. This shows modifications were necessary. The passage mentions skeptics (not universal support), doesn't claim the Garbage Patch is the only polluted area, and describes the dive as surprising (not planned for study)."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"perseverance\" most nearly means",
+      "options": [
+        "continued effort despite difficulties",
+        "natural talent for solving problems",
+        "sudden inspiration or creative insight",
+        "ability to convince others of ideas"
+      ],
+      "correct_index": 0,
+      "explanation": "The passage uses 'perseverance' to describe how Slat transformed his vision into reality despite skepticism and initial setbacks. The context of overcoming doubt and improving failed systems points to sustained effort through challenges, which matches the embedded definition."
+    }
+  ]
+}

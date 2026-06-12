@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_160034",
+  "topic_id": "a06",
+  "topic_title": "The Mariana Trench: deeper than Everest is tall",
+  "category": "Adventure",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Informational",
+  "length": "Long",
+  "facts": [
+    "The Mariana Trench reaches a maximum depth of approximately 36,070 feet (10,994 meters) at a point called Challenger Deep, while Mount Everest stands 29,032 feet (8,849 meters) tall.",
+    "On January 23, 1960, Jacques Piccard and Don Walsh became the first humans to reach the bottom of Challenger Deep in the submersible Trieste.",
+    "Film director James Cameron made a solo dive to Challenger Deep on March 26, 2012, spending approximately three hours exploring the trench floor.",
+    "The Mariana Trench is located in the western Pacific Ocean, approximately 124 miles (200 kilometers) east of the Mariana Islands.",
+    "Water pressure at the bottom of Challenger Deep reaches more than 16,000 pounds per square inch, which is over 1,000 times the atmospheric pressure at sea level.",
+    "The trench formed where the Pacific Plate slides beneath the Mariana Plate at a rate of approximately 2-3 inches (5-8 centimeters) per year.",
+    "HMS Challenger, a British Royal Navy ship, first measured the trench's depth in 1875 using weighted ropes, recording a depth of 26,850 feet (8,184 meters).",
+    "Scientists discovered amphipods, shrimp-like crustaceans measuring 1-6 inches long, living at depths below 23,000 feet (7,000 meters) in the Mariana Trench."
+  ],
+  "title": "Earth's Deepest Abyss: The Mariana Trench",
+  "passage": "In 1960, two men climbed inside a metal sphere barely large enough to hold them both and descended seven miles into absolute darkness. Jacques Piccard and Don Walsh were heading toward Challenger Deep, the lowest point in the Mariana Trench—a place so deep that if Mount Everest were placed at the bottom, its peak would still sit more than a mile underwater. The trench plunges to approximately 36,070 feet, while Earth's tallest mountain reaches only 29,032 feet above sea level.\n\nThe Mariana Trench lies in the western Pacific Ocean, roughly 124 miles east of the Mariana Islands. This <vocab>colossal|extremely large</vocab> underwater canyon formed through a process called subduction, where the Pacific Plate slides beneath the Mariana Plate at a rate of approximately 2-3 inches per year. Over millions of years, this gradual movement created a crack in Earth's crust deeper than any other known location on the planet.\n\nExploring such depths presents <vocab>formidable|difficult to overcome</vocab> challenges. At the bottom of Challenger Deep, water pressure exceeds 16,000 pounds per square inch—more than 1,000 times the atmospheric pressure at sea level. This crushing force would instantly collapse an ordinary submarine. The British Royal Navy ship HMS Challenger first measured the trench's depth in 1875, lowering weighted ropes that recorded 26,850 feet—an impressive measurement given the <vocab>primitive|simple and old-fashioned</vocab> technology available at the time.\n\nOn January 23, 1960, Piccard and Walsh became the first humans to reach the bottom in their submersible Trieste, proving that humans could <vocab>endure|survive or tolerate</vocab> the journey to Earth's deepest point. More than five decades passed before film director James Cameron made a solo dive on March 26, 2012, spending approximately three hours exploring the trench floor. His expedition captured high-definition footage of this <vocab>remote|far away and isolated</vocab> environment.\n\nDespite the extreme conditions, life persists in the trench. Scientists discovered amphipods—shrimp-like crustaceans measuring 1-6 inches long—living at depths below 23,000 feet. These creatures have adapted to survive in an environment where sunlight never penetrates and pressure would crush most organisms. Each new expedition to the Mariana Trench reveals that Earth's oceans still hold <vocab>profound|deep and significant</vocab> mysteries, waiting in the cold darkness thousands of feet below the surface.",
+  "vocab": [
+    {
+      "word": "colossal",
+      "definition": "extremely large"
+    },
+    {
+      "word": "formidable",
+      "definition": "difficult to overcome"
+    },
+    {
+      "word": "primitive",
+      "definition": "simple and old-fashioned"
+    },
+    {
+      "word": "endure",
+      "definition": "survive or tolerate"
+    },
+    {
+      "word": "remote",
+      "definition": "far away and isolated"
+    },
+    {
+      "word": "profound",
+      "definition": "deep and significant"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "The Mariana Trench is Earth's deepest ocean location, presenting extreme challenges for exploration while harboring unique forms of life.",
+        "Jacques Piccard and Don Walsh were the first people to reach the bottom of the Mariana Trench in 1960.",
+        "The Mariana Trench formed through subduction, where one plate slides beneath another plate over millions of years.",
+        "Scientists continue to make new discoveries about creatures living in the deepest parts of the ocean."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage covers multiple aspects of the Mariana Trench: its depth, formation, exploration history, and marine life. Option A captures this comprehensive focus, while the other options address only single details from the passage."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions HMS Challenger's 1875 measurement in order to",
+      "options": [
+        "prove that modern technology is not necessary for ocean exploration",
+        "demonstrate that early attempts to measure the trench's depth were surprisingly accurate despite limited technology",
+        "show that the trench has become deeper over time due to plate movement",
+        "explain why the deepest point is named Challenger Deep"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage describes the 1875 measurement as 'impressive' given the 'primitive technology,' highlighting the accuracy of early measurements. Option C is false (the measurement was lower, not because the trench was shallower), option A overstates the claim, and option D is not mentioned in the passage."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that",
+      "options": [
+        "future expeditions will likely discover no new species in the Mariana Trench",
+        "the extreme pressure at Challenger Deep requires specially designed equipment for human exploration",
+        "James Cameron's dive was more scientifically important than Piccard and Walsh's expedition",
+        "amphipods are the largest creatures living in the Mariana Trench"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage states that extreme pressure 'would instantly collapse an ordinary submarine' and describes the specialized submersibles used, implying special equipment is necessary. Option A contradicts the passage's final sentence, option C makes an unsupported comparison, and option D is not stated."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"formidable\" most nearly means",
+      "options": [
+        "difficult to overcome",
+        "completely impossible",
+        "slightly complicated",
+        "expensive and wasteful"
+      ],
+      "correct_index": 0,
+      "explanation": "The context describes the challenges of exploring extreme depths with crushing pressure, indicating difficulties that are severe but not impossible to overcome, as proven by successful expeditions."
+    },
+    {
+      "type": "detail",
+      "stem": "Which statement best summarizes the relationship between the Pacific Plate and the Mariana Plate?",
+      "options": [
+        "They move apart from each other at a rate of 2-3 inches per year, creating underwater volcanoes.",
+        "They collide directly, pushing up underwater mountain ranges similar to the Himalayas.",
+        "The Pacific Plate moves away from the Mariana Plate, allowing magma to fill the gap between them.",
+        "The Pacific Plate slides beneath the Mariana Plate gradually, creating the trench over millions of years."
+      ],
+      "correct_index": 3,
+      "explanation": "The passage explicitly states that the trench formed through subduction, where 'the Pacific Plate slides beneath the Mariana Plate' at 2-3 inches per year. The other options describe different types of plate boundaries not mentioned in the passage."
+    }
+  ]
+}

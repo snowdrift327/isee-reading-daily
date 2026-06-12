@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-11_191319",
+  "topic_id": "s11",
+  "topic_title": "Cai Lun: the inventor of paper",
+  "category": "Science",
+  "is_china": true,
+  "is_challenge": false,
+  "genre": "Narrative Nonfiction",
+  "length": "Short",
+  "facts": [
+    "Cai Lun served as an official in the Chinese imperial court during the Eastern Han Dynasty under Emperor He of Han.",
+    "In 105 CE, Cai Lun presented his papermaking invention to the imperial court of China.",
+    "Cai Lun created paper using tree bark, hemp, old rags, and fishing nets as raw materials.",
+    "Before Cai Lun's invention, Chinese scholars wrote on heavy bamboo strips and expensive silk.",
+    "Cai Lun held the position of Shang Fang Si, which meant he supervised the imperial workshops that made instruments and weapons.",
+    "The papermaking process Cai Lun developed involved beating the raw materials into a pulp, then pouring the mixture onto a flat woven cloth to drain and dry.",
+    "Cai Lun died in 121 CE after being ordered to report to prison due to his involvement in palace political conflicts.",
+    "In 1962, Time magazine named Cai Lun in its list of the 100 most important people of the previous 2,000 years."
+  ],
+  "title": "The Imperial Official Who Changed Writing Forever",
+  "passage": "The bamboo strips clattered onto the table, each one inscribed with a single column of characters. In the imperial court of China's Eastern Han Dynasty, scholars <vocab>contemplated|thought about carefully</vocab> these heavy bundles with frustration. Recording even a simple message required dozens of strips tied together with cord. The wealthy could afford silk, but its price made it <vocab>impractical|not suitable for everyday use</vocab> for most scholars.\n\nCai Lun, who served Emperor He of Han as Shang Fang Si—supervisor of the imperial workshops—observed this daily struggle. His position overseeing the creation of instruments and weapons had taught him to experiment with materials. He began collecting tree bark, hemp, old rags, and discarded fishing nets. Through <vocab>meticulous|very careful and precise</vocab> trial and error, he discovered a process: beating these materials into pulp, then pouring the mixture onto flat woven cloth to drain and dry into thin, flexible sheets.\n\nIn 105 CE, Cai Lun presented his <vocab>ingenious|clever and inventive</vocab> creation to the imperial court. The lightweight material could be produced cheaply and written on easily. His invention would <vocab>revolutionize|completely change</vocab> how humanity recorded knowledge.\n\nThough palace politics led to his death in 121 CE when he was ordered to prison, Cai Lun's paper <vocab>endured|lasted through time</vocab>. Nearly two thousand years later, in 1962, Time magazine recognized him among the 100 most important people of the previous two millennia—a fitting tribute to the man who made the written word accessible to all.",
+  "vocab": [
+    {
+      "word": "contemplated",
+      "definition": "thought about carefully"
+    },
+    {
+      "word": "impractical",
+      "definition": "not suitable for everyday use"
+    },
+    {
+      "word": "meticulous",
+      "definition": "very careful and precise"
+    },
+    {
+      "word": "ingenious",
+      "definition": "clever and inventive"
+    },
+    {
+      "word": "revolutionize",
+      "definition": "completely change"
+    },
+    {
+      "word": "endured",
+      "definition": "lasted through time"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Cai Lun's invention of an affordable writing material transformed how people could record and share information.",
+        "Ancient Chinese scholars preferred writing on silk rather than bamboo strips before paper was invented.",
+        "Cai Lun worked in the imperial workshops making instruments and weapons for Emperor He of Han.",
+        "Time magazine recognized Cai Lun as one of the most important people in history in 1962."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage focuses on how Cai Lun's paper invention solved the problem of expensive, impractical writing materials and changed written communication, making this the central idea rather than supporting details."
+    },
+    {
+      "type": "detail",
+      "stem": "What materials did Cai Lun use to create paper?",
+      "options": [
+        "Bamboo strips, silk, and cotton cloth",
+        "Tree bark, hemp, old rags, and fishing nets",
+        "Wood pulp, cotton, and animal skins",
+        "Rice stalks, silk scraps, and dried leaves"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage explicitly states that Cai Lun collected 'tree bark, hemp, old rags, and discarded fishing nets' to create his paper."
+    },
+    {
+      "type": "detail",
+      "stem": "What position did Cai Lun hold in the imperial court?",
+      "options": [
+        "Emperor of the Eastern Han Dynasty",
+        "Chief scholar and adviser to Emperor He",
+        "Shang Fang Si, supervisor of imperial workshops",
+        "Head of the palace political council"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage states Cai Lun served as 'Shang Fang Si—supervisor of the imperial workshops' where instruments and weapons were made."
+    },
+    {
+      "type": "inference",
+      "stem": "Based on the passage, we can conclude that before Cai Lun's invention,",
+      "options": [
+        "most Chinese scholars could not afford to write down their ideas regularly",
+        "Emperor He of Han banned the use of bamboo for writing",
+        "all written documents in China were created on silk material",
+        "Chinese workshops produced no important inventions for scholars"
+      ],
+      "correct_index": 0,
+      "explanation": "The passage describes bamboo as heavy and frustrating, silk as too expensive for most scholars, suggesting that affordable writing materials were unavailable, making regular writing difficult for most people."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"ingenious\" most nearly means",
+      "options": [
+        "clever and inventive",
+        "expensive and rare",
+        "traditional and ancient",
+        "simple and ordinary"
+      ],
+      "correct_index": 0,
+      "explanation": "The word 'ingenious' describes Cai Lun's creative solution to a difficult problem, meaning clever and inventive, which matches the provided definition."
+    }
+  ]
+}

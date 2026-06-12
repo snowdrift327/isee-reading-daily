@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_161018",
+  "topic_id": "a02",
+  "topic_title": "Apollo 13: Failure is not an option",
+  "category": "Adventure",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Informational",
+  "length": "Long",
+  "facts": [
+    "Apollo 13 launched from Kennedy Space Center in Florida on April 11, 1970, at 2:13 PM Eastern Time with astronauts Jim Lovell, Jack Swigert, and Fred Haise aboard.",
+    "On April 13, 1970, approximately 56 hours into the mission and about 200,000 miles from Earth, an oxygen tank exploded in the service module.",
+    "The phrase 'Houston, we've had a problem' was radioed to Mission Control by Jack Swigert at 55 hours and 55 minutes into the flight, shortly after the explosion.",
+    "Gene Kranz, the lead flight director at Mission Control in Houston, wore a white vest made by his wife during the Apollo 13 crisis.",
+    "The three astronauts moved into the Lunar Module Aquarius, which was designed to support two people for two days, and used it as a lifeboat for the four-day journey back to Earth.",
+    "The crew experienced cabin temperatures that dropped to 38 degrees Fahrenheit because they had to power down most systems to conserve energy.",
+    "Apollo 13 splashed down safely in the Pacific Ocean on April 17, 1970, near Samoa, and the astronauts were recovered by the aircraft carrier USS Iwo Jima.",
+    "The mission was commanded by Jim Lovell, who had previously flown to the Moon on Apollo 8 in December 1968, making Apollo 13 his fourth spaceflight."
+  ],
+  "title": "Apollo 13: When Disaster Struck in Space",
+  "passage": "At precisely 2:13 PM on April 11, 1970, a Saturn V rocket roared to life at Kennedy Space Center in Florida, carrying astronauts Jim Lovell, Jack Swigert, and Fred Haise toward the Moon. For Commander Lovell, this marked his fourth journey into space and his second voyage to the Moon, following his successful Apollo 8 mission in December 1968. The crew's <vocab>optimism|positive outlook for the future</vocab> was high as they left Earth's atmosphere behind.\n\nBut 56 hours into the flight, approximately 200,000 miles from home, a thunderous bang shattered the calm. An oxygen tank in the service module had exploded. At 55 hours and 55 minutes into the mission, Jack Swigert radioed the now-famous words to Mission Control: \"Houston, we've had a problem.\" The explosion had crippled their spacecraft, leaving the astronauts in a <vocab>precarious|dangerously uncertain</vocab> situation far from Earth.\n\nBack in Houston, flight director Gene Kranz—wearing a white vest his wife had made for the mission—faced an <vocab>unprecedented|never experienced before</vocab> emergency. The original plan to land on the Moon was now impossible. Instead, the team had to <vocab>improvise|create solutions without planning</vocab> a new strategy: use the Lunar Module Aquarius as a lifeboat. This presented an immediate problem. Aquarius was designed to support two people for two days, yet three astronauts would need to survive in it for four days.\n\nThe crew powered down most systems to conserve energy, and conditions inside the spacecraft became increasingly uncomfortable. Cabin temperatures plummeted to 38 degrees Fahrenheit. Water droplets formed on the cold metal walls. The astronauts, wearing thin flight suits, huddled together for warmth during the long journey home. Every action required careful calculation—using too much power or oxygen could be <vocab>catastrophic|causing complete disaster</vocab>.\n\nDespite these <vocab>harrowing|extremely distressing</vocab> conditions, the crew and Mission Control worked together flawlessly. On April 17, 1970, nearly six days after launch, Apollo 13 splashed down safely in the Pacific Ocean near Samoa. The aircraft carrier USS Iwo Jima quickly recovered the three astronauts. What had begun as a mission to explore the Moon had transformed into one of NASA's greatest rescue operations. The \"successful failure,\" as Lovell later called it, demonstrated that human determination and teamwork could overcome even the most daunting challenges in space.",
+  "vocab": [
+    {
+      "word": "optimism",
+      "definition": "positive outlook for the future"
+    },
+    {
+      "word": "precarious",
+      "definition": "dangerously uncertain"
+    },
+    {
+      "word": "unprecedented",
+      "definition": "never experienced before"
+    },
+    {
+      "word": "improvise",
+      "definition": "create solutions without planning"
+    },
+    {
+      "word": "catastrophic",
+      "definition": "causing complete disaster"
+    },
+    {
+      "word": "harrowing",
+      "definition": "extremely distressing"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Apollo 13's oxygen tank explosion forced NASA to transform a Moon mission into a dramatic rescue operation that succeeded through teamwork and problem-solving.",
+        "Jim Lovell flew to the Moon twice during his career as a NASA astronaut and commanded the Apollo 13 mission.",
+        "The Apollo 13 crew faced cold temperatures and difficult conditions after their spacecraft was damaged in space.",
+        "Gene Kranz directed the Mission Control team that helped the Apollo 13 astronauts return safely to Earth."
+      ],
+      "correct_index": 0,
+      "explanation": "The correct answer captures the passage's focus on how the crisis transformed the mission and how it was resolved. The other options present true details but miss the central narrative of crisis and resolution."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions that Aquarius was designed for two people for two days in order to",
+      "options": [
+        "explain why NASA chose the Lunar Module as the name for the spacecraft component",
+        "illustrate the difficulty of keeping three astronauts alive for four days in the spacecraft",
+        "describe the normal procedures for landing on the Moon's surface",
+        "compare the size of the Lunar Module to the service module that exploded"
+      ],
+      "correct_index": 1,
+      "explanation": "The passage uses this detail to emphasize the challenge the crew faced—they had to make a two-person, two-day lifeboat work for three people for four days. The other options introduce information not mentioned or misrepresent the author's purpose."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that the conditions inside Aquarius were particularly challenging because",
+      "options": [
+        "the crew had no communication equipment to contact Mission Control in Houston",
+        "the spacecraft was traveling too quickly to make course corrections safely",
+        "powering down systems to save energy created uncomfortable physical conditions for the astronauts",
+        "the explosion damaged the walls of the Lunar Module and caused air leaks"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage describes how conserving energy led to 38-degree temperatures and uncomfortable conditions. This requires connecting the cause (powering down) with the effect (cold temperatures). Other options introduce details not supported by the passage."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"improvise\" most nearly means",
+      "options": [
+        "create solutions without planning",
+        "follow established procedures",
+        "cancel the mission entirely",
+        "communicate with the crew"
+      ],
+      "correct_index": 0,
+      "explanation": "The context shows that the team had to develop new strategies quickly in response to an unexpected crisis, which matches the definition of improvise. The other options don't fit the meaning of creating unplanned solutions."
+    },
+    {
+      "type": "synthesis",
+      "stem": "Which statement best summarizes the relationship between the explosion and the mission's outcome?",
+      "options": [
+        "The explosion forced a complete change in mission goals but ultimately demonstrated NASA's ability to solve complex problems under pressure.",
+        "The explosion occurred because the oxygen tanks were not properly tested before the spacecraft launched from Florida.",
+        "The explosion destroyed the service module and prevented the crew from communicating with Gene Kranz at Mission Control.",
+        "The explosion happened at exactly 55 hours and 55 minutes, which gave the crew enough time to return to Earth safely."
+      ],
+      "correct_index": 0,
+      "explanation": "This answer synthesizes information from throughout the passage about how the crisis changed the mission (from Moon landing to rescue) and what it proved (teamwork and problem-solving). Other options are either unsupported, partially true but incomplete, or confuse timing with causation."
+    }
+  ]
+}

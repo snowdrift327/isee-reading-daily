@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Progress History</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+body {
+    font-family: "Georgia", serif;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    background: #fafaf7;
+}
+header { border-bottom: 3px double #333; padding-bottom: 16px; margin-bottom: 28px; }
+h1 { font-size: 24px; margin: 0 0 6px; }
+h2 { font-size: 18px; margin: 32px 0 16px; padding-left: 12px; border-left: 4px solid #1a4d8f; }
+.subtitle { font-size: 13px; color: #555; font-style: italic; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #1a4d8f; text-decoration: none; font-family: Arial, sans-serif; font-size: 14px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.stat-card { background: white; padding: 18px 16px; border: 1px solid #ddd; border-radius: 6px; text-align: center; font-family: Arial, sans-serif; }
+.stat-value { font-size: 28px; font-weight: bold; color: #1a4d8f; }
+.stat-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+.chart-section { background: white; padding: 20px; border: 1px solid #ddd; border-radius: 6px; margin-top: 12px; }
+.chart-container { position: relative; height: 320px; }
+table { width: 100%; border-collapse: collapse; background: white; font-family: Arial, sans-serif; font-size: 13px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-radius: 6px; overflow: hidden; }
+th { background: #1a4d8f; color: white; padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+tr:hover td { background: #fafafa; }
+button { background: #1a4d8f; color: white; border: none; padding: 8px 18px; font-size: 13px; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; }
+button.danger { background: #c62828; }
+.clear-section { margin-top: 20px; text-align: right; }
+.empty-state { text-align: center; padding: 60px 20px; color: #888; }
+@media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } table { font-size: 11px; } th, td { padding: 8px 6px; } }
+</style>
+</head>
+<body>
+<a href="index.html" class="back-link">← Back to Reading</a>
+<header>
+    <h1>READING PROGRESS</h1>
+    <div class="subtitle">Daily reading practice history</div>
+</header>
+<div id="content"></div>
+<script>
+function render() {
+    const sessions = JSON.parse(localStorage.getItem('reading_sessions') || '[]');
+    const content = document.getElementById('content');
+    if (sessions.length === 0) {
+        content.innerHTML = '<div class="empty-state"><h2 style="border:none;padding:0;">📊 No sessions yet</h2><p>Complete a reading session to start tracking progress.</p></div>';
+        return;
+    }
+    const totalQ = sessions.reduce((s, x) => s + x.total, 0);
+    const totalCorrect = sessions.reduce((s, x) => s + x.correct, 0);
+    const avgAcc = Math.round(totalCorrect / totalQ * 100);
+    let trend = '—', trendColor = '#888';
+    if (sessions.length >= 4) {
+        const recent = sessions.slice(-3).reduce((s, x) => s + x.accuracy, 0) / 3;
+        const earlier = sessions.slice(0, 3).reduce((s, x) => s + x.accuracy, 0) / 3;
+        const diff = Math.round(recent - earlier);
+        if (diff > 0) { trend = '↑ +' + diff + '%'; trendColor = '#27ae60'; }
+        else if (diff < 0) { trend = '↓ ' + diff + '%'; trendColor = '#c62828'; }
+        else trend = '→ 0%';
+    }
+    let html = '<div class="stats-grid">' +
+        '<div class="stat-card"><div class="stat-value">' + sessions.length + '</div><div class="stat-label">Readings</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + totalQ + '</div><div class="stat-label">Questions</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + avgAcc + '%</div><div class="stat-label">Avg Accuracy</div></div>' +
+        '<div class="stat-card"><div class="stat-value" style="color:' + trendColor + '">' + trend + '</div><div class="stat-label">Trend</div></div>' +
+        '</div>' +
+        '<h2>📈 Accuracy Over Time</h2>' +
+        '<div class="chart-section"><div class="chart-container"><canvas id="acc-chart"></canvas></div></div>' +
+        '<h2>📋 All Sessions</h2>' +
+        '<table><thead><tr><th>Date</th><th>Title</th><th>Genre</th><th>Score</th><th>Acc.</th><th>Time</th></tr></thead><tbody>';
+    sessions.slice().reverse().forEach(s => {
+        const time = new Date(s.timestamp).toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+        const dur = Math.floor(s.duration_sec/60) + 'm' + (s.duration_sec%60) + 's';
+        const accColor = s.accuracy >= 80 ? '#27ae60' : (s.accuracy >= 60 ? '#f57c00' : '#c62828');
+        html += '<tr>' +
+            '<td>' + s.date + '<br><span style="color:#999;font-size:10px;">' + time + '</span></td>' +
+            '<td>' + (s.title || '-') + '</td>' +
+            '<td>' + (s.genre || '-') + '</td>' +
+            '<td>' + s.correct + '/' + s.total + '</td>' +
+            '<td style="color:' + accColor + ';font-weight:bold;">' + s.accuracy + '%</td>' +
+            '<td>' + dur + '</td>' +
+            '</tr>';
+    });
+    html += '</tbody></table><div class="clear-section"><button class="danger" onclick="if(confirm(\'Clear all?\')){localStorage.removeItem(\'reading_sessions\');render();}">Clear All History</button></div>';
+    content.innerHTML = html;
+
+    const ctx = document.getElementById('acc-chart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: sessions.map(s => s.date),
+            datasets: [{
+                label: 'Accuracy',
+                data: sessions.map(s => s.accuracy),
+                borderColor: '#1a4d8f',
+                backgroundColor: 'rgba(26,77,143,0.1)',
+                borderWidth: 2.5, pointRadius: 5, tension: 0.3, fill: true
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } }
+        }
+    });
+}
+render();
+</script>
+</body>
+</html>

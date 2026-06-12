@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Secret Puzzles That Saved Millions — Daily Reading</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 22px 80px;
+    background: #fafaf7;
+    color: #1a1a1a;
+    line-height: 1.75;
+    font-size: 17px;
+}
+
+/* Start overlay */
+.start-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(250, 250, 247, 0.98);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+.start-overlay.hidden { display: none; }
+.start-card {
+    background: white;
+    max-width: 500px;
+    width: 90%;
+    padding: 40px 32px;
+    border: 3px double #1a4d8f;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.start-card h2 {
+    font-size: 26px;
+    color: #1a4d8f;
+    margin: 0 0 8px;
+    letter-spacing: 0.5px;
+    font-family: "Georgia", serif;
+}
+.start-card .reading-title {
+    color: #333;
+    font-size: 17px;
+    font-style: italic;
+    margin: 16px 0 8px;
+    line-height: 1.4;
+}
+.start-card .badges {
+    margin: 16px 0 24px;
+}
+.start-card .instructions {
+    text-align: left;
+    background: #f5f5f0;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 20px 0 28px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #333;
+}
+.start-card .instructions strong {
+    color: #1a4d8f;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.start-card .instructions ul { margin: 0; padding-left: 20px; }
+.start-card .instructions li { margin: 4px 0; }
+.start-btn {
+    background: #1a4d8f;
+    color: white;
+    border: none;
+    padding: 16px 56px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 2px;
+    transition: background 0.2s;
+}
+.start-btn:hover { background: #143a6b; }
+
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin: 0 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+.badge.category { background: #e3edf8; color: #1a4d8f; }
+.badge.genre { background: #f0e6d8; color: #8b6914; }
+.badge.length { background: #e8f0e3; color: #2d5a1f; }
+.badge.china { background: #fde8e8; color: #b71c1c; }
+.badge.challenge { background: #fff4e0; color: #e67e22; }
+
+/* Reading header */
+.reading-header {
+    border-bottom: 3px double #333;
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+}
+.reading-header h1 {
+    font-size: 28px;
+    margin: 0 0 12px;
+    color: #1a1a1a;
+    line-height: 1.3;
+    font-family: "Georgia", serif;
+}
+.reading-meta {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    margin-top: 14px;
+}
+.meta-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+.timer {
+    font-family: "Courier New", monospace;
+    font-size: 17px;
+    font-weight: bold;
+    color: #1a4d8f;
+}
+.progress { color: #555; }
+
+/* Passage */
+.passage-section {
+    background: white;
+    padding: 28px 32px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+    border-left: 4px solid #1a4d8f;
+}
+.passage-section p {
+    margin: 0 0 1em;
+    text-align: justify;
+}
+.passage-section p:last-child { margin-bottom: 0; }
+
+/* Vocab highlight */
+.vocab {
+    border-bottom: 2px dotted #1a4d8f;
+    cursor: help;
+    color: #1a4d8f;
+    font-weight: 500;
+    position: relative;
+}
+.vocab:hover::after {
+    content: attr(data-def);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a4d8f;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: normal;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    white-space: normal;
+    max-width: 260px;
+    width: max-content;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 6px;
+    pointer-events: none;
+}
+.vocab:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1a4d8f;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Questions section */
+h2.section-title {
+    font-size: 20px;
+    color: #1a1a1a;
+    margin: 36px 0 18px;
+    padding-left: 14px;
+    border-left: 4px solid #1a4d8f;
+    font-family: "Georgia", serif;
+}
+
+.question {
+    background: white;
+    padding: 22px 24px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.q-header {
+    margin-bottom: 12px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.q-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-right: 12px;
+}
+.q-type {
+    font-size: 11px;
+    color: white;
+    background: #1a4d8f;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+.q-stem {
+    font-size: 16px;
+    margin-bottom: 14px;
+    line-height: 1.6;
+    font-family: "Georgia", serif;
+}
+.q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 12px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.option {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.15s;
+}
+.option:hover { border-color: #1a4d8f; background: #f0f5fb; }
+.option input[type="radio"] { margin-right: 10px; margin-top: 4px; }
+.letter { font-weight: bold; color: #555; margin-right: 8px; min-width: 20px; }
+.option.user-correct { background: #e8f5e9; border-color: #4caf50; }
+.option.user-wrong { background: #ffebee; border-color: #f44336; }
+.option.show-correct { background: #e8f5e9; border-color: #4caf50; border-style: dashed; }
+
+.submit-section {
+    margin-top: 32px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 3px double #333;
+}
+#submit-btn {
+    background: #1a4d8f;
+    color: white;
+    border: none;
+    padding: 14px 52px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 1px;
+}
+#submit-btn:hover { background: #143a6b; }
+#submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+/* Results */
+#results {
+    display: none;
+    margin-top: 30px;
+    padding: 28px;
+    background: #f9f9f7;
+    border: 2px solid #1a4d8f;
+    border-radius: 8px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+#results.show { display: block; }
+.new-test-section {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ddd;
+}
+.start-new-btn {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.start-new-btn:hover { background: #1b5e20; }
+.score-summary {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.score-item { flex: 1; min-width: 120px; }
+.score-value { font-size: 32px; font-weight: bold; color: #1a4d8f; display: block; }
+.score-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.explanation-block {
+    background: white;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #4caf50;
+}
+.explanation-block.wrong { border-left-color: #f44336; }
+.explanation-block .exp-q { font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+.explanation-block .exp-result { font-size: 13px; color: #555; margin-bottom: 8px; }
+.explanation-block .exp-text { font-size: 14px; color: #333; line-height: 1.6; }
+
+.action-links {
+    margin: 20px 0;
+    padding: 16px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.action-links a {
+    display: block;
+    text-align: center;
+    padding: 12px 16px;
+    background: #1a4d8f;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.action-links a:hover { background: #143a6b; }
+@media (max-width: 480px) { .action-links { grid-template-columns: 1fr; } }
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #999;
+    font-size: 13px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+footer a { color: #888; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+    body { padding: 18px 14px 60px; font-size: 16px; }
+    .reading-header h1 { font-size: 22px; }
+    .passage-section { padding: 20px 18px; }
+    .question { padding: 18px 16px; }
+    .meta-bar { flex-direction: column; gap: 6px; align-items: flex-start; }
+    .vocab:hover::after { max-width: 200px; font-size: 12px; }
+    .score-value { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<div id="start-overlay" class="start-overlay">
+    <div class="start-card">
+        <h2>DAILY READING</h2>
+        <div class="reading-title">"The Secret Puzzles That Saved Millions"</div>
+        <div class="badges">
+            <span class="badge category">History</span>
+            <span class="badge genre">Narrative Nonfiction</span>
+            <span class="badge length">Short</span>
+            
+            <span class="badge challenge">⭐ Challenge</span>
+        </div>
+        <div class="instructions">
+            <strong>Instructions</strong>
+            <ul>
+                <li>Read the passage carefully</li>
+                <li>Hover over <span style="color:#1a4d8f;border-bottom:2px dotted #1a4d8f;font-weight:500;">highlighted words</span> to see definitions</li>
+                <li>Answer 5 comprehension questions</li>
+                <li>Timer starts when you click START</li>
+            </ul>
+        </div>
+        <button class="start-btn" onclick="startTest()">START</button>
+    </div>
+</div>
+
+<div class="reading-header">
+    <h1>The Secret Puzzles That Saved Millions</h1>
+    <div class="badges">
+        <span class="badge category">History</span>
+        <span class="badge genre">Narrative Nonfiction</span>
+        <span class="badge length">Short</span>
+        
+        <span class="badge challenge">⭐ Challenge</span>
+    </div>
+    <div class="meta-bar">
+        <span class="timer">Time: <span id="timer-display">00:00</span></span>
+        <span class="progress">Questions: <span id="progress-count">0</span> / 5</span>
+        <span style="color:#888;font-size:12px;">2026-06-12_161506</span>
+    </div>
+</div>
+
+<div class="passage-section" id="passage">
+<p>The mechanical clicking filled the wooden hut as Alan Turing adjusted his strange machine. Outside Bletchley Park in Buckinghamshire, England, war raged across Europe. Inside, over 9,000 people by 1945 worked to crack what seemed impossible: the German Enigma code with its 159 quintillion possible settings—159 followed by eighteen zeros.</p>
+<p>Turing's invention, the Bombe machine, completed between 1939 and 1940, could <span class="vocab" data-def="examine very closely">scrutinize</span> thousands of Enigma settings each hour. Yet even this <span class="vocab" data-def="extremely important and large-scale">monumental</span> device needed help. On May 9, 1941, came the turning point: British forces captured U-110, a German submarine, retrieving an intact Enigma machine and its codebooks. This treasure transformed Bletchley's capabilities.</p>
+<p>In Hut 8, Joan Clarke worked alongside Turing, eventually becoming deputy head despite the <span class="vocab" data-def="boring and repetitive">tedious</span> reality that women earned less than men doing identical work. When the even more complex German Lorenz cipher threatened to <span class="vocab" data-def="resist or challenge successfully">defy</span> their efforts, engineer Tommy Flowers created Colossus in December 1943—the world's first programmable electronic computer.</p>
+<p>These codebreakers labored under the Official Secrets Act, <span class="vocab" data-def="forced">compelled</span> to <span class="vocab" data-def="hide or keep secret">conceal</span> their achievements until the 1970s. General Dwight Eisenhower later declared their intelligence shortened World War II by at least two years. The puzzles they solved in those creaking wooden huts saved countless lives—a victory most never knew had been won.</p>
+</div>
+
+<h2 class="section-title">📝 Comprehension Questions</h2>
+
+<form id="quiz-form" onsubmit="return false;">
+
+        <div class="question" data-q-index="0">
+            <div class="q-header">
+                <span class="q-number">1.</span>
+                <span class="q-type">Main Idea</span>
+            </div>
+            <div class="q-stem">Which sentence best states the central idea of the passage?</div>
+            <div class="q-options">
+            <label class="option" data-q="0" data-opt="0">
+                <input type="radio" name="q0" value="0">
+                <span class="letter">A.</span>
+                <span class="opt-text">British codebreakers at Bletchley Park used advanced machines and captured intelligence to crack German codes, shortening World War II significantly.</span>
+            </label>
+            <label class="option" data-q="0" data-opt="1">
+                <input type="radio" name="q0" value="1">
+                <span class="letter">B.</span>
+                <span class="opt-text">Alan Turing invented the Bombe machine to solve mathematical problems during World War II.</span>
+            </label>
+            <label class="option" data-q="0" data-opt="2">
+                <input type="radio" name="q0" value="2">
+                <span class="letter">C.</span>
+                <span class="opt-text">Women like Joan Clarke faced discrimination while working as codebreakers in England.</span>
+            </label>
+            <label class="option" data-q="0" data-opt="3">
+                <input type="radio" name="q0" value="3">
+                <span class="letter">D.</span>
+                <span class="opt-text">The German Enigma machine was extremely difficult to break because it had many possible settings.</span>
+            </label></div>
+        </div>
+        <div class="question" data-q-index="1">
+            <div class="q-header">
+                <span class="q-number">2.</span>
+                <span class="q-type">Detail</span>
+            </div>
+            <div class="q-stem">The author mentions the capture of U-110 in order to</div>
+            <div class="q-options">
+            <label class="option" data-q="1" data-opt="0">
+                <input type="radio" name="q1" value="0">
+                <span class="letter">A.</span>
+                <span class="opt-text">explain why German submarines were dangerous to Allied ships</span>
+            </label>
+            <label class="option" data-q="1" data-opt="1">
+                <input type="radio" name="q1" value="1">
+                <span class="letter">B.</span>
+                <span class="opt-text">describe the typical equipment found on World War II submarines</span>
+            </label>
+            <label class="option" data-q="1" data-opt="2">
+                <input type="radio" name="q1" value="2">
+                <span class="letter">C.</span>
+                <span class="opt-text">illustrate a turning point that significantly improved British codebreaking abilities</span>
+            </label>
+            <label class="option" data-q="1" data-opt="3">
+                <input type="radio" name="q1" value="3">
+                <span class="letter">D.</span>
+                <span class="opt-text">show how British naval forces were superior to German forces</span>
+            </label></div>
+        </div>
+        <div class="question" data-q-index="2">
+            <div class="q-header">
+                <span class="q-number">3.</span>
+                <span class="q-type">Inference</span>
+            </div>
+            <div class="q-stem">The passage suggests that Bletchley Park's work remained secret for so long because</div>
+            <div class="q-options">
+            <label class="option" data-q="2" data-opt="0">
+                <input type="radio" name="q2" value="0">
+                <span class="letter">A.</span>
+                <span class="opt-text">the codebreakers were embarrassed about their wartime activities</span>
+            </label>
+            <label class="option" data-q="2" data-opt="1">
+                <input type="radio" name="q2" value="1">
+                <span class="letter">B.</span>
+                <span class="opt-text">government officials wanted to continue using similar techniques after the war</span>
+            </label>
+            <label class="option" data-q="2" data-opt="2">
+                <input type="radio" name="q2" value="2">
+                <span class="letter">C.</span>
+                <span class="opt-text">most of the workers had died before they could share their stories</span>
+            </label>
+            <label class="option" data-q="2" data-opt="3">
+                <input type="radio" name="q2" value="3">
+                <span class="letter">D.</span>
+                <span class="opt-text">the workers were legally bound to silence under the Official Secrets Act</span>
+            </label></div>
+        </div>
+        <div class="question" data-q-index="3">
+            <div class="q-header">
+                <span class="q-number">4.</span>
+                <span class="q-type">Vocabulary in Context</span>
+            </div>
+            <div class="q-stem">In the passage, the word "scrutinize" most nearly means</div>
+            <div class="q-options">
+            <label class="option" data-q="3" data-opt="0">
+                <input type="radio" name="q3" value="0">
+                <span class="letter">A.</span>
+                <span class="opt-text">examine very closely</span>
+            </label>
+            <label class="option" data-q="3" data-opt="1">
+                <input type="radio" name="q3" value="1">
+                <span class="letter">B.</span>
+                <span class="opt-text">destroy completely</span>
+            </label>
+            <label class="option" data-q="3" data-opt="2">
+                <input type="radio" name="q3" value="2">
+                <span class="letter">C.</span>
+                <span class="opt-text">create randomly</span>
+            </label>
+            <label class="option" data-q="3" data-opt="3">
+                <input type="radio" name="q3" value="3">
+                <span class="letter">D.</span>
+                <span class="opt-text">ignore purposefully</span>
+            </label></div>
+        </div>
+        <div class="question" data-q-index="4">
+            <div class="q-header">
+                <span class="q-number">5.</span>
+                <span class="q-type">Detail</span>
+            </div>
+            <div class="q-stem">Which statement best summarizes the relationship between the Bombe machine and the Colossus computer?</div>
+            <div class="q-options">
+            <label class="option" data-q="4" data-opt="0">
+                <input type="radio" name="q4" value="0">
+                <span class="letter">A.</span>
+                <span class="opt-text">The Colossus replaced the Bombe because the Bombe could not break any German codes.</span>
+            </label>
+            <label class="option" data-q="4" data-opt="1">
+                <input type="radio" name="q4" value="1">
+                <span class="letter">B.</span>
+                <span class="opt-text">Both machines were designed by Alan Turing to work together on the same code.</span>
+            </label>
+            <label class="option" data-q="4" data-opt="2">
+                <input type="radio" name="q4" value="2">
+                <span class="letter">C.</span>
+                <span class="opt-text">The Bombe addressed the Enigma cipher while the Colossus tackled the more complex Lorenz cipher.</span>
+            </label>
+            <label class="option" data-q="4" data-opt="3">
+                <input type="radio" name="q4" value="3">
+                <span class="letter">D.</span>
+                <span class="opt-text">The Colossus was built first and served as the model for the later Bombe design.</span>
+            </label></div>
+        </div>
+</form>
+
+<div class="submit-section">
+    <button id="submit-btn" onclick="submitQuiz()">SUBMIT</button>
+</div>
+
+<div id="results"></div>
+
+<footer>
+    <a href="history.html">📊 View History</a>
+    &nbsp;|&nbsp;
+    <a href="mistakes.html">📖 Review Words</a>
+    &nbsp;|&nbsp;
+    Generated by Claude
+</footer>
+
+<script>
+const QUESTIONS_DATA = [{"type": "main_idea", "stem": "Which sentence best states the central idea of the passage?", "options": ["British codebreakers at Bletchley Park used advanced machines and captured intelligence to crack German codes, shortening World War II significantly.", "Alan Turing invented the Bombe machine to solve mathematical problems during World War II.", "Women like Joan Clarke faced discrimination while working as codebreakers in England.", "The German Enigma machine was extremely difficult to break because it had many possible settings."], "correct_index": 0, "explanation": "The passage focuses on how Bletchley Park's codebreakers combined technology, captured materials, and human effort to break German codes and shorten the war. The other options address only single aspects without capturing the full scope."}, {"type": "detail", "stem": "The author mentions the capture of U-110 in order to", "options": ["explain why German submarines were dangerous to Allied ships", "describe the typical equipment found on World War II submarines", "illustrate a turning point that significantly improved British codebreaking abilities", "show how British naval forces were superior to German forces"], "correct_index": 2, "explanation": "The passage explicitly calls the U-110 capture 'the turning point' because the intact Enigma and codebooks 'transformed Bletchley's capabilities.' The other options introduce plausible but unstated purposes."}, {"type": "inference", "stem": "The passage suggests that Bletchley Park's work remained secret for so long because", "options": ["the codebreakers were embarrassed about their wartime activities", "government officials wanted to continue using similar techniques after the war", "most of the workers had died before they could share their stories", "the workers were legally bound to silence under the Official Secrets Act"], "correct_index": 3, "explanation": "The passage states workers were 'compelled to conceal their achievements until the 1970s' under the Official Secrets Act, implying legal obligations enforced the secrecy. Option B is plausible in reality but not supported by the passage."}, {"type": "vocab_in_context", "stem": "In the passage, the word \"scrutinize\" most nearly means", "options": ["examine very closely", "destroy completely", "create randomly", "ignore purposefully"], "correct_index": 0, "explanation": "The context describes the Bombe machine testing thousands of Enigma settings, which requires careful examination. The definition provided matches this meaning."}, {"type": "detail", "stem": "Which statement best summarizes the relationship between the Bombe machine and the Colossus computer?", "options": ["The Colossus replaced the Bombe because the Bombe could not break any German codes.", "Both machines were designed by Alan Turing to work together on the same code.", "The Bombe addressed the Enigma cipher while the Colossus tackled the more complex Lorenz cipher.", "The Colossus was built first and served as the model for the later Bombe design."], "correct_index": 2, "explanation": "The passage distinguishes between the machines' purposes: the Bombe for Enigma (1939-1940) and the Colossus for the 'even more complex German Lorenz cipher' (1943). Option D reverses the chronology, while A and B misrepresent their relationship."}];
+const META = {"title": "The Secret Puzzles That Saved Millions", "topic": "Bletchley Park's code breakers: puzzles that won WWII", "category": "History", "genre": "Narrative Nonfiction", "length": "Short", "is_china": false, "is_challenge": true};
+
+let startTime = null;
+let submitted = false;
+let testStarted = false;
+
+// 状态恢复
+const savedState = sessionStorage.getItem('reading_submitted_state');
+if (savedState) {
+    const state = JSON.parse(savedState);
+    document.getElementById('start-overlay').classList.add('hidden');
+    document.getElementById('quiz-form').innerHTML = state.formHTML;
+    document.getElementById('results').innerHTML = state.resultsHTML;
+    document.getElementById('results').classList.add('show');
+    document.getElementById('timer-display').textContent = state.timer;
+    document.getElementById('progress-count').textContent = state.progress;
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').textContent = 'SUBMITTED';
+    submitted = true;
+}
+
+function startTest() {
+    testStarted = true;
+    startTime = Date.now();
+    document.getElementById('start-overlay').classList.add('hidden');
+}
+
+function clearSubmittedState() {
+    sessionStorage.removeItem('reading_submitted_state');
+}
+
+function startNewTest() {
+    clearSubmittedState();
+    location.reload();
+}
+
+document.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+        const answered = new Set();
+        document.querySelectorAll('input[type="radio"]:checked').forEach(r => answered.add(r.name));
+        document.getElementById('progress-count').textContent = answered.size;
+    });
+});
+
+setInterval(() => {
+    if (!testStarted || submitted) return;
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const ss = String(elapsed % 60).padStart(2, '0');
+    document.getElementById('timer-display').textContent = mm + ':' + ss;
+}, 1000);
+
+function submitQuiz() {
+    if (submitted) return;
+
+    const userAnswers = {};
+    let answeredCount = 0;
+    QUESTIONS_DATA.forEach((q, i) => {
+        const selected = document.querySelector('input[name="q' + i + '"]:checked');
+        if (selected) {
+            userAnswers[i] = parseInt(selected.value);
+            answeredCount++;
+        } else {
+            userAnswers[i] = -1;
+        }
+    });
+
+    if (answeredCount < QUESTIONS_DATA.length) {
+        if (!confirm('You have ' + (QUESTIONS_DATA.length - answeredCount) + ' unanswered. Submit?')) return;
+    }
+
+    submitted = true;
+    const totalTime = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+
+    let correctCount = 0;
+    const wrongDetails = [];
+
+    QUESTIONS_DATA.forEach((q, i) => {
+        const userAns = userAnswers[i];
+        const correctAns = q.correct_index;
+
+        const opts = document.querySelectorAll('label.option[data-q="' + i + '"]');
+        opts.forEach(opt => {
+            const idx = parseInt(opt.dataset.opt);
+            opt.style.pointerEvents = 'none';
+            opt.querySelector('input').disabled = true;
+            if (idx === correctAns) {
+                opt.classList.add(userAns === correctAns ? 'user-correct' : 'show-correct');
+            } else if (idx === userAns) {
+                opt.classList.add('user-wrong');
+            }
+        });
+
+        if (userAns === correctAns) {
+            correctCount++;
+        } else {
+            wrongDetails.push({
+                num: i + 1,
+                stem: q.stem,
+                correct: q.options[correctAns],
+                user: userAns >= 0 ? q.options[userAns] : '(unanswered)',
+                explanation: q.explanation,
+                type: q.type
+            });
+        }
+    });
+
+    const accuracy = Math.round((correctCount / QUESTIONS_DATA.length) * 100);
+    const mm = String(Math.floor(totalTime / 60)).padStart(2, '0');
+    const ss = String(totalTime % 60).padStart(2, '0');
+
+    // 保存 session 到 history
+    const sessionRecord = {
+        date: new Date().toISOString().split('T')[0],
+        timestamp: new Date().toISOString(),
+        title: META.title,
+        topic: META.topic,
+        category: META.category,
+        genre: META.genre,
+        length: META.length,
+        correct: correctCount,
+        total: QUESTIONS_DATA.length,
+        accuracy: accuracy,
+        duration_sec: totalTime
+    };
+    const allSessions = JSON.parse(localStorage.getItem('reading_sessions') || '[]');
+    allSessions.push(sessionRecord);
+    localStorage.setItem('reading_sessions', JSON.stringify(allSessions));
+
+    // 累积生词到 mistakes（用于回顾）
+    if (wrongDetails.some(w => w.type === 'vocab_in_context')) {
+        // 简化：错的 vocab 题已经在 wrongDetails 里
+    }
+
+    let explanationsHtml = '<h3 style="margin-top:20px;color:#1a1a1a;font-size:16px;border-bottom:1px solid #ddd;padding-bottom:8px;">📝 Question Review</h3>';
+    QUESTIONS_DATA.forEach((q, i) => {
+        const userAns = userAnswers[i];
+        const correctAns = q.correct_index;
+        const isCorrect = userAns === correctAns;
+        const userText = userAns >= 0 ? q.options[userAns] : '(unanswered)';
+        explanationsHtml += '<div class="explanation-block' + (isCorrect ? '' : ' wrong') + '">' +
+            '<div class="exp-q">' + (i+1) + '. ' + q.stem + '</div>' +
+            '<div class="exp-result">' + (isCorrect ? '✓ Correct: ' : '✗ You answered: ') +
+            '<strong>' + userText + '</strong>' +
+            (isCorrect ? '' : ' &nbsp; Correct answer: <strong>' + q.options[correctAns] + '</strong>') +
+            '</div>' +
+            '<div class="exp-text"><strong>Why:</strong> ' + q.explanation + '</div>' +
+            '</div>';
+    });
+
+    const resultsHtml =
+        '<div class="new-test-section">' +
+        '<button class="start-new-btn" onclick="startNewTest()">🔄 Generate New Reading</button>' +
+        '<p style="color:#666;font-size:12px;margin-top:8px;font-style:italic;">(Run <code>uv run main.py</code> on your computer first)</p>' +
+        '</div>' +
+        '<div class="score-summary">' +
+        '<div class="score-item"><span class="score-value">' + correctCount + '/' + QUESTIONS_DATA.length + '</span><span class="score-label">Score</span></div>' +
+        '<div class="score-item"><span class="score-value">' + accuracy + '%</span><span class="score-label">Accuracy</span></div>' +
+        '<div class="score-item"><span class="score-value">' + mm + ':' + ss + '</span><span class="score-label">Time</span></div>' +
+        '</div>' +
+        '<div class="action-links">' +
+        '<a href="history.html">📊 View Progress</a>' +
+        '<a href="mistakes.html">📖 Review Words</a>' +
+        '</div>' +
+        explanationsHtml;
+
+    document.getElementById('results').innerHTML = resultsHtml;
+    document.getElementById('results').classList.add('show');
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').textContent = 'SUBMITTED';
+    document.getElementById('results').scrollIntoView({behavior: 'smooth'});
+
+    // 保存提交状态
+    sessionStorage.setItem('reading_submitted_state', JSON.stringify({
+        formHTML: document.getElementById('quiz-form').innerHTML,
+        resultsHTML: document.getElementById('results').innerHTML,
+        timer: document.getElementById('timer-display').textContent,
+        progress: document.getElementById('progress-count').textContent
+    }));
+}
+</script>
+
+</body>
+</html>

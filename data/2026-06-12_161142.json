@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-06-12_161142",
+  "topic_id": "n04",
+  "topic_title": "Monarch butterflies: a 3,000-mile journey across generations",
+  "category": "Nature",
+  "is_china": false,
+  "is_challenge": false,
+  "genre": "Descriptive",
+  "length": "Long",
+  "facts": [
+    "Monarch butterflies travel up to 3,000 miles from their breeding grounds in southern Canada and the northern United States to their winter destinations in the oyamel fir forests of central Mexico.",
+    "The monarch migration to Mexico occurs at elevations between 9,600 and 10,800 feet in the mountains of Michoacán and the State of Mexico.",
+    "A single monarch butterfly weighs about 0.5 grams, which is less than a paperclip.",
+    "The monarchs that make the journey south in autumn live 6 to 8 months, while summer-generation monarchs live only 2 to 6 weeks.",
+    "Scientists tagged a monarch butterfly in Ontario, Canada in September 1997 that was recovered 2,880 miles away in Mexico just 2 months later.",
+    "Monarch butterflies fly at speeds between 12 and 25 miles per hour during their migration.",
+    "The overwintering population in Mexico declined from approximately 1 billion butterflies in the mid-1990s to 35 million butterflies in the winter of 2013-2014.",
+    "No single butterfly completes the entire round-trip migration; it takes 3 to 5 generations of monarchs to complete the full cycle from Mexico back to Canada and return to Mexico again."
+  ],
+  "title": "The Monarch's Multi-Generational Marathon to Mexico",
+  "passage": "A monarch butterfly weighing half a gram—less than a paperclip—<vocab>unfurls|spreads open</vocab> its orange and black wings on a cool September morning in Ontario, Canada. The insect's delicate wings beat steadily as it joins thousands of others beginning an extraordinary 3,000-mile journey southward. Unlike the summer butterflies that lived barely a month, this autumn traveler will survive six to eight months, long enough to reach the oyamel fir forests of central Mexico.\n\nScientists in 1997 tagged one such butterfly in Ontario and tracked its progress. Just two months later, that same monarch was recovered 2,880 miles away in Mexico's mountains. Flying between 12 and 25 miles per hour, these <vocab>fragile|easily broken or damaged</vocab> creatures navigate winds, storms, and vast stretches of unfamiliar territory. They climb to elevations between 9,600 and 10,800 feet in the mountains of Michoacán and the State of Mexico, where the air grows thin and cold.\n\nThe oyamel fir forests provide an ideal winter <vocab>sanctuary|safe place of protection</vocab>. Clusters of monarchs blanket the tree branches so densely that limbs bend beneath their collective weight. The rustle of millions of wings creates a sound like gentle rain. In the mid-1990s, approximately one billion butterflies gathered in these Mexican highlands each winter. Their orange wings transformed entire hillsides into shimmering, living tapestries.\n\nYet no single butterfly witnesses both ends of this <vocab>immense|extremely large</vocab> migration. The monarchs that left Canada will never return. Instead, they will breed in Mexico, and their offspring will begin the northward journey in spring. It takes three to five generations to complete the full cycle from Mexico to Canada and back again. Each generation travels one <vocab>segment|separate section or part</vocab> of the route, guided by instincts they never learned from parents they never knew.\n\nThe scale of this migration has shifted dramatically. By the winter of 2013-2014, only 35 million butterflies—a small fraction of the mid-1990s population—reached Mexico. Scientists continue to study how these <vocab>diminutive|very small</vocab> insects accomplish their multigenerational odyssey, and why their numbers have declined so sharply. The monarchs' journey remains one of nature's most puzzling inheritances: a map passed not through memory, but through genes.",
+  "vocab": [
+    {
+      "word": "unfurls",
+      "definition": "spreads open"
+    },
+    {
+      "word": "fragile",
+      "definition": "easily broken or damaged"
+    },
+    {
+      "word": "sanctuary",
+      "definition": "safe place of protection"
+    },
+    {
+      "word": "immense",
+      "definition": "extremely large"
+    },
+    {
+      "word": "segment",
+      "definition": "separate section or part"
+    },
+    {
+      "word": "diminutive",
+      "definition": "very small"
+    }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "stem": "Which sentence best states the central idea of the passage?",
+      "options": [
+        "Monarch butterflies complete an extraordinary 3,000-mile migration across multiple generations, with no single butterfly making the entire round trip.",
+        "Scientists have successfully tagged and tracked individual monarch butterflies from Canada to Mexico over several months.",
+        "The monarch butterfly population in Mexico has declined significantly since the 1990s due to environmental changes.",
+        "Monarch butterflies that migrate in autumn live much longer than summer monarchs and can survive up to eight months."
+      ],
+      "correct_index": 0,
+      "explanation": "The passage's central focus is the multi-generational nature of the 3,000-mile migration. Option B is a supporting detail, option C mentions decline but isn't the main focus, and option D is true but only addresses one aspect of the journey."
+    },
+    {
+      "type": "detail",
+      "stem": "The author mentions the tagged butterfly from Ontario in order to",
+      "options": [
+        "explain how scientists first discovered the monarch migration route",
+        "demonstrate the remarkable distance individual monarchs can travel in a short time",
+        "prove that all monarchs follow exactly the same path to Mexico",
+        "show that butterflies tagged in September always arrive in November"
+      ],
+      "correct_index": 1,
+      "explanation": "The tagged butterfly example illustrates the specific distance (2,880 miles) and time frame (2 months) of an individual's journey. Option A is not stated, option C overgeneralizes, and option D makes an unsupported claim about timing."
+    },
+    {
+      "type": "inference",
+      "stem": "The passage suggests that the monarch migration is particularly remarkable because",
+      "options": [
+        "the butterflies must learn the route from older generations before attempting it",
+        "monarchs are the only insects capable of flying at elevations above 10,000 feet",
+        "each generation instinctively knows its portion of a journey it has never experienced before",
+        "scientists have only recently discovered where monarchs spend the winter months"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage emphasizes that butterflies are 'guided by instincts they never learned from parents they never knew,' making inherited navigation the remarkable element. Options A and D contradict the passage, and option B is not mentioned."
+    },
+    {
+      "type": "vocab_in_context",
+      "stem": "In the passage, the word \"segment\" most nearly means",
+      "options": [
+        "separate section or part",
+        "dangerous obstacle",
+        "final destination",
+        "detailed map"
+      ],
+      "correct_index": 0,
+      "explanation": "The passage describes each generation traveling one 'segment' of the route, meaning a portion or section of the total journey. The other options do not fit the context of dividing a journey into parts."
+    },
+    {
+      "type": "organization",
+      "stem": "Which best describes how the passage is organized?",
+      "options": [
+        "presenting a problem affecting monarchs, then proposing solutions",
+        "comparing autumn monarchs with summer monarchs throughout",
+        "describing the migration journey in geographic sequence, then explaining its multi-generational nature",
+        "arguing that monarch populations should be protected with supporting evidence"
+      ],
+      "correct_index": 2,
+      "explanation": "The passage follows the journey from Canada southward to Mexico (geographic sequence), then explains the multi-generational aspect and population changes. It is descriptive rather than argumentative or problem-solution focused."
+    }
+  ]
+}
