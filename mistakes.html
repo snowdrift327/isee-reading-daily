@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading Vocabulary</title>
+<title>Vocabulary Library</title>
 <style>
 * { box-sizing: border-box; }
 body { font-family: "Georgia", serif; max-width: 760px; margin: 0 auto; padding: 24px 20px 60px; background: #fafaf7; }
@@ -21,28 +21,41 @@ h1 { font-size: 24px; margin: 0 0 6px; }
 </head>
 <body>
 <a href="index.html" class="back-link">← Back to Reading</a>
-<header>
-    <h1>VOCABULARY COLLECTED</h1>
-    <div class="subtitle">All words you've encountered in daily readings</div>
-</header>
+<header><h1>VOCABULARY LIBRARY</h1><div class="subtitle">All words from the article library</div></header>
 <div id="content"></div>
 <script>
-const VOCAB = [{"word": "contemplated", "definition": "thought about carefully", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "impractical", "definition": "not suitable for everyday use", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "meticulous", "definition": "very careful and precise", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "ingenious", "definition": "clever and inventive", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "revolutionize", "definition": "completely change", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "endured", "definition": "lasted through time", "first_seen": "2026-06-11_191319", "title": "The Imperial Official Who Changed Writing Forever"}, {"word": "contemplate", "definition": "think deeply about", "first_seen": "2026-06-11_195325", "title": "One Teen's Vision to Clean the Oceans"}, {"word": "defied", "definition": "successfully resisted or challenged", "first_seen": "2026-06-11_195325", "title": "One Teen's Vision to Clean the Oceans"}, {"word": "prestigious", "definition": "highly respected and honored", "first_seen": "2026-06-11_195325", "title": "One Teen's Vision to Clean the Oceans"}, {"word": "monumental", "definition": "extremely important and large-scale", "first_seen": "2026-06-11_195325", "title": "One Teen's Vision to Clean the Oceans"}, {"word": "perseverance", "definition": "continued effort despite difficulties", "first_seen": "2026-06-11_195325", "title": "One Teen's Vision to Clean the Oceans"}, {"word": "devise", "definition": "come up with or invent", "first_seen": "2026-06-11_200525", "title": "The Movie Star Who Invented Modern Wireless"}, {"word": "spectacular", "definition": "impressive and dramatic", "first_seen": "2026-06-11_200525", "title": "The Movie Star Who Invented Modern Wireless"}, {"word": "dismissed", "definition": "rejected or ignored", "first_seen": "2026-06-11_200525", "title": "The Movie Star Who Invented Modern Wireless"}, {"word": "implemented", "definition": "put into use", "first_seen": "2026-06-11_200525", "title": "The Movie Star Who Invented Modern Wireless"}, {"word": "foundation", "definition": "basic underlying structure", "first_seen": "2026-06-11_200525", "title": "The Movie Star Who Invented Modern Wireless"}, {"word": "contemplating", "definition": "thinking deeply about", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "scrutinized", "definition": "examined very closely", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "accumulated", "definition": "gathered over time", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "inaccessible", "definition": "unable to be reached or understood", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "defiant", "definition": "boldly resisting", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "premature", "definition": "happening too early", "first_seen": "2026-06-11_201311", "title": "The Lamp That Explained the Moon"}, {"word": "verified", "definition": "confirmed to be accurate", "first_seen": "2026-06-11_201402", "title": "The Mathematics Behind the Moon Landing"}, {"word": "exceptional", "definition": "unusually outstanding", "first_seen": "2026-06-11_201402", "title": "The Mathematics Behind the Moon Landing"}, {"word": "trajectory", "definition": "curved path", "first_seen": "2026-06-11_201402", "title": "The Mathematics Behind the Moon Landing"}, {"word": "precision", "definition": "exactness", "first_seen": "2026-06-11_201402", "title": "The Mathematics Behind the Moon Landing"}, {"word": "crucial", "definition": "extremely important", "first_seen": "2026-06-11_201402", "title": "The Mathematics Behind the Moon Landing"}, {"word": "dispute", "definition": "disagreement", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "arbitrary", "definition": "based on random choice rather than reason", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "audacious", "definition": "bold and daring", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "adhered", "definition": "stuck to", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "respective", "definition": "belonging to each separately", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "presumption", "definition": "the act of assuming something without proof", "first_seen": "2026-06-12_152943", "title": "Drawing a Line Through the New World"}, {"word": "colossal", "definition": "extremely large", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "formidable", "definition": "difficult to overcome", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "primitive", "definition": "simple and old-fashioned", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "endure", "definition": "survive or tolerate", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "remote", "definition": "far away and isolated", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "profound", "definition": "deep and significant", "first_seen": "2026-06-12_160034", "title": "Earth's Deepest Abyss: The Mariana Trench"}, {"word": "descended", "definition": "went down", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "throngs", "definition": "large crowds", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "traversed", "definition": "traveled through", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "corroding", "definition": "gradually destroying", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "agonizing", "definition": "extremely difficult", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "tethered", "definition": "connected", "first_seen": "2026-06-12_160815", "title": "A Dog, A Hole, and 17,000 Years"}, {"word": "optimism", "definition": "positive outlook for the future", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "precarious", "definition": "dangerously uncertain", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "unprecedented", "definition": "never experienced before", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "improvise", "definition": "create solutions without planning", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "catastrophic", "definition": "causing complete disaster", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "harrowing", "definition": "extremely distressing", "first_seen": "2026-06-12_161018", "title": "Apollo 13: When Disaster Struck in Space"}, {"word": "unfurls", "definition": "spreads open", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "fragile", "definition": "easily broken or damaged", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "sanctuary", "definition": "safe place of protection", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "immense", "definition": "extremely large", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "segment", "definition": "separate section or part", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "diminutive", "definition": "very small", "first_seen": "2026-06-12_161142", "title": "The Monarch's Multi-Generational Marathon to Mexico"}, {"word": "intact", "definition": "whole and undamaged", "first_seen": "2026-06-12_161400", "title": "Why Pompeii Matters More Than Any Other Ruin"}, {"word": "extraordinary", "definition": "remarkable and unusual", "first_seen": "2026-06-12_161400", "title": "Why Pompeii Matters More Than Any Other Ruin"}, {"word": "vivid", "definition": "producing clear and powerful images", "first_seen": "2026-06-12_161400", "title": "Why Pompeii Matters More Than Any Other Ruin"}, {"word": "countless", "definition": "too many to count", "first_seen": "2026-06-12_161400", "title": "Why Pompeii Matters More Than Any Other Ruin"}, {"word": "scrutinize", "definition": "examine very closely", "first_seen": "2026-06-12_161506", "title": "The Secret Puzzles That Saved Millions"}, {"word": "tedious", "definition": "boring and repetitive", "first_seen": "2026-06-12_161506", "title": "The Secret Puzzles That Saved Millions"}, {"word": "defy", "definition": "resist or challenge successfully", "first_seen": "2026-06-12_161506", "title": "The Secret Puzzles That Saved Millions"}, {"word": "compelled", "definition": "forced", "first_seen": "2026-06-12_161506", "title": "The Secret Puzzles That Saved Millions"}, {"word": "conceal", "definition": "hide or keep secret", "first_seen": "2026-06-12_161506", "title": "The Secret Puzzles That Saved Millions"}];
-const content = document.getElementById('content');
-if (VOCAB.length === 0) {
-    content.innerHTML = '<div class="empty-state"><p>No words yet. Complete some readings first.</p></div>';
-} else {
-    let html = '<div class="stats"><strong>' + VOCAB.length + '</strong> words collected from daily readings</div>';
-    VOCAB.sort((a, b) => a.word.localeCompare(b.word));
-    VOCAB.forEach(v => {
-        html += '<div class="vocab-card">' +
-            '<div class="vocab-word">' + v.word + '</div>' +
-            '<div class="vocab-def">' + v.definition + '</div>' +
-            (v.title ? '<div class="vocab-source">From: ' + v.title + '</div>' : '') +
-            '</div>';
-    });
-    content.innerHTML = html;
+async function load() {
+    try {
+        const res = await fetch('articles.json?v=' + Date.now());
+        const data = await res.json();
+        const articles = data.articles || [];
+        const wordMap = {};
+        articles.forEach(a => {
+            (a.vocab || []).forEach(v => {
+                if (!wordMap[v.word]) {
+                    wordMap[v.word] = { word: v.word, definition: v.definition, source: a.title };
+                }
+            });
+        });
+        const VOCAB = Object.values(wordMap);
+        const content = document.getElementById('content');
+        if (VOCAB.length === 0) {
+            content.innerHTML = '<div class="empty-state"><p>No vocabulary yet. Generate articles first.</p></div>';
+            return;
+        }
+        VOCAB.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+        let html = '<div class="stats"><strong>' + VOCAB.length + '</strong> unique words across ' + articles.length + ' articles</div>';
+        VOCAB.forEach(v => {
+            html += '<div class="vocab-card"><div class="vocab-word">' + v.word + '</div>' +
+                '<div class="vocab-def">' + v.definition + '</div>' +
+                '<div class="vocab-source">From: ' + v.source + '</div></div>';
+        });
+        content.innerHTML = html;
+    } catch (err) {
+        document.getElementById('content').innerHTML = '<div class="empty-state"><p>Error loading vocabulary.</p></div>';
+    }
 }
+load();
 </script>
 </body>
 </html>

@@ -7,13 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 * { box-sizing: border-box; }
-body {
-    font-family: "Georgia", serif;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 24px 20px 60px;
-    background: #fafaf7;
-}
+body { font-family: "Georgia", serif; max-width: 860px; margin: 0 auto; padding: 24px 20px 60px; background: #fafaf7; }
 header { border-bottom: 3px double #333; padding-bottom: 16px; margin-bottom: 28px; }
 h1 { font-size: 24px; margin: 0 0 6px; }
 h2 { font-size: 18px; margin: 32px 0 16px; padding-left: 12px; border-left: 4px solid #1a4d8f; }
@@ -38,17 +32,14 @@ button.danger { background: #c62828; }
 </head>
 <body>
 <a href="index.html" class="back-link">← Back to Reading</a>
-<header>
-    <h1>READING PROGRESS</h1>
-    <div class="subtitle">Daily reading practice history</div>
-</header>
+<header><h1>READING PROGRESS</h1><div class="subtitle">Practice history</div></header>
 <div id="content"></div>
 <script>
 function render() {
     const sessions = JSON.parse(localStorage.getItem('reading_sessions') || '[]');
     const content = document.getElementById('content');
     if (sessions.length === 0) {
-        content.innerHTML = '<div class="empty-state"><h2 style="border:none;padding:0;">📊 No sessions yet</h2><p>Complete a reading session to start tracking progress.</p></div>';
+        content.innerHTML = '<div class="empty-state"><h2 style="border:none;padding:0;">📊 No sessions yet</h2><p>Complete a reading to start tracking.</p></div>';
         return;
     }
     const totalQ = sessions.reduce((s, x) => s + x.total, 0);
@@ -77,36 +68,19 @@ function render() {
         const time = new Date(s.timestamp).toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
         const dur = Math.floor(s.duration_sec/60) + 'm' + (s.duration_sec%60) + 's';
         const accColor = s.accuracy >= 80 ? '#27ae60' : (s.accuracy >= 60 ? '#f57c00' : '#c62828');
-        html += '<tr>' +
-            '<td>' + s.date + '<br><span style="color:#999;font-size:10px;">' + time + '</span></td>' +
-            '<td>' + (s.title || '-') + '</td>' +
-            '<td>' + (s.genre || '-') + '</td>' +
+        html += '<tr><td>' + s.date + '<br><span style="color:#999;font-size:10px;">' + time + '</span></td>' +
+            '<td>' + (s.title || '-') + '</td><td>' + (s.genre || '-') + '</td>' +
             '<td>' + s.correct + '/' + s.total + '</td>' +
             '<td style="color:' + accColor + ';font-weight:bold;">' + s.accuracy + '%</td>' +
-            '<td>' + dur + '</td>' +
-            '</tr>';
+            '<td>' + dur + '</td></tr>';
     });
     html += '</tbody></table><div class="clear-section"><button class="danger" onclick="if(confirm(\'Clear all?\')){localStorage.removeItem(\'reading_sessions\');render();}">Clear All History</button></div>';
     content.innerHTML = html;
-
     const ctx = document.getElementById('acc-chart');
     new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: sessions.map(s => s.date),
-            datasets: [{
-                label: 'Accuracy',
-                data: sessions.map(s => s.accuracy),
-                borderColor: '#1a4d8f',
-                backgroundColor: 'rgba(26,77,143,0.1)',
-                borderWidth: 2.5, pointRadius: 5, tension: 0.3, fill: true
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } }
-        }
+        data: { labels: sessions.map(s => s.date), datasets: [{ label: 'Accuracy', data: sessions.map(s => s.accuracy), borderColor: '#1a4d8f', backgroundColor: 'rgba(26,77,143,0.1)', borderWidth: 2.5, pointRadius: 5, tension: 0.3, fill: true }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } } }
     });
 }
 render();

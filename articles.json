@@ -1,0 +1,309 @@
+{
+  "generated_at": "2026-06-15T11:08:03.551685",
+  "total": 3,
+  "articles": [
+    {
+      "id": "article_20260615_110846_779450",
+      "topic_id": "n11",
+      "topic_title": "Pando: one tree, 47,000 trunks, 80,000 years old",
+      "category": "Nature",
+      "is_china": false,
+      "is_challenge": true,
+      "genre": "Argumentative",
+      "length": "Long",
+      "q5_type": "organization",
+      "title": "Why Pando Deserves Our Protection Now",
+      "passage_html": "A forest of slender white trunks stretches across 106 acres of Utah mountainside, their leaves rustling in unison like a single breath. Yet what appears to be thousands of separate trees is actually one <span class=\"vocab\" data-def=\"extremely large\">colossal</span> organism—a quaking aspen colony named Pando. This ancient giant deserves immediate protection because it represents an irreplaceable living treasure that is now in serious danger.\n\nPando merits protection first because of its extraordinary scientific value. Scientists estimate this organism has survived for roughly 80,000 years, making it one of Earth's oldest living things. While each visible trunk lives only 100 to 150 years before dying, the underground root system—weighing approximately 13 million pounds—continuously sends up replacement shoots. The 47,000 trunks standing today are all genetically identical clones sharing that single root network. In 2006, the United States Forest Service recognized Pando as the world's largest living organism by mass, weighing about 6,615 tons. No laboratory can recreate this <span class=\"vocab\" data-def=\"having many complex parts\">intricate</span> system that has adapted and survived through ice ages, droughts, and countless environmental changes.\n\nSecond, Pando faces a <span class=\"vocab\" data-def=\"extremely serious\">dire</span> threat that humans can address. Since the 1980s, researchers have observed that new young trees have stopped growing in most areas of the colony. The culprit? Mule deer and cattle graze on tender new shoots before they can <span class=\"vocab\" data-def=\"become fully grown\">mature</span>. Without young trees replacing the dying trunks, Pando's 80,000-year story could end within our lifetime. Unlike ancient threats such as climate shifts, this problem has a clear solution: controlling animal populations through fencing or managed grazing. We possess both the knowledge and tools to intervene.\n\nThe Latin word \"pando\" means \"I spread,\" a name researcher Burton V. Barnes gave this colony in the 1970s. Yet today, Pando cannot spread at all. When we <span class=\"vocab\" data-def=\"fail to care for\">neglect</span> to protect such a rare living connection to Earth's deep past, we lose more than trees. We lose a witness to 80,000 years of planetary history—a loss no future generation could ever recover.",
+      "passage_raw": "A forest of slender white trunks stretches across 106 acres of Utah mountainside, their leaves rustling in unison like a single breath. Yet what appears to be thousands of separate trees is actually one <vocab>colossal|extremely large</vocab> organism—a quaking aspen colony named Pando. This ancient giant deserves immediate protection because it represents an irreplaceable living treasure that is now in serious danger.\n\nPando merits protection first because of its extraordinary scientific value. Scientists estimate this organism has survived for roughly 80,000 years, making it one of Earth's oldest living things. While each visible trunk lives only 100 to 150 years before dying, the underground root system—weighing approximately 13 million pounds—continuously sends up replacement shoots. The 47,000 trunks standing today are all genetically identical clones sharing that single root network. In 2006, the United States Forest Service recognized Pando as the world's largest living organism by mass, weighing about 6,615 tons. No laboratory can recreate this <vocab>intricate|having many complex parts</vocab> system that has adapted and survived through ice ages, droughts, and countless environmental changes.\n\nSecond, Pando faces a <vocab>dire|extremely serious</vocab> threat that humans can address. Since the 1980s, researchers have observed that new young trees have stopped growing in most areas of the colony. The culprit? Mule deer and cattle graze on tender new shoots before they can <vocab>mature|become fully grown</vocab>. Without young trees replacing the dying trunks, Pando's 80,000-year story could end within our lifetime. Unlike ancient threats such as climate shifts, this problem has a clear solution: controlling animal populations through fencing or managed grazing. We possess both the knowledge and tools to intervene.\n\nThe Latin word \"pando\" means \"I spread,\" a name researcher Burton V. Barnes gave this colony in the 1970s. Yet today, Pando cannot spread at all. When we <vocab>neglect|fail to care for</vocab> to protect such a rare living connection to Earth's deep past, we lose more than trees. We lose a witness to 80,000 years of planetary history—a loss no future generation could ever recover.",
+      "vocab": [
+        {
+          "word": "colossal",
+          "definition": "extremely large"
+        },
+        {
+          "word": "intricate",
+          "definition": "having many complex parts"
+        },
+        {
+          "word": "dire",
+          "definition": "extremely serious"
+        },
+        {
+          "word": "mature",
+          "definition": "become fully grown"
+        },
+        {
+          "word": "neglect",
+          "definition": "fail to care for"
+        }
+      ],
+      "questions": [
+        {
+          "type": "main_idea",
+          "stem": "Which sentence best states the central idea of the passage?",
+          "options": [
+            "Pando is a unique and ancient organism that requires immediate human protection because of its scientific importance and current vulnerability.",
+            "Pando is the world's oldest tree, having survived for more than 80,000 years in the mountains of Utah.",
+            "Scientists have studied Pando since the 1970s and discovered that it weighs more than any other living thing on Earth.",
+            "Mule deer and cattle are destroying forests across the United States by eating young trees before they can grow."
+          ],
+          "correct_index": 0,
+          "explanation": "The passage argues that Pando deserves protection, supporting this claim with reasons about its scientific value and the threats it faces—this is the central argumentative point throughout."
+        },
+        {
+          "type": "detail",
+          "stem": "The author mentions the age of individual trunks in order to",
+          "options": [
+            "prove that Pando is not actually as old as scientists claim it is.",
+            "explain how Pando's root system allows the organism to survive far longer than any single trunk.",
+            "show that quaking aspen trees live longer than most other tree species.",
+            "argue that counting tree rings is an unreliable method for determining age."
+          ],
+          "correct_index": 1,
+          "explanation": "The passage states trunks live 100-150 years while the root system sends up replacements, explaining how the organism survives 80,000 years despite short trunk lifespans."
+        },
+        {
+          "type": "inference",
+          "stem": "The passage suggests that protecting Pando is different from protecting other endangered species because",
+          "options": [
+            "Pando lives in a national forest where hunting is already illegal.",
+            "scientists disagree about whether Pando is truly a single organism.",
+            "the threat to Pando comes from a problem humans can directly control rather than complex climate factors.",
+            "Pando has already survived for so long that it will likely recover without human intervention."
+          ],
+          "correct_index": 2,
+          "explanation": "The passage emphasizes that unlike ancient threats like climate shifts, the grazing problem has a clear solution humans can implement with fencing or managed grazing."
+        },
+        {
+          "type": "vocab_in_context",
+          "stem": "In the passage, the word \"dire\" most nearly means",
+          "options": [
+            "confusing",
+            "expensive",
+            "distant",
+            "urgent"
+          ],
+          "correct_index": 3,
+          "explanation": "The passage uses 'dire threat' to describe the serious danger Pando faces, where 'urgent' captures the extremely serious nature requiring immediate attention."
+        },
+        {
+          "type": "organization",
+          "stem": "Which best describes how the passage is organized?",
+          "options": [
+            "The author states a claim, then provides two distinct reasons supporting that claim with evidence.",
+            "The author describes Pando's discovery in chronological order from the 1970s to 2006.",
+            "The author compares Pando to other ancient organisms to show which is most important.",
+            "The author presents a scientific mystery, then explains how researchers solved it."
+          ],
+          "correct_index": 0,
+          "explanation": "The passage follows an argumentative structure: opening claim that Pando deserves protection, followed by two supporting reasons (scientific value and addressable threat) backed by facts."
+        }
+      ]
+    },
+    {
+      "id": "article_20260615_110924_263171",
+      "topic_id": "a01",
+      "topic_title": "Shackleton's Endurance: 28 men in Antarctica",
+      "category": "Adventure",
+      "is_china": false,
+      "is_challenge": false,
+      "genre": "Informational",
+      "length": "Short",
+      "q5_type": "tone",
+      "title": "Survival Against All Odds in Antarctica",
+      "passage_html": "Ice surrounded the Endurance on January 18, 1915, locking Ernest Shackleton's ship in a frozen <span class=\"vocab\" data-def=\"a tight grip\">vise</span> that would not release. The wooden vessel, carrying 28 men toward Antarctica, had departed South Georgia Island just six weeks earlier with dreams of crossing the frozen continent. Now those dreams lay crushed beneath the relentless pressure of pack ice in the Weddell Sea.\n\nFor ten months, the Endurance drifted helplessly until the grinding ice finally <span class=\"vocab\" data-def=\"completely destroyed\">obliterated</span> the ship on November 21, 1915. The crew established camp on floating ice, their temporary home rising and falling with the ocean swells beneath them. When the ice fractured in April 1916, Shackleton ordered his men into three small lifeboats. They rowed and sailed for seven days across open water, finally reaching the <span class=\"vocab\" data-def=\"empty and lifeless\">desolate</span> shore of Elephant Island.\n\nShackleton refused to accept this <span class=\"vocab\" data-def=\"dangerously uncertain\">precarious</span> situation. On April 24, he embarked on an 800-mile journey across the Southern Ocean in the 22-foot James Caird with five volunteers. After sixteen days battling towering waves, they landed on South Georgia Island—but on the wrong side. Shackleton and two companions then <span class=\"vocab\" data-def=\"traveled across\">traversed</span> 32 miles of unmapped mountains to reach help.\n\nFour rescue attempts failed before Shackleton finally retrieved his stranded crew on August 30, 1916. Remarkably, after 634 days of <span class=\"vocab\" data-def=\"never-ending\">unrelenting</span> hardship, all 28 men survived—a testament to determination when defeat seemed certain.",
+      "passage_raw": "Ice surrounded the Endurance on January 18, 1915, locking Ernest Shackleton's ship in a frozen <vocab>vise|a tight grip</vocab> that would not release. The wooden vessel, carrying 28 men toward Antarctica, had departed South Georgia Island just six weeks earlier with dreams of crossing the frozen continent. Now those dreams lay crushed beneath the relentless pressure of pack ice in the Weddell Sea.\n\nFor ten months, the Endurance drifted helplessly until the grinding ice finally <vocab>obliterated|completely destroyed</vocab> the ship on November 21, 1915. The crew established camp on floating ice, their temporary home rising and falling with the ocean swells beneath them. When the ice fractured in April 1916, Shackleton ordered his men into three small lifeboats. They rowed and sailed for seven days across open water, finally reaching the <vocab>desolate|empty and lifeless</vocab> shore of Elephant Island.\n\nShackleton refused to accept this <vocab>precarious|dangerously uncertain</vocab> situation. On April 24, he embarked on an 800-mile journey across the Southern Ocean in the 22-foot James Caird with five volunteers. After sixteen days battling towering waves, they landed on South Georgia Island—but on the wrong side. Shackleton and two companions then <vocab>traversed|traveled across</vocab> 32 miles of unmapped mountains to reach help.\n\nFour rescue attempts failed before Shackleton finally retrieved his stranded crew on August 30, 1916. Remarkably, after 634 days of <vocab>unrelenting|never-ending</vocab> hardship, all 28 men survived—a testament to determination when defeat seemed certain.",
+      "vocab": [
+        {
+          "word": "vise",
+          "definition": "a tight grip"
+        },
+        {
+          "word": "obliterated",
+          "definition": "completely destroyed"
+        },
+        {
+          "word": "desolate",
+          "definition": "empty and lifeless"
+        },
+        {
+          "word": "precarious",
+          "definition": "dangerously uncertain"
+        },
+        {
+          "word": "traversed",
+          "definition": "traveled across"
+        },
+        {
+          "word": "unrelenting",
+          "definition": "never-ending"
+        }
+      ],
+      "questions": [
+        {
+          "type": "main_idea",
+          "stem": "Which sentence best states the central idea of the passage?",
+          "options": [
+            "Ernest Shackleton's leadership and determination enabled all 28 crew members to survive nearly two years stranded in Antarctica.",
+            "The Endurance expedition aimed to cross Antarctica but the ship became trapped in ice.",
+            "Shackleton sailed 800 miles across the Southern Ocean to reach South Georgia Island.",
+            "Antarctic exploration in the early 1900s required wooden ships and small lifeboats."
+          ],
+          "correct_index": 0,
+          "explanation": "The passage focuses on the survival story and Shackleton's role in ensuring all crew members survived, making option A the central idea. Option B is partially true but omits the survival focus, option C is a detail, and option D uses passage words but misses the main point."
+        },
+        {
+          "type": "detail",
+          "stem": "The author mentions the 32-mile mountain crossing in order to...",
+          "options": [
+            "explain why South Georgia Island was difficult to map accurately",
+            "illustrate the additional obstacles Shackleton faced even after reaching land",
+            "compare the dangers of ocean travel with mountain climbing",
+            "describe the geography of islands in the Southern Ocean"
+          ],
+          "correct_index": 1,
+          "explanation": "The passage uses this detail to show that reaching South Georgia Island did not end their struggles—they landed on the wrong side and faced more challenges. Option A is not mentioned, option C makes an unsupported comparison, and option D misses the purpose of the detail."
+        },
+        {
+          "type": "inference",
+          "stem": "The passage suggests that Shackleton's greatest achievement was...",
+          "options": [
+            "navigating 800 miles across the Southern Ocean in a small boat",
+            "designing a ship strong enough to withstand ice pressure for ten months",
+            "keeping his entire crew alive despite nearly two years of extreme danger",
+            "being the first explorer to reach Elephant Island in Antarctica"
+          ],
+          "correct_index": 2,
+          "explanation": "The passage emphasizes that 'all 28 men survived' and calls this 'remarkable,' suggesting this complete survival was the greatest achievement. Option A is impressive but just one part, option B incorrectly credits ship design, and option D is not stated."
+        },
+        {
+          "type": "vocab_in_context",
+          "stem": "In the passage, the word 'obliterated' most nearly means...",
+          "options": [
+            "trapped",
+            "moved",
+            "weakened",
+            "destroyed"
+          ],
+          "correct_index": 3,
+          "explanation": "The context describes ice crushing and sinking the ship, which means destroyed. Option A describes what happened earlier, option B is too mild, and option C suggests partial damage rather than complete destruction."
+        },
+        {
+          "type": "tone",
+          "stem": "The author's attitude toward Shackleton's leadership can best be described as...",
+          "options": [
+            "admiring",
+            "skeptical",
+            "neutral",
+            "critical"
+          ],
+          "correct_index": 0,
+          "explanation": "Words like 'remarkably' and 'testament to determination' reveal the author's admiration for Shackleton's achievement. The passage is not skeptical, not purely neutral given the positive language, and not critical of his decisions."
+        }
+      ]
+    },
+    {
+      "id": "article_20260615_111007_362454",
+      "topic_id": "c05",
+      "topic_title": "Day of the Dead: a Mexican celebration of remembered love",
+      "category": "Culture",
+      "is_china": false,
+      "is_challenge": false,
+      "genre": "Narrative Nonfiction",
+      "length": "Short",
+      "q5_type": "advanced_detail",
+      "title": "When Monarch Butterflies Carry Spirits Home",
+      "passage_html": "On the morning of November 1st, María's grandmother places a small photograph on the altar—her brother, who died when he was just eight years old. Around his picture, she arranges marigolds, their bright orange petals releasing a sharp, almost spicy scent. This is Día de los Muertos, the Day of the Dead, when families across Mexico believe the spirits of loved ones return for a brief visit.\n\nThis <span class=\"vocab\" data-def=\"very old\">ancient</span> tradition stretches back approximately 3,000 years to the Aztec people, who honored Mictecacihuatl, the Lady of the Dead, with month-long celebrations. Today, families build ofrendas—altars that include four essential elements. Water quenches the spirits' thirst after their long journey. Candles represent fire. Food symbolizes earth. Papel picado, delicate perforated paper banners that flutter in the <span class=\"vocab\" data-def=\"smallest\">slightest</span> breeze, represents wind.\n\nThe turning point arrives when María spots the first monarch butterfly landing on the marigolds. Millions of these butterflies reach central Mexico from the United States and Canada in late October, their arrival perfectly <span class=\"vocab\" data-def=\"scheduled\">timed</span> with the celebration. Families believe the butterflies carry the spirits home.\n\nMeanwhile, bakeries across Mexico produce an estimated 150 million pieces of pan de muerto, sweet bread decorated with bone-shaped pieces. Sugar skulls called calaveras de azúcar bear the names of the departed written in icing across their foreheads. In 2008, UNESCO <span class=\"vocab\" data-def=\"officially acknowledged\">recognized</span> this celebration's <span class=\"vocab\" data-def=\"deep and meaningful\">profound</span> cultural importance, adding it to its list of <span class=\"vocab\" data-def=\"traditions passed down through generations\">heritage</span> worth protecting.\n\nDay of the Dead transforms grief into celebration, reminding us that love transcends even death itself.",
+      "passage_raw": "On the morning of November 1st, María's grandmother places a small photograph on the altar—her brother, who died when he was just eight years old. Around his picture, she arranges marigolds, their bright orange petals releasing a sharp, almost spicy scent. This is Día de los Muertos, the Day of the Dead, when families across Mexico believe the spirits of loved ones return for a brief visit.\n\nThis <vocab>ancient|very old</vocab> tradition stretches back approximately 3,000 years to the Aztec people, who honored Mictecacihuatl, the Lady of the Dead, with month-long celebrations. Today, families build ofrendas—altars that include four essential elements. Water quenches the spirits' thirst after their long journey. Candles represent fire. Food symbolizes earth. Papel picado, delicate perforated paper banners that flutter in the <vocab>slightest|smallest</vocab> breeze, represents wind.\n\nThe turning point arrives when María spots the first monarch butterfly landing on the marigolds. Millions of these butterflies reach central Mexico from the United States and Canada in late October, their arrival perfectly <vocab>timed|scheduled</vocab> with the celebration. Families believe the butterflies carry the spirits home.\n\nMeanwhile, bakeries across Mexico produce an estimated 150 million pieces of pan de muerto, sweet bread decorated with bone-shaped pieces. Sugar skulls called calaveras de azúcar bear the names of the departed written in icing across their foreheads. In 2008, UNESCO <vocab>recognized|officially acknowledged</vocab> this celebration's <vocab>profound|deep and meaningful</vocab> cultural importance, adding it to its list of <vocab>heritage|traditions passed down through generations</vocab> worth protecting.\n\nDay of the Dead transforms grief into celebration, reminding us that love transcends even death itself.",
+      "vocab": [
+        {
+          "word": "ancient",
+          "definition": "very old"
+        },
+        {
+          "word": "slightest",
+          "definition": "smallest"
+        },
+        {
+          "word": "timed",
+          "definition": "scheduled"
+        },
+        {
+          "word": "recognized",
+          "definition": "officially acknowledged"
+        },
+        {
+          "word": "profound",
+          "definition": "deep and meaningful"
+        },
+        {
+          "word": "heritage",
+          "definition": "traditions passed down through generations"
+        }
+      ],
+      "questions": [
+        {
+          "type": "main_idea",
+          "stem": "Which sentence best states the central idea of the passage?",
+          "options": [
+            "Day of the Dead is a Mexican tradition rooted in ancient culture where families honor deceased loved ones through altars, symbols, and the belief that spirits return home.",
+            "Monarch butterflies migrate to Mexico each October carrying the spirits of people who have died.",
+            "The Aztec people created Day of the Dead 3,000 years ago to honor the goddess Mictecacihuatl.",
+            "Mexican families build altars with four elements and eat special bread during November celebrations."
+          ],
+          "correct_index": 0,
+          "explanation": "The passage describes the tradition's history, practices, and meaning, making option A the most complete central idea. Options B and C focus on single details, while D lists practices without explaining the celebration's purpose."
+        },
+        {
+          "type": "detail",
+          "stem": "The author mentions the four elements of the ofrenda in order to...",
+          "options": [
+            "explain why water is the most important offering for spirits",
+            "demonstrate the symbolic and purposeful nature of the altar's construction",
+            "compare ancient Aztec beliefs with modern Mexican traditions",
+            "show that families must include all four elements or the spirits cannot return"
+          ],
+          "correct_index": 1,
+          "explanation": "The passage describes how each element serves a symbolic purpose (water for thirst, candles for fire, etc.), showing intentional meaning. Option A prioritizes one element incorrectly, C makes an unstated comparison, and D invents a requirement not mentioned."
+        },
+        {
+          "type": "inference",
+          "stem": "The passage suggests that the arrival of monarch butterflies in late October is considered...",
+          "options": [
+            "a scientific phenomenon unrelated to human traditions",
+            "proof that spirits actually exist in butterfly form",
+            "a meaningful coincidence that strengthens cultural beliefs",
+            "the primary reason UNESCO recognized the celebration"
+          ],
+          "correct_index": 2,
+          "explanation": "The passage notes the butterflies arrive 'perfectly timed' with the celebration and that families believe they carry spirits, suggesting the timing reinforces the tradition's significance. Options A and B misinterpret the cultural meaning, while D incorrectly identifies UNESCO's motivation."
+        },
+        {
+          "type": "vocab_in_context",
+          "stem": "In the passage, the word 'profound' most nearly means...",
+          "options": [
+            "difficult to understand",
+            "extremely confusing",
+            "deep and significant",
+            "religiously important"
+          ],
+          "correct_index": 2,
+          "explanation": "The passage uses 'profound' to describe the cultural importance that led UNESCO to protect the tradition, indicating deep significance. While option D is partially true, 'profound' means deep importance generally, not specifically religious."
+        },
+        {
+          "type": "advanced_detail",
+          "stem": "The author's description of cempasúchil marigolds emphasizes their...",
+          "options": [
+            "dual role as both visual decoration and spiritual guide through color and scent",
+            "importance as the only flower acceptable for Day of the Dead altars",
+            "connection to the ancient goddess Mictecacihuatl worshipped by the Aztecs",
+            "similarity to the orange color of monarch butterfly wings"
+          ],
+          "correct_index": 0,
+          "explanation": "The passage states marigolds' 'vibrant color and strong scent are believed to guide spirits,' highlighting both visual and olfactory guiding functions. Option B invents an exclusivity claim, C connects unrelated facts, and D makes an unstated comparison."
+        }
+      ]
+    }
+  ],
+  "last_updated": "2026-06-15T11:10:07.362531"
+}

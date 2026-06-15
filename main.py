@@ -1,3 +1,13 @@
+"""
+ISEE Reading Daily — Batch Generator
+Generates N articles at once, saves to articles.json, supports resume on interruption.
+
+Usage:
+  uv run main.py        → generate 50 articles (default)
+  uv run main.py 30     → generate 30 articles
+  uv run main.py reset  → clear articles.json and start over
+"""
+
 import os
 import json
 import random
@@ -9,85 +19,42 @@ from pathlib import Path
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
-# ============ 配置 ============
+# ============ Configuration ============
 load_dotenv()
 client = Anthropic()
 
 TOPICS_FILE = Path("topics.json")
-HISTORY_FILE = Path("topic_history.json")  # 已学主题记录
-DATA_DIR = Path("data")
-DATA_DIR.mkdir(exist_ok=True)
+ARTICLES_FILE = Path("articles.json")
 INDEX_FILE = Path("index.html")
 HISTORY_PAGE = Path("history.html")
 MISTAKES_FILE_HTML = Path("mistakes.html")
+
+DEFAULT_BATCH_SIZE = 50
 
 GENRES = [
     {
         "name": "narrative",
         "label": "Narrative Nonfiction",
-        "guidance": "Tell the story like a writer — use scenes, a sense of time passing, and a specific moment or turning point. Make the reader feel they are there."
+        "guidance": "Tell the story like a writer — use scenes, a sense of time passing, and a specific moment or turning point."
     },
     {
         "name": "informational",
         "label": "Informational",
-        "guidance": "Explain clearly with facts, examples, and structure. Use cause-and-effect, compare/contrast, or sequence. This is closest to ISEE Reading test passages."
+        "guidance": "Explain clearly with facts, examples, and structure. Use cause-and-effect, compare/contrast, or sequence."
     },
     {
         "name": "argumentative",
         "label": "Argumentative",
-        "guidance": "Present a clear position or claim, then support it with 2-3 specific reasons grounded in facts. Acknowledge an opposing view briefly."
+        "guidance": "Present a clear position or claim, then support it with 2-3 specific reasons grounded in facts."
     },
     {
         "name": "descriptive",
         "label": "Descriptive",
-        "guidance": "Use vivid sensory details (sight, sound, smell, texture, motion) to paint the topic. Bring it to life through specifics, not generalities."
+        "guidance": "Use vivid sensory details (sight, sound, smell, texture, motion) to paint the topic."
     },
 ]
 
-# ============ 命令行参数（可选）============
-# uv run main.py            → 随机长度
-# uv run main.py short      → 强制 short
-# uv run main.py long       → 强制 long
-length_arg = sys.argv[1].lower() if len(sys.argv) > 1 else None
-if length_arg not in (None, "short", "long"):
-    print(f"⚠️  Unknown argument: {length_arg}. Using random length.")
-    length_arg = None
-
-# ============ 主题选择（带去重）============
-def load_topics():
-    with open(TOPICS_FILE, encoding="utf-8") as f:
-        return json.load(f)["topics"]
-
-def load_topic_history():
-    if HISTORY_FILE.exists():
-        with open(HISTORY_FILE, encoding="utf-8") as f:
-            return json.load(f)
-    return {"used_topic_ids": [], "session_count": 0, "used_vocab": []}
-
-def get_recent_vocab(history, n=40):
-    """返回最近 n 个用过的词"""
-    return history.get("used_vocab", [])[-n:]
-
-def save_topic_history(h):
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(h, f, ensure_ascii=False, indent=2)
-
-def pick_topic(all_topics, history):
-    available = [t for t in all_topics if t["id"] not in history["used_topic_ids"]]
-    if not available:
-        print("📌 All 100 topics used! Resetting topic history.")
-        history["used_topic_ids"] = []
-        available = all_topics
-    return random.choice(available)
-
-topics = load_topics()
-history = load_topic_history()
-topic = pick_topic(topics, history)
-
-genre = random.choice(GENRES)
-
-# === Q5 题型随机选择（不让 AI 决定，避免偏向）===
-q5_type = random.choice(["organization", "tone", "advanced_detail"])
+Q5_TYPES = ["organization", "tone", "advanced_detail"]
 
 Q5_INSTRUCTIONS = {
     "organization": """Q5 (Organization): MUST use one of these formats:
@@ -100,56 +67,29 @@ Q5_INSTRUCTIONS = {
    - "describing events in chronological order"
    - "comparing two related events"
    - "stating a claim, then supporting it with examples"
-   - "introducing a person, then describing their key achievement"
-
-   The correct answer must accurately describe the passage's actual structure.""",
+   - "introducing a person, then describing their key achievement" """,
 
     "tone": """Q5 (Tone/Attitude): MUST use one of these formats:
    - "The author's attitude toward [X] can best be described as..."
    - "The tone of the passage is mainly..."
    - "Which word best describes how the author feels about [X]?"
 
-   Options MUST be specific tone adjectives. Choose 4 from this list:
+   Options MUST be specific tone adjectives. Choose 4 from:
    admiring, neutral, skeptical, informative, cautionary, reverent,
    sympathetic, critical, enthusiastic, contemplative, ironic,
-   curious, appreciative, concerned, matter-of-fact
+   curious, appreciative, concerned, matter-of-fact """,
 
-   The correct answer must be supported by specific word choices in the
-   passage. Distractors should be tones that ALMOST fit but miss the nuance.""",
-
-    "advanced_detail": """Q5 (Advanced Detail / Synthesis): MUST use one of these formats
-   (DIFFERENT from Q2's format):
+    "advanced_detail": """Q5 (Advanced Detail / Synthesis): MUST use one of these formats:
    - "Which statement best summarizes the relationship between X and Y?"
    - "The author's description of [thing] emphasizes its..."
    - "Which of the following BEST captures the significance of [X]?"
-
-   This question should require connecting multiple pieces of information
-   from across the passage, not just locating a single fact."""
+   Requires connecting multiple pieces of information across the passage."""
 }
 
-q5_instructions = Q5_INSTRUCTIONS[q5_type]
-q5_label = {"organization": "Organization", "tone": "Tone/Attitude", "advanced_detail": "Advanced Detail"}[q5_type]
 
-if length_arg == "short":
-    length_label, word_range = "Short", "200-250"
-elif length_arg == "long":
-    length_label, word_range = "Long", "350-450"
-else:
-    if random.random() < 0.5:
-        length_label, word_range = "Short", "200-250"
-    else:
-        length_label, word_range = "Long", "350-450"
-
-print(f"📚 Session #{history['session_count'] + 1}")
-print(f"📖 Topic: {topic['title']}")
-print(f"   Category: {topic['category']}{'  🇨🇳' if topic.get('china') else ''}{'  ⭐ Challenge' if topic['challenge'] else ''}")
-print(f"🎭 Genre: {genre['label']}")
-print(f"🎯 Q5 Type: {q5_label} (random)")
-print(f"📏 Length: {length_label} ({word_range} words)\n")
-
-# ============ JSON 解析工具（带重试，防 AI 偶发性输出错误）============
+# ============ Helpers ============
 def parse_ai_json(prompt, max_tokens=4096, max_retries=3, label=""):
-    """调用 Claude 并解析 JSON 响应，失败时自动重试"""
+    """Call Claude and parse JSON, with retries on failure."""
     last_error = None
     for attempt in range(max_retries):
         try:
@@ -159,7 +99,6 @@ def parse_ai_json(prompt, max_tokens=4096, max_retries=3, label=""):
                 messages=[{"role": "user", "content": prompt}]
             )
             text = response.content[0].text.strip()
-            # 清除可能的 markdown 代码块包装
             if text.startswith("```"):
                 text = text.split("```")[1]
                 if text.startswith("json"):
@@ -174,40 +113,67 @@ def parse_ai_json(prompt, max_tokens=4096, max_retries=3, label=""):
             continue
     raise RuntimeError(f"{label} failed after {max_retries} attempts. Last error: {last_error}")
 
-# ============ Step 1: Research (generate verifiable facts) ============
-print("🔍 Step 1/2: Researching verifiable facts...")
 
-research_prompt = f"""You are a meticulous research assistant. Provide 6-8 verifiable, specific facts about this topic, suitable as the factual basis for an educational reading passage for advanced 5th-6th grade students.
+def parse_vocab(passage):
+    """Extract <vocab>word|def</vocab> markers; return HTML-rendered passage and vocab list."""
+    pattern = r'<vocab>(.*?)\|(.*?)</vocab>'
+    matches = re.findall(pattern, passage)
+    vocab_list = [{"word": m[0].strip(), "definition": m[1].strip()} for m in matches]
+
+    def replace_func(match):
+        word, definition = match.group(1).strip(), match.group(2).strip()
+        safe_def = definition.replace('"', '&quot;')
+        return f'<span class="vocab" data-def="{safe_def}">{word}</span>'
+
+    html_passage = re.sub(pattern, replace_func, passage)
+    return html_passage, vocab_list
+
+
+def format_passage_html(passage_text):
+    """Wrap paragraphs in <p> tags."""
+    paragraphs = re.split(r'\n\n+', passage_text.strip())
+    if len(paragraphs) == 1:
+        paragraphs = re.split(r'\n', passage_text.strip())
+    return "\n".join(f"<p>{p.strip()}</p>" for p in paragraphs if p.strip())
+
+
+# ============ Core: Generate One Article ============
+def generate_one_article(topic, genre, length_label, word_range, q5_type, used_vocab_recent):
+    """Generate a single article (two-step) and return as dict."""
+
+    # === Step 1: Research ===
+    research_prompt = f"""You are a meticulous research assistant. Provide 6-8 verifiable, specific facts about this topic, suitable as the factual basis for an educational reading passage for advanced 5th-6th grade students.
 
 TOPIC: {topic['title']}
 
-REQUIREMENTS for each fact:
-- Must include at least one specific element: a name, date, place, number, quotation, or measurable detail
-- Avoid vague qualifiers ("many", "some", "often", "people believe")
-- Avoid invented quotations; only include quotations if they are widely documented
-- Each fact should be 1-2 sentences
+REQUIREMENTS:
+- Each fact must include specific elements: names, dates, places, numbers, or measurable details
+- Avoid vague qualifiers ("many", "some", "often")
+- Avoid invented quotations; only widely documented ones
+- Each fact: 1-2 sentences
 
-Output STRICT JSON only (no markdown, no commentary):
-
+Output STRICT JSON only:
 {{
-  "facts": [
-    "Specific fact 1 with names/dates/numbers.",
-    "Specific fact 2 with names/dates/numbers.",
-    "..."
-  ]
+  "facts": ["Fact 1 with specifics", "Fact 2 with specifics", "..."]
 }}
 
-Generate 6-8 facts. Be accurate. If you are uncertain about a specific detail, omit it rather than guess.
-"""
+Generate 6-8 facts. If uncertain about a detail, omit it."""
 
-research_result = parse_ai_json(research_prompt, max_tokens=2048, label="Step 1 (Research)")
-facts = research_result["facts"]
-print(f"   ✓ {len(facts)} facts gathered\n")
+    research_result = parse_ai_json(research_prompt, max_tokens=2048, label="Research")
+    facts = research_result["facts"]
 
-# ============ Step 2: Writing (based on facts) ============
-print("✍️  Step 2/2: Writing passage and questions...")
+    # === Step 2: Writing ===
+    q5_instructions = Q5_INSTRUCTIONS[q5_type]
 
-writing_prompt = f"""You are a senior editor at a publication like Newsela or National Geographic Kids, writing for advanced 10-11 year old readers (ISEE Lower Level preparation). Write ONE reading passage based ON THE PROVIDED FACTS, plus 5 comprehension questions.
+    avoid_vocab_text = ""
+    if used_vocab_recent:
+        avoid_vocab_text = f"""
+
+VOCABULARY EXCLUSION LIST (DO NOT use in <vocab> markers):
+{', '.join(used_vocab_recent)}
+Choose DIFFERENT challenging words."""
+
+    writing_prompt = f"""You are a senior editor at a publication like Newsela or National Geographic Kids, writing for advanced 10-11 year old readers (ISEE Lower Level preparation).
 
 ═══════════════════════════════════════
 TOPIC: {topic['title']}
@@ -216,248 +182,233 @@ GENRE GUIDANCE: {genre['guidance']}
 LENGTH TARGET: {word_range} words
 READING LEVEL: Lexile 1000-1100
 ═══════════════════════════════════════
-VOCABULARY EXCLUSION LIST (DO NOT use these words in your <vocab> markers):
-{', '.join(get_recent_vocab(history, 40)) if get_recent_vocab(history, 40) else '(none yet)'}
+{avoid_vocab_text}
 
-These words have been used in recent readings. Choose DIFFERENT challenging vocabulary.
-═══════════════════════════════════════
-
-VERIFIED FACTS TO USE (do not invent additional facts):
+VERIFIED FACTS:
 {json.dumps(facts, indent=2)}
 
 ═══════════════════════════════════════
-QUALITY REQUIREMENTS — strictly enforce all of these:
+QUALITY REQUIREMENTS — strict:
 
 1. STRUCTURE
-   - Open with a SPECIFIC, concrete hook (a moment, image, detail) — NOT "Have you ever wondered...", NOT "Long ago...", NOT a general statement
-   - End with a thought-provoking conclusion that resonates — NOT "In conclusion...", NOT "And that is why..."
-   - Logical flow appropriate to the genre
+   - Open with a SPECIFIC concrete hook (a moment, image, detail)
+   - End with a thought-provoking conclusion
+   - FORBIDDEN openings: "Have you ever wondered...", "Long ago...", "Once upon..."
+   - FORBIDDEN closings: "In conclusion...", "And that is why..."
 
 2. CONTENT
-   - Anchor every paragraph in at least one specific fact from the list above
-   - Include at least 3 concrete details: names, dates, numbers, places, measurements
-   - Include at least 2 sensory details (sound, sight, texture, motion)
-   - For narrative: include a "turning point" or moment of change
-   - For argumentative: present a clear claim and 2 supporting reasons
-   - For descriptive: use varied sensory language
-   - For informational: use clear structure (cause-effect, compare, sequence)
+   - Anchor every paragraph in at least one fact above
+   - Include 3+ concrete details: names, dates, numbers, places
+   - Include 2+ sensory details (sight, sound, motion)
+   - For narrative: include a turning point
+   - For argumentative: claim + 2 supporting reasons
+   - For descriptive: vivid sensory language
+   - For informational: clear structure
 
 3. STYLE
-   - Vary sentence length (mix short punch with longer flowing sentences)
-   - Use precise verbs (not "did", "made", "got") — use "discovered", "constructed", "earned"
+   - Vary sentence length
+   - Use precise verbs (not "did", "made", "got")
    - Avoid filler ("very", "really", "a lot of")
-   - Show, don't tell — concrete images over abstract claims
+   - Show, don't tell
 
 4. VOCABULARY EMBEDDING (CRITICAL)
-   - Naturally include 5-7 challenging vocabulary words at ISEE Lower Level
-   - These should be words like: perilous, ingenious, eloquent, defy, eventually, prevail, tedious, persevere, monumental, conceal, contemplate, scrutinize, etc.
-   - Mark each in the passage with this exact format: <vocab>WORD|simple English definition</vocab>
+   - Include 5-7 challenging vocabulary words at ISEE Lower Level
+   - Mark with: <vocab>WORD|simple English definition</vocab>
    - Example: "The team faced <vocab>perilous|extremely dangerous</vocab> weather."
-   - Use 5-7 markers, no more, no less
-   - Choose words that are CHALLENGING but readable in context
+   - 5-7 markers, no more, no less
 
 5. FORBIDDEN
-   - "Once upon a time", "Long ago", "Have you ever", "In a world where"
-   - "In conclusion", "To sum up", "All in all", "And that is the story of"
-   - Vague qualifiers: "many", "some", "often", "people thought"
-   - Climate change mentions unless directly relevant to topic
-   - Made-up quotations or invented details not in the facts above
+   - Forbidden phrases listed above
+   - Vague qualifiers ("many", "some", "often")
+   - Made-up quotations not in the facts
 
 ═══════════════════════════════════════
-QUESTION DESIGN — 5 questions in this fixed order:
+QUESTIONS — 5 multiple choice:
 
 Q1 (Main Idea): One of:
    - "Which sentence best states the central idea of the passage?"
    - "The primary purpose of this passage is to..."
    - "Which would be the BEST title for this passage?"
 
-Q2 (Detail - High Rigor): MUST use one of these formats (NOT simple fact lookup):
+Q2 (Detail - High Rigor): MUST use one of:
    - "Which detail from the passage BEST supports the idea that..."
-   - "The author mentions [specific thing] in order to..."
+   - "The author mentions [X] in order to..."
    - "Which of the following is NOT mentioned in the passage as..."
-   - "According to the passage, which is true about..." (with subtle distractors)
-   AVOID: "What year did X happen?" or "Where was X born?"
+   - "According to the passage, which is true about..."
+   AVOID simple lookup like "What year did X happen?"
 
-Q3 (Inference): "The passage suggests that..." or "We can conclude from the passage that..." — requires reading between lines, not stated directly.
+Q3 (Inference): "The passage suggests that..." or "We can conclude that..."
 
-Q4 (Vocabulary in Context): "In the passage, the word \\"___\\" most nearly means..." — choose a word from your <vocab> markers.
+Q4 (Vocabulary in Context): "In the passage, the word \\"___\\" most nearly means..."
 
 {q5_instructions}
 
 For each question:
 - 4 options
 - Exactly 1 correct
-- 3 plausible distractors that follow these RIGOR rules:
-  * Distractor type A: TRUE in real world but NOT stated in the passage (forces close reading)
-  * Distractor type B: PARTIALLY true (correct premise, wrong conclusion or scope)
-  * Distractor type C: USES words from passage but rearranges meaning incorrectly
-- Each question MUST include at least 2 of the 3 distractor types above
-- AVOID distractors that are obviously absurd or unrelated to the topic
-- Correct answer should require synthesis, not just word-matching to the passage
-- Include a 1-sentence explanation of why the correct answer is right (and key wrong answers are wrong)
-- VARY correct answer position across the 5 questions (do NOT cluster at any single index)
-- Reading level for distractors should match passage difficulty (not simpler)
+- 3 plausible distractors following these RIGOR rules:
+  * Type A: TRUE in real world but NOT stated in passage
+  * Type B: PARTIALLY true (correct premise, wrong conclusion/scope)
+  * Type C: USES passage words but rearranges meaning
+- Each question MUST include at least 2 of the 3 distractor types
+- VARY correct answer positions across the 5 questions
+- Include 1-sentence explanation
 
 ═══════════════════════════════════════
-OUTPUT FORMAT — STRICT JSON, no markdown wrappers, no commentary:
+OUTPUT FORMAT — STRICT JSON, no markdown wrappers:
 
 {{
-  "title": "Engaging title (5-8 words)",
-  "passage": "Full passage text with <vocab>WORD|definition</vocab> markers embedded inline.",
+  "title": "Engaging 5-8 word title",
+  "passage": "Passage with <vocab>WORD|def</vocab> markers inline.",
   "questions": [
-    {{
-      "type": "main_idea",
-      "stem": "...",
-      "options": ["...", "...", "...", "..."],
-      "correct_index": 0,
-      "explanation": "..."
-    }},
-    {{
-      "type": "detail",
-      "stem": "...",
-      "options": ["...", "...", "...", "..."],
-      "correct_index": 1,
-      "explanation": "..."
-    }},
-    {{
-      "type": "detail",
-      "stem": "...",
-      "options": ["...", "...", "...", "..."],
-      "correct_index": 2,
-      "explanation": "..."
-    }},
-    {{
-      "type": "inference",
-      "stem": "...",
-      "options": ["...", "...", "...", "..."],
-      "correct_index": 3,
-      "explanation": "..."
-    }},
-    {{
-      "type": "vocab_in_context",
-      "stem": "In the passage, the word \\"___\\" most nearly means",
-      "options": ["...", "...", "...", "..."],
-      "correct_index": 0,
-      "explanation": "..."
-    }}
+    {{"type": "main_idea", "stem": "...", "options": ["...","...","...","..."], "correct_index": 0, "explanation": "..."}},
+    {{"type": "detail", "stem": "...", "options": [...], "correct_index": 1, "explanation": "..."}},
+    {{"type": "inference", "stem": "...", "options": [...], "correct_index": 2, "explanation": "..."}},
+    {{"type": "vocab_in_context", "stem": "...", "options": [...], "correct_index": 3, "explanation": "..."}},
+    {{"type": "{q5_type}", "stem": "...", "options": [...], "correct_index": 0, "explanation": "..."}}
   ]
-}}
+}}"""
 
-Final check before output:
-- Did you use 5-7 <vocab> markers?
-- Did you avoid all forbidden phrases?
-- Did you anchor paragraphs in facts?
-- Are correct answer positions varied (not all index 1)?
-- Is the passage truly {word_range} words?
-"""
+    result = parse_ai_json(writing_prompt, max_tokens=8192, label="Writing")
+    html_passage, vocab_list = parse_vocab(result["passage"])
 
-result = parse_ai_json(writing_prompt, max_tokens=8192, label="Step 2 (Writing)")
-print(f"   ✓ Title: {result['title']}")
-print(f"   ✓ {len(result['questions'])} questions generated\n")
-
-# ============ 解析 vocab 标记 ============
-def parse_vocab(passage):
-    """从 passage 中提取 <vocab>word|def</vocab>，返回 (HTML 版 passage, vocab 列表)"""
-    pattern = r'<vocab>(.*?)\|(.*?)</vocab>'
-    matches = re.findall(pattern, passage)
-    vocab_list = [{"word": m[0].strip(), "definition": m[1].strip()} for m in matches]
-
-    # 替换为 HTML span
-    def replace_func(match):
-        word, definition = match.group(1).strip(), match.group(2).strip()
-        # 用 data-def 存释义；HTML 转义引号
-        safe_def = definition.replace('"', '&quot;')
-        return f'<span class="vocab" data-def="{safe_def}">{word}</span>'
-
-    html_passage = re.sub(pattern, replace_func, passage)
-    return html_passage, vocab_list
-
-html_passage, vocab_list = parse_vocab(result["passage"])
-print(f"   ✓ {len(vocab_list)} vocabulary words highlighted\n")
-
-# ============ 保存数据 ============
-timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-session_data = {
-    "timestamp": timestamp,
-    "topic_id": topic["id"],
-    "topic_title": topic["title"],
-    "category": topic["category"],
-    "is_china": topic.get("china", False),
-    "is_challenge": topic["challenge"],
-    "genre": genre["label"],
-    "length": length_label,
-    "facts": facts,
-    "title": result["title"],
-    "passage": result["passage"],
-    "vocab": vocab_list,
-    "questions": result["questions"]
-}
-data_file = DATA_DIR / f"{timestamp}.json"
-with open(data_file, "w", encoding="utf-8") as f:
-    json.dump(session_data, f, ensure_ascii=False, indent=2)
-
-# 更新历史
-history["used_topic_ids"].append(topic["id"])
-history["session_count"] += 1
-if "used_vocab" not in history:
-    history["used_vocab"] = []
-# 记录本次新词到历史
-history["used_vocab"].extend([v["word"].lower() for v in vocab_list])
-save_topic_history(history)
-
-# ============ 生成 index.html ============
-def render_index_html():
-    questions_json = json.dumps(result["questions"], ensure_ascii=False)
-    questions_data_json = json.dumps({
-        "title": result["title"],
-        "topic": topic["title"],
+    return {
+        "id": f"article_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}",
+        "topic_id": topic["id"],
+        "topic_title": topic["title"],
         "category": topic["category"],
+        "is_china": topic.get("china", False),
+        "is_challenge": topic["challenge"],
         "genre": genre["label"],
         "length": length_label,
-        "is_china": topic.get("china", False),
-        "is_challenge": topic["challenge"]
-    }, ensure_ascii=False)
+        "q5_type": q5_type,
+        "title": result["title"],
+        "passage_html": html_passage,
+        "passage_raw": result["passage"],
+        "vocab": vocab_list,
+        "questions": result["questions"]
+    }
 
-    # 渲染题目 HTML
-    question_blocks = ""
-    for i, q in enumerate(result["questions"]):
-        type_labels = {
-            "main_idea": "Main Idea",
-            "detail": "Detail",
-            "inference": "Inference",
-            "vocab_in_context": "Vocabulary in Context"
-        }
-        type_label = type_labels.get(q["type"], q["type"])
 
-        options_html = ""
-        letters = ["A", "B", "C", "D"]
-        for j, opt in enumerate(q["options"]):
-            options_html += f'''
-            <label class="option" data-q="{i}" data-opt="{j}">
-                <input type="radio" name="q{i}" value="{j}">
-                <span class="letter">{letters[j]}.</span>
-                <span class="opt-text">{opt}</span>
-            </label>'''
+# ============ Load/Save Articles Database ============
+def load_articles():
+    if ARTICLES_FILE.exists():
+        with open(ARTICLES_FILE, encoding="utf-8") as f:
+            return json.load(f)
+    return {"generated_at": None, "total": 0, "articles": []}
 
-        question_blocks += f'''
-        <div class="question" data-q-index="{i}">
-            <div class="q-header">
-                <span class="q-number">{i+1}.</span>
-                <span class="q-type">{type_label}</span>
-            </div>
-            <div class="q-stem">{q["stem"]}</div>
-            <div class="q-options">{options_html}</div>
-        </div>'''
 
-    china_badge = '<span class="badge china">🇨🇳 China</span>' if topic.get("china") else ''
-    challenge_badge = '<span class="badge challenge">⭐ Challenge</span>' if topic["challenge"] else ''
+def save_articles(data):
+    data["total"] = len(data["articles"])
+    data["last_updated"] = datetime.now().isoformat()
+    with open(ARTICLES_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
+
+# ============ Main Batch Generation ============
+def run_batch(target_count):
+    # Load topics
+    with open(TOPICS_FILE, encoding="utf-8") as f:
+        all_topics = json.load(f)["topics"]
+
+    # Load existing
+    db = load_articles()
+    existing_articles = db.get("articles", [])
+    used_topic_ids = [a["topic_id"] for a in existing_articles]
+    used_vocab = []
+    for a in existing_articles[-10:]:  # recent 10 articles' vocab
+        used_vocab.extend([v["word"].lower() for v in a.get("vocab", [])])
+
+    already_have = len(existing_articles)
+    to_generate = target_count - already_have
+
+    if to_generate <= 0:
+        print(f"✅ Already have {already_have} articles. To start over, run: uv run main.py reset")
+        return existing_articles
+
+    # Available topics
+    available_topics = [t for t in all_topics if t["id"] not in used_topic_ids]
+    if len(available_topics) < to_generate:
+        print(f"⚠️  Only {len(available_topics)} unused topics left; will generate that many.")
+        to_generate = len(available_topics)
+
+    random.shuffle(available_topics)
+    chosen_topics = available_topics[:to_generate]
+
+    # Build balanced distributions
+    genres_cycle = []
+    while len(genres_cycle) < to_generate:
+        genres_cycle.extend(GENRES)
+    genres_cycle = genres_cycle[:to_generate]
+    random.shuffle(genres_cycle)
+
+    lengths_cycle = (["short"] * (to_generate // 2 + 1) + ["long"] * (to_generate // 2 + 1))[:to_generate]
+    random.shuffle(lengths_cycle)
+
+    q5_cycle = []
+    while len(q5_cycle) < to_generate:
+        q5_cycle.extend(Q5_TYPES)
+    q5_cycle = q5_cycle[:to_generate]
+    random.shuffle(q5_cycle)
+
+    print(f"\n📚 Generating {to_generate} new articles (currently have {already_have})")
+    print(f"⏱  Estimated time: {to_generate * 35 // 60}-{to_generate * 60 // 60} minutes")
+    print(f"💰 Estimated cost: ${to_generate * 0.08:.2f}-${to_generate * 0.12:.2f}\n")
+
+    if db.get("generated_at") is None:
+        db["generated_at"] = datetime.now().isoformat()
+
+    failed = []
+    for i, topic in enumerate(chosen_topics):
+        genre = genres_cycle[i]
+        length_choice = lengths_cycle[i]
+        if length_choice == "short":
+            length_label, word_range = "Short", "200-250"
+        else:
+            length_label, word_range = "Long", "350-450"
+        q5_type = q5_cycle[i]
+
+        progress = f"[{already_have + i + 1}/{target_count}]"
+        china_flag = " 🇨🇳" if topic.get("china") else ""
+        challenge_flag = " ⭐" if topic["challenge"] else ""
+        print(f"{progress} {topic['title'][:50]}{china_flag}{challenge_flag}")
+        print(f"    {genre['label']} | {length_label} | Q5={q5_type}")
+
+        try:
+            article = generate_one_article(
+                topic, genre, length_label, word_range, q5_type,
+                used_vocab_recent=used_vocab[-40:]  # avoid recent 40 vocab words
+            )
+            existing_articles.append(article)
+            used_vocab.extend([v["word"].lower() for v in article["vocab"]])
+            db["articles"] = existing_articles
+            save_articles(db)
+            print(f"    ✓ {article['title']}\n")
+        except Exception as e:
+            failed.append((topic["title"], str(e)))
+            print(f"    ❌ Failed: {e}\n")
+            continue
+
+    print(f"\n{'=' * 60}")
+    print(f"✅ Batch complete!")
+    print(f"   Total articles: {len(existing_articles)}")
+    if failed:
+        print(f"   Failed: {len(failed)}")
+        for title, err in failed:
+            print(f"     - {title[:50]}: {err[:80]}")
+    print(f"{'=' * 60}\n")
+
+    return existing_articles
+
+
+# ============ HTML Generators ============
+def render_index_html(articles_count):
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{result["title"]} — Daily Reading</title>
+<title>Daily Reading — ISEE Practice</title>
 <style>
 * {{ box-sizing: border-box; }}
 body {{
@@ -470,469 +421,376 @@ body {{
     line-height: 1.75;
     font-size: 17px;
 }}
-
-/* Start overlay */
 .start-overlay {{
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(250, 250, 247, 0.98);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(250, 250, 247, 0.98); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
     backdrop-filter: blur(8px);
 }}
 .start-overlay.hidden {{ display: none; }}
 .start-card {{
-    background: white;
-    max-width: 500px;
-    width: 90%;
-    padding: 40px 32px;
-    border: 3px double #1a4d8f;
-    border-radius: 8px;
-    text-align: center;
+    background: white; max-width: 500px; width: 90%;
+    padding: 40px 32px; border: 3px double #1a4d8f;
+    border-radius: 8px; text-align: center;
     box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }}
-.start-card h2 {{
-    font-size: 26px;
-    color: #1a4d8f;
-    margin: 0 0 8px;
-    letter-spacing: 0.5px;
-    font-family: "Georgia", serif;
-}}
-.start-card .reading-title {{
-    color: #333;
-    font-size: 17px;
-    font-style: italic;
-    margin: 16px 0 8px;
-    line-height: 1.4;
-}}
-.start-card .badges {{
-    margin: 16px 0 24px;
-}}
-.start-card .instructions {{
-    text-align: left;
-    background: #f5f5f0;
-    padding: 16px 20px;
-    border-radius: 6px;
-    margin: 20px 0 28px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #333;
-}}
-.start-card .instructions strong {{
-    color: #1a4d8f;
-    display: block;
-    margin-bottom: 6px;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}}
-.start-card .instructions ul {{ margin: 0; padding-left: 20px; }}
-.start-card .instructions li {{ margin: 4px 0; }}
-.start-btn {{
-    background: #1a4d8f;
-    color: white;
-    border: none;
-    padding: 16px 56px;
-    font-size: 17px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    letter-spacing: 2px;
-    transition: background 0.2s;
-}}
-.start-btn:hover {{ background: #143a6b; }}
-
+.start-card h2 {{ font-size: 26px; color: #1a4d8f; margin: 0 0 8px; }}
+.reading-title {{ color: #333; font-size: 17px; font-style: italic; margin: 16px 0 8px; line-height: 1.4; }}
+.badges {{ margin: 16px 0 24px; }}
 .badge {{
-    display: inline-block;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 12px;
-    margin: 0 4px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    letter-spacing: 0.5px;
-    vertical-align: middle;
+    display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 12px; margin: 0 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.5px;
 }}
 .badge.category {{ background: #e3edf8; color: #1a4d8f; }}
 .badge.genre {{ background: #f0e6d8; color: #8b6914; }}
 .badge.length {{ background: #e8f0e3; color: #2d5a1f; }}
 .badge.china {{ background: #fde8e8; color: #b71c1c; }}
 .badge.challenge {{ background: #fff4e0; color: #e67e22; }}
-
-/* Reading header */
-.reading-header {{
-    border-bottom: 3px double #333;
-    padding-bottom: 20px;
-    margin-bottom: 28px;
-}}
-.reading-header h1 {{
-    font-size: 28px;
-    margin: 0 0 12px;
-    color: #1a1a1a;
-    line-height: 1.3;
-    font-family: "Georgia", serif;
-}}
-.reading-meta {{
+.instructions {{
+    text-align: left; background: #f5f5f0; padding: 16px 20px;
+    border-radius: 6px; margin: 20px 0 28px;
     font-family: "Helvetica Neue", Arial, sans-serif;
-    margin-top: 14px;
+    font-size: 14px; line-height: 1.7;
 }}
+.instructions strong {{
+    color: #1a4d8f; display: block; margin-bottom: 6px;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+}}
+.instructions ul {{ margin: 0; padding-left: 20px; }}
+.start-btn {{
+    background: #1a4d8f; color: white; border: none;
+    padding: 16px 56px; font-size: 17px; font-weight: bold;
+    border-radius: 4px; cursor: pointer;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 2px;
+}}
+.start-btn:hover {{ background: #143a6b; }}
+.reading-header {{ border-bottom: 3px double #333; padding-bottom: 20px; margin-bottom: 28px; }}
+.reading-header h1 {{ font-size: 28px; margin: 0 0 12px; line-height: 1.3; }}
 .meta-bar {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 14px;
-    padding: 10px 16px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; padding: 10px 16px; background: white;
+    border: 1px solid #ddd; border-radius: 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif; font-size: 14px;
 }}
-.timer {{
-    font-family: "Courier New", monospace;
-    font-size: 17px;
-    font-weight: bold;
-    color: #1a4d8f;
-}}
-.progress {{ color: #555; }}
-
-/* Passage */
+.timer {{ font-family: "Courier New", monospace; font-size: 17px; font-weight: bold; color: #1a4d8f; }}
 .passage-section {{
-    background: white;
-    padding: 28px 32px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    margin-bottom: 32px;
+    background: white; padding: 28px 32px; border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 32px;
     border-left: 4px solid #1a4d8f;
 }}
-.passage-section p {{
-    margin: 0 0 1em;
-    text-align: justify;
-}}
-.passage-section p:last-child {{ margin-bottom: 0; }}
-
-/* Vocab highlight */
+.passage-section p {{ margin: 0 0 1em; text-align: justify; }}
 .vocab {{
-    border-bottom: 2px dotted #1a4d8f;
-    cursor: help;
-    color: #1a4d8f;
-    font-weight: 500;
-    position: relative;
+    border-bottom: 2px dotted #1a4d8f; cursor: help;
+    color: #1a4d8f; font-weight: 500; position: relative;
 }}
 .vocab:hover::after {{
-    content: attr(data-def);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a4d8f;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    font-weight: normal;
+    content: attr(data-def); position: absolute;
+    bottom: 100%; left: 50%; transform: translateX(-50%);
+    background: #1a4d8f; color: white; padding: 8px 12px;
+    border-radius: 4px; font-size: 13px; font-weight: normal;
     font-family: "Helvetica Neue", Arial, sans-serif;
-    white-space: normal;
-    max-width: 260px;
-    width: max-content;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    margin-bottom: 6px;
+    max-width: 260px; width: max-content; z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 6px;
     pointer-events: none;
 }}
 .vocab:hover::before {{
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: #1a4d8f;
-    z-index: 1000;
-    pointer-events: none;
+    content: ""; position: absolute; bottom: 100%; left: 50%;
+    transform: translateX(-50%); border: 6px solid transparent;
+    border-top-color: #1a4d8f; z-index: 1000; pointer-events: none;
 }}
-
-/* Questions section */
 h2.section-title {{
-    font-size: 20px;
-    color: #1a1a1a;
-    margin: 36px 0 18px;
-    padding-left: 14px;
+    font-size: 20px; margin: 36px 0 18px; padding-left: 14px;
     border-left: 4px solid #1a4d8f;
-    font-family: "Georgia", serif;
 }}
-
 .question {{
-    background: white;
-    padding: 22px 24px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    background: white; padding: 22px 24px; border-radius: 8px;
+    margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }}
-.q-header {{
-    margin-bottom: 12px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-}}
-.q-number {{
-    font-size: 18px;
-    font-weight: bold;
-    color: #1a1a1a;
-    margin-right: 12px;
-}}
+.q-header {{ margin-bottom: 12px; font-family: "Helvetica Neue", Arial, sans-serif; }}
+.q-number {{ font-size: 18px; font-weight: bold; margin-right: 12px; }}
 .q-type {{
-    font-size: 11px;
-    color: white;
-    background: #1a4d8f;
-    padding: 2px 8px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+    font-size: 11px; color: white; background: #1a4d8f;
+    padding: 2px 8px; border-radius: 3px; text-transform: uppercase;
+    letter-spacing: 0.5px; font-weight: 600;
 }}
-.q-stem {{
-    font-size: 16px;
-    margin-bottom: 14px;
-    line-height: 1.6;
-    font-family: "Georgia", serif;
-}}
-.q-options {{
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-left: 12px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-}}
+.q-stem {{ font-size: 16px; margin-bottom: 14px; line-height: 1.6; }}
+.q-options {{ display: flex; flex-direction: column; gap: 6px; margin-left: 12px; font-family: "Helvetica Neue", Arial, sans-serif; }}
 .option {{
-    display: flex;
-    align-items: flex-start;
-    padding: 10px 14px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: all 0.15s;
+    display: flex; align-items: flex-start; padding: 10px 14px;
+    border: 1.5px solid #e0e0e0; border-radius: 5px;
+    cursor: pointer; font-size: 15px;
 }}
 .option:hover {{ border-color: #1a4d8f; background: #f0f5fb; }}
-.option input[type="radio"] {{ margin-right: 10px; margin-top: 4px; }}
 .letter {{ font-weight: bold; color: #555; margin-right: 8px; min-width: 20px; }}
 .option.user-correct {{ background: #e8f5e9; border-color: #4caf50; }}
 .option.user-wrong {{ background: #ffebee; border-color: #f44336; }}
 .option.show-correct {{ background: #e8f5e9; border-color: #4caf50; border-style: dashed; }}
-
-.submit-section {{
-    margin-top: 32px;
-    text-align: center;
-    padding-top: 20px;
-    border-top: 3px double #333;
-}}
+.submit-section {{ margin-top: 32px; text-align: center; padding-top: 20px; border-top: 3px double #333; }}
 #submit-btn {{
-    background: #1a4d8f;
-    color: white;
-    border: none;
-    padding: 14px 52px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
+    background: #1a4d8f; color: white; border: none;
+    padding: 14px 52px; font-size: 16px; font-weight: bold;
+    border-radius: 4px; cursor: pointer;
     font-family: "Helvetica Neue", Arial, sans-serif;
     letter-spacing: 1px;
 }}
 #submit-btn:hover {{ background: #143a6b; }}
 #submit-btn:disabled {{ background: #aaa; cursor: not-allowed; }}
-
-/* Results */
 #results {{
-    display: none;
-    margin-top: 30px;
-    padding: 28px;
-    background: #f9f9f7;
-    border: 2px solid #1a4d8f;
-    border-radius: 8px;
-    font-family: "Helvetica Neue", Arial, sans-serif;
+    display: none; margin-top: 30px; padding: 28px;
+    background: #f9f9f7; border: 2px solid #1a4d8f;
+    border-radius: 8px; font-family: "Helvetica Neue", Arial, sans-serif;
 }}
 #results.show {{ display: block; }}
-.new-test-section {{
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid #ddd;
-}}
+.new-test-section {{ text-align: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid #ddd; }}
 .start-new-btn {{
-    background: #2e7d32;
-    color: white;
-    border: none;
-    padding: 12px 40px;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    letter-spacing: 1px;
+    background: #2e7d32; color: white; border: none;
+    padding: 12px 40px; font-size: 15px; font-weight: bold;
+    border-radius: 6px; cursor: pointer; letter-spacing: 1px;
 }}
 .start-new-btn:hover {{ background: #1b5e20; }}
 .score-summary {{
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 14px;
+    display: flex; justify-content: space-around; text-align: center;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 14px;
 }}
 .score-item {{ flex: 1; min-width: 120px; }}
 .score-value {{ font-size: 32px; font-weight: bold; color: #1a4d8f; display: block; }}
-.score-label {{
-    font-size: 12px;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-}}
-
-.explanation-block {{
-    background: white;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    border-left: 4px solid #4caf50;
-}}
+.score-label {{ font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }}
+.explanation-block {{ background: white; padding: 14px 18px; margin-bottom: 12px; border-radius: 6px; border-left: 4px solid #4caf50; }}
 .explanation-block.wrong {{ border-left-color: #f44336; }}
-.explanation-block .exp-q {{ font-weight: 600; margin-bottom: 6px; font-size: 14px; }}
-.explanation-block .exp-result {{ font-size: 13px; color: #555; margin-bottom: 8px; }}
-.explanation-block .exp-text {{ font-size: 14px; color: #333; line-height: 1.6; }}
-
+.exp-q {{ font-weight: 600; margin-bottom: 6px; font-size: 14px; }}
+.exp-result {{ font-size: 13px; color: #555; margin-bottom: 8px; }}
+.exp-text {{ font-size: 14px; color: #333; line-height: 1.6; }}
 .action-links {{
-    margin: 20px 0;
-    padding: 16px 0;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    margin: 20px 0; padding: 16px 0;
+    border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
 }}
 .action-links a {{
-    display: block;
-    text-align: center;
-    padding: 12px 16px;
-    background: #1a4d8f;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
+    display: block; text-align: center; padding: 12px 16px;
+    background: #1a4d8f; color: white; text-decoration: none;
+    border-radius: 4px; font-size: 14px; font-weight: 500;
 }}
 .action-links a:hover {{ background: #143a6b; }}
-@media (max-width: 480px) {{ .action-links {{ grid-template-columns: 1fr; }} }}
-
-footer {{
-    text-align: center;
-    margin-top: 50px;
-    color: #999;
-    font-size: 13px;
+.progress-pill {{
+    background: white; padding: 6px 12px; border-radius: 12px;
+    font-size: 12px; color: #555; border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}}
+footer {{ text-align: center; margin-top: 50px; color: #999; font-size: 13px; font-family: "Helvetica Neue", Arial, sans-serif; }}
+footer a {{ color: #888; text-decoration: none; }}
+.all-done {{ text-align: center; padding: 60px 20px; }}
+.all-done h1 {{ color: #1a4d8f; font-size: 32px; }}
+.all-done .actions {{ margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }}
+.all-done button {{
+    background: #1a4d8f; color: white; border: none;
+    padding: 14px 28px; font-size: 14px; font-weight: bold;
+    border-radius: 6px; cursor: pointer;
     font-family: "Helvetica Neue", Arial, sans-serif;
 }}
-footer a {{ color: #888; text-decoration: none; }}
-footer a:hover {{ text-decoration: underline; }}
-
+.all-done button.secondary {{ background: #6c757d; }}
 @media (max-width: 600px) {{
     body {{ padding: 18px 14px 60px; font-size: 16px; }}
     .reading-header h1 {{ font-size: 22px; }}
     .passage-section {{ padding: 20px 18px; }}
     .question {{ padding: 18px 16px; }}
     .meta-bar {{ flex-direction: column; gap: 6px; align-items: flex-start; }}
-    .vocab:hover::after {{ max-width: 200px; font-size: 12px; }}
-    .score-value {{ font-size: 26px; }}
+    .action-links {{ grid-template-columns: 1fr; }}
 }}
 </style>
 </head>
 <body>
 
 <div id="start-overlay" class="start-overlay">
-    <div class="start-card">
-        <h2>DAILY READING</h2>
-        <div class="reading-title">"{result["title"]}"</div>
-        <div class="badges">
-            <span class="badge category">{topic["category"]}</span>
-            <span class="badge genre">{genre["label"]}</span>
-            <span class="badge length">{length_label}</span>
-            {china_badge}
-            {challenge_badge}
-        </div>
-        <div class="instructions">
-            <strong>Instructions</strong>
-            <ul>
-                <li>Read the passage carefully</li>
-                <li>Hover over <span style="color:#1a4d8f;border-bottom:2px dotted #1a4d8f;font-weight:500;">highlighted words</span> to see definitions</li>
-                <li>Answer 5 comprehension questions</li>
-                <li>Timer starts when you click START</li>
-            </ul>
-        </div>
-        <button class="start-btn" onclick="startTest()">START</button>
+    <div class="start-card" id="start-card">
+        <div style="text-align:center;color:#999;font-size:14px;">Loading article library...</div>
     </div>
 </div>
 
-<div class="reading-header">
-    <h1>{result["title"]}</h1>
-    <div class="badges">
-        <span class="badge category">{topic["category"]}</span>
-        <span class="badge genre">{genre["label"]}</span>
-        <span class="badge length">{length_label}</span>
-        {china_badge}
-        {challenge_badge}
-    </div>
+<div class="reading-header" id="reading-header" style="display:none;">
+    <h1 id="title-display"></h1>
+    <div class="badges" id="badges-display"></div>
     <div class="meta-bar">
         <span class="timer">Time: <span id="timer-display">00:00</span></span>
-        <span class="progress">Questions: <span id="progress-count">0</span> / 5</span>
-        <span style="color:#888;font-size:12px;">{timestamp}</span>
+        <span>Questions: <span id="progress-count">0</span> / 5</span>
+        <span class="progress-pill" id="library-progress">Loading...</span>
     </div>
 </div>
 
-<div class="passage-section" id="passage">
-{format_passage_html(html_passage)}
+<div class="passage-section" id="passage-section" style="display:none;">
+    <div id="passage-content"></div>
 </div>
 
-<h2 class="section-title">📝 Comprehension Questions</h2>
+<h2 class="section-title" id="questions-title" style="display:none;">📝 Comprehension Questions</h2>
 
-<form id="quiz-form" onsubmit="return false;">
-{question_blocks}
-</form>
+<form id="quiz-form" onsubmit="return false;"></form>
 
-<div class="submit-section">
+<div class="submit-section" id="submit-section" style="display:none;">
     <button id="submit-btn" onclick="submitQuiz()">SUBMIT</button>
 </div>
 
 <div id="results"></div>
 
-<footer>
+<footer style="display:none;" id="footer">
     <a href="history.html">📊 View History</a>
     &nbsp;|&nbsp;
-    <a href="mistakes.html">📖 Review Words</a>
+    <a href="mistakes.html">📖 All Vocabulary</a>
     &nbsp;|&nbsp;
-    Generated by Claude
+    <span id="library-count-footer"></span>
 </footer>
 
 <script>
-const QUESTIONS_DATA = {questions_json};
-const META = {questions_data_json};
-
+let ALL_ARTICLES = [];
+let CURRENT = null;
+let CURRENT_ID = null;
 let startTime = null;
 let submitted = false;
 let testStarted = false;
 
-// 状态恢复
-const savedState = sessionStorage.getItem('reading_submitted_state');
-if (savedState) {{
-    const state = JSON.parse(savedState);
-    document.getElementById('start-overlay').classList.add('hidden');
-    document.getElementById('quiz-form').innerHTML = state.formHTML;
-    document.getElementById('results').innerHTML = state.resultsHTML;
-    document.getElementById('results').classList.add('show');
-    document.getElementById('timer-display').textContent = state.timer;
-    document.getElementById('progress-count').textContent = state.progress;
-    document.getElementById('submit-btn').disabled = true;
-    document.getElementById('submit-btn').textContent = 'SUBMITTED';
-    submitted = true;
+async function init() {{
+    try {{
+        const res = await fetch('articles.json?v=' + Date.now());
+        const data = await res.json();
+        ALL_ARTICLES = data.articles || [];
+
+        if (ALL_ARTICLES.length === 0) {{
+            showError("No articles in library. Run 'uv run main.py' on your computer to generate articles.");
+            return;
+        }}
+
+        const savedId = sessionStorage.getItem('current_article_id');
+        if (savedId) {{
+            CURRENT = ALL_ARTICLES.find(a => a.id === savedId);
+            CURRENT_ID = savedId;
+        }}
+
+        if (!CURRENT) {{
+            const done = JSON.parse(localStorage.getItem('done_article_ids') || '[]');
+            const available = ALL_ARTICLES.filter(a => !done.includes(a.id));
+
+            if (available.length === 0) {{
+                showAllDone();
+                return;
+            }}
+
+            CURRENT = available[Math.floor(Math.random() * available.length)];
+            CURRENT_ID = CURRENT.id;
+            sessionStorage.setItem('current_article_id', CURRENT_ID);
+        }}
+
+        renderArticle();
+
+        const savedState = sessionStorage.getItem('reading_submitted_state_' + CURRENT_ID);
+        if (savedState) {{
+            const state = JSON.parse(savedState);
+            document.getElementById('start-overlay').classList.add('hidden');
+            document.getElementById('quiz-form').innerHTML = state.formHTML;
+            document.getElementById('results').innerHTML = state.resultsHTML;
+            document.getElementById('results').classList.add('show');
+            document.getElementById('timer-display').textContent = state.timer;
+            document.getElementById('progress-count').textContent = state.progress;
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('submit-btn').textContent = 'SUBMITTED';
+            submitted = true;
+        }}
+    }} catch (err) {{
+        showError("Failed to load articles: " + err.message);
+    }}
+}}
+
+function renderArticle() {{
+    const done = JSON.parse(localStorage.getItem('done_article_ids') || '[]');
+    const remaining = ALL_ARTICLES.length - done.length;
+
+    document.getElementById('start-card').innerHTML = `
+        <h2>DAILY READING</h2>
+        <div class="reading-title">"${{CURRENT.title}}"</div>
+        <div class="badges">
+            <span class="badge category">${{CURRENT.category}}</span>
+            <span class="badge genre">${{CURRENT.genre}}</span>
+            <span class="badge length">${{CURRENT.length}}</span>
+            ${{CURRENT.is_china ? '<span class="badge china">🇨🇳 China</span>' : ''}}
+            ${{CURRENT.is_challenge ? '<span class="badge challenge">⭐ Challenge</span>' : ''}}
+        </div>
+        <div class="instructions">
+            <strong>Instructions</strong>
+            <ul>
+                <li>Read the passage carefully</li>
+                <li>Hover over <span style="color:#1a4d8f;border-bottom:2px dotted #1a4d8f;">highlighted words</span> for definitions</li>
+                <li>Answer 5 comprehension questions</li>
+                <li>Timer starts when you click START</li>
+            </ul>
+        </div>
+        <button class="start-btn" onclick="startTest()">START</button>
+        <div style="margin-top:16px;font-size:12px;color:#888;font-family:Arial;">
+            📚 ${{ALL_ARTICLES.length - remaining}}/${{ALL_ARTICLES.length}} articles completed
+        </div>
+    `;
+
+    document.getElementById('title-display').textContent = CURRENT.title;
+    document.getElementById('badges-display').innerHTML = `
+        <span class="badge category">${{CURRENT.category}}</span>
+        <span class="badge genre">${{CURRENT.genre}}</span>
+        <span class="badge length">${{CURRENT.length}}</span>
+        ${{CURRENT.is_china ? '<span class="badge china">🇨🇳 China</span>' : ''}}
+        ${{CURRENT.is_challenge ? '<span class="badge challenge">⭐ Challenge</span>' : ''}}
+    `;
+    document.getElementById('library-progress').textContent = `${{ALL_ARTICLES.length - remaining}}/${{ALL_ARTICLES.length}} done`;
+    document.getElementById('library-count-footer').textContent = `Library: ${{ALL_ARTICLES.length}} articles`;
+
+    const paragraphs = CURRENT.passage_html.split(/<\\/p>\\s*<p>/);
+    let passageContent = CURRENT.passage_html;
+    if (!passageContent.includes('<p>')) {{
+        passageContent = '<p>' + passageContent.split('\\n\\n').join('</p><p>') + '</p>';
+    }}
+    document.getElementById('passage-content').innerHTML = passageContent;
+
+    const TYPE_LABELS = {{
+        main_idea: "Main Idea", detail: "Detail",
+        inference: "Inference", vocab_in_context: "Vocabulary",
+        organization: "Organization", tone: "Tone/Attitude",
+        advanced_detail: "Synthesis"
+    }};
+
+    let questionsHTML = "";
+    CURRENT.questions.forEach((q, i) => {{
+        const typeLabel = TYPE_LABELS[q.type] || q.type;
+        let optionsHTML = "";
+        const letters = ["A", "B", "C", "D"];
+        q.options.forEach((opt, j) => {{
+            optionsHTML += `
+                <label class="option" data-q="${{i}}" data-opt="${{j}}">
+                    <input type="radio" name="q${{i}}" value="${{j}}" style="margin-right:10px;margin-top:4px;">
+                    <span class="letter">${{letters[j]}}.</span>
+                    <span>${{opt}}</span>
+                </label>`;
+        }});
+        questionsHTML += `
+            <div class="question" data-q-index="${{i}}">
+                <div class="q-header">
+                    <span class="q-number">${{i+1}}.</span>
+                    <span class="q-type">${{typeLabel}}</span>
+                </div>
+                <div class="q-stem">${{q.stem}}</div>
+                <div class="q-options">${{optionsHTML}}</div>
+            </div>`;
+    }});
+    document.getElementById('quiz-form').innerHTML = questionsHTML;
+
+    document.querySelectorAll('input[type="radio"]').forEach(input => {{
+        input.addEventListener('change', () => {{
+            const answered = new Set();
+            document.querySelectorAll('input[type="radio"]:checked').forEach(r => answered.add(r.name));
+            document.getElementById('progress-count').textContent = answered.size;
+        }});
+    }});
+
+    document.getElementById('reading-header').style.display = 'block';
+    document.getElementById('passage-section').style.display = 'block';
+    document.getElementById('questions-title').style.display = 'block';
+    document.getElementById('submit-section').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
 }}
 
 function startTest() {{
@@ -940,23 +798,6 @@ function startTest() {{
     startTime = Date.now();
     document.getElementById('start-overlay').classList.add('hidden');
 }}
-
-function clearSubmittedState() {{
-    sessionStorage.removeItem('reading_submitted_state');
-}}
-
-function startNewTest() {{
-    clearSubmittedState();
-    location.reload();
-}}
-
-document.querySelectorAll('input[type="radio"]').forEach(input => {{
-    input.addEventListener('change', () => {{
-        const answered = new Set();
-        document.querySelectorAll('input[type="radio"]:checked').forEach(r => answered.add(r.name));
-        document.getElementById('progress-count').textContent = answered.size;
-    }});
-}});
 
 setInterval(() => {{
     if (!testStarted || submitted) return;
@@ -968,33 +809,25 @@ setInterval(() => {{
 
 function submitQuiz() {{
     if (submitted) return;
-
     const userAnswers = {{}};
     let answeredCount = 0;
-    QUESTIONS_DATA.forEach((q, i) => {{
-        const selected = document.querySelector('input[name="q' + i + '"]:checked');
-        if (selected) {{
-            userAnswers[i] = parseInt(selected.value);
-            answeredCount++;
-        }} else {{
-            userAnswers[i] = -1;
-        }}
+    CURRENT.questions.forEach((q, i) => {{
+        const sel = document.querySelector('input[name="q' + i + '"]:checked');
+        if (sel) {{ userAnswers[i] = parseInt(sel.value); answeredCount++; }}
+        else {{ userAnswers[i] = -1; }}
     }});
 
-    if (answeredCount < QUESTIONS_DATA.length) {{
-        if (!confirm('You have ' + (QUESTIONS_DATA.length - answeredCount) + ' unanswered. Submit?')) return;
+    if (answeredCount < CURRENT.questions.length) {{
+        if (!confirm('You have ' + (CURRENT.questions.length - answeredCount) + ' unanswered. Submit?')) return;
     }}
 
     submitted = true;
     const totalTime = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
 
     let correctCount = 0;
-    const wrongDetails = [];
-
-    QUESTIONS_DATA.forEach((q, i) => {{
+    CURRENT.questions.forEach((q, i) => {{
         const userAns = userAnswers[i];
         const correctAns = q.correct_index;
-
         const opts = document.querySelectorAll('label.option[data-q="' + i + '"]');
         opts.forEach(opt => {{
             const idx = parseInt(opt.dataset.opt);
@@ -1006,36 +839,24 @@ function submitQuiz() {{
                 opt.classList.add('user-wrong');
             }}
         }});
-
-        if (userAns === correctAns) {{
-            correctCount++;
-        }} else {{
-            wrongDetails.push({{
-                num: i + 1,
-                stem: q.stem,
-                correct: q.options[correctAns],
-                user: userAns >= 0 ? q.options[userAns] : '(unanswered)',
-                explanation: q.explanation,
-                type: q.type
-            }});
-        }}
+        if (userAns === correctAns) correctCount++;
     }});
 
-    const accuracy = Math.round((correctCount / QUESTIONS_DATA.length) * 100);
+    const accuracy = Math.round((correctCount / CURRENT.questions.length) * 100);
     const mm = String(Math.floor(totalTime / 60)).padStart(2, '0');
     const ss = String(totalTime % 60).padStart(2, '0');
 
-    // 保存 session 到 history
     const sessionRecord = {{
         date: new Date().toISOString().split('T')[0],
         timestamp: new Date().toISOString(),
-        title: META.title,
-        topic: META.topic,
-        category: META.category,
-        genre: META.genre,
-        length: META.length,
+        article_id: CURRENT.id,
+        title: CURRENT.title,
+        topic: CURRENT.topic_title,
+        category: CURRENT.category,
+        genre: CURRENT.genre,
+        length: CURRENT.length,
         correct: correctCount,
-        total: QUESTIONS_DATA.length,
+        total: CURRENT.questions.length,
         accuracy: accuracy,
         duration_sec: totalTime
     }};
@@ -1043,22 +864,16 @@ function submitQuiz() {{
     allSessions.push(sessionRecord);
     localStorage.setItem('reading_sessions', JSON.stringify(allSessions));
 
-    // 累积生词到 mistakes（用于回顾）
-    if (wrongDetails.some(w => w.type === 'vocab_in_context')) {{
-        // 简化：错的 vocab 题已经在 wrongDetails 里
-    }}
-
     let explanationsHtml = '<h3 style="margin-top:20px;color:#1a1a1a;font-size:16px;border-bottom:1px solid #ddd;padding-bottom:8px;">📝 Question Review</h3>';
-    QUESTIONS_DATA.forEach((q, i) => {{
+    CURRENT.questions.forEach((q, i) => {{
         const userAns = userAnswers[i];
-        const correctAns = q.correct_index;
-        const isCorrect = userAns === correctAns;
+        const isCorrect = userAns === q.correct_index;
         const userText = userAns >= 0 ? q.options[userAns] : '(unanswered)';
         explanationsHtml += '<div class="explanation-block' + (isCorrect ? '' : ' wrong') + '">' +
             '<div class="exp-q">' + (i+1) + '. ' + q.stem + '</div>' +
             '<div class="exp-result">' + (isCorrect ? '✓ Correct: ' : '✗ You answered: ') +
             '<strong>' + userText + '</strong>' +
-            (isCorrect ? '' : ' &nbsp; Correct answer: <strong>' + q.options[correctAns] + '</strong>') +
+            (isCorrect ? '' : ' &nbsp; Correct: <strong>' + q.options[q.correct_index] + '</strong>') +
             '</div>' +
             '<div class="exp-text"><strong>Why:</strong> ' + q.explanation + '</div>' +
             '</div>';
@@ -1066,11 +881,11 @@ function submitQuiz() {{
 
     const resultsHtml =
         '<div class="new-test-section">' +
-        '<button class="start-new-btn" onclick="startNewTest()">🔄 Generate New Reading</button>' +
-        '<p style="color:#666;font-size:12px;margin-top:8px;font-style:italic;">(Run <code>uv run main.py</code> on your computer first)</p>' +
+        '<button class="start-new-btn" onclick="nextArticle()">📖 Next Article</button>' +
+        '<p style="color:#666;font-size:12px;margin-top:8px;">Marks this article as complete, randomly picks next</p>' +
         '</div>' +
         '<div class="score-summary">' +
-        '<div class="score-item"><span class="score-value">' + correctCount + '/' + QUESTIONS_DATA.length + '</span><span class="score-label">Score</span></div>' +
+        '<div class="score-item"><span class="score-value">' + correctCount + '/' + CURRENT.questions.length + '</span><span class="score-label">Score</span></div>' +
         '<div class="score-item"><span class="score-value">' + accuracy + '%</span><span class="score-label">Accuracy</span></div>' +
         '<div class="score-item"><span class="score-value">' + mm + ':' + ss + '</span><span class="score-label">Time</span></div>' +
         '</div>' +
@@ -1086,30 +901,75 @@ function submitQuiz() {{
     document.getElementById('submit-btn').textContent = 'SUBMITTED';
     document.getElementById('results').scrollIntoView({{behavior: 'smooth'}});
 
-    // 保存提交状态
-    sessionStorage.setItem('reading_submitted_state', JSON.stringify({{
+    sessionStorage.setItem('reading_submitted_state_' + CURRENT_ID, JSON.stringify({{
         formHTML: document.getElementById('quiz-form').innerHTML,
         resultsHTML: document.getElementById('results').innerHTML,
         timer: document.getElementById('timer-display').textContent,
         progress: document.getElementById('progress-count').textContent
     }}));
 }}
+
+function nextArticle() {{
+    const done = JSON.parse(localStorage.getItem('done_article_ids') || '[]');
+    if (CURRENT && !done.includes(CURRENT.id)) {{
+        done.push(CURRENT.id);
+        localStorage.setItem('done_article_ids', JSON.stringify(done));
+    }}
+    sessionStorage.removeItem('current_article_id');
+    sessionStorage.removeItem('reading_submitted_state_' + CURRENT_ID);
+    location.reload();
+}}
+
+function showAllDone() {{
+    document.body.innerHTML = `
+        <div class="all-done">
+            <h1>🎉 All Articles Completed!</h1>
+            <p style="color:#666;font-size:17px;margin:24px 0;">
+                You've finished all ${{ALL_ARTICLES.length}} readings in the library.<br>
+                Great work!
+            </p>
+            <div class="actions">
+                <button onclick="resetAndContinue()">🔄 Reset and Practice Again</button>
+                <button class="secondary" onclick="showGenerateMore()">📚 How to Generate More</button>
+            </div>
+            <div style="margin-top:40px;font-size:13px;color:#888;">
+                <a href="history.html" style="color:#1a4d8f;">📊 View Full History</a> &nbsp;|&nbsp;
+                <a href="mistakes.html" style="color:#1a4d8f;">📖 Review All Vocabulary</a>
+            </div>
+        </div>`;
+}}
+
+function resetAndContinue() {{
+    if (confirm('Reset all "done" records and re-randomize all articles?\\n\\nYour history and vocabulary are NOT affected.')) {{
+        localStorage.removeItem('done_article_ids');
+        location.reload();
+    }}
+}}
+
+function showGenerateMore() {{
+    alert(
+        "To generate more articles, run on your computer:\\n\\n" +
+        "cd ~/code/isee-reading-daily\\n" +
+        "uv run main.py 50\\n\\n" +
+        "Then push to GitHub:\\n" +
+        "git add . && git commit -m 'More articles' && git push\\n\\n" +
+        "Refresh this page to see new articles."
+    );
+}}
+
+function showError(msg) {{
+    document.getElementById('start-card').innerHTML = `
+        <h2 style="color:#c62828;">⚠️ Error</h2>
+        <p style="color:#555;font-family:Arial;font-size:14px;">${{msg}}</p>`;
+}}
+
+init();
 </script>
 
 </body>
 </html>'''
 
 
-def format_passage_html(passage_text):
-    """把 passage 文本按段落分（双换行或单换行），包装成 <p>"""
-    # 优先按双换行分段；如果没有双换行，按单换行
-    paragraphs = re.split(r'\n\n+', passage_text.strip())
-    if len(paragraphs) == 1:
-        paragraphs = re.split(r'\n', passage_text.strip())
-    return "\n".join(f"<p>{p.strip()}</p>" for p in paragraphs if p.strip())
-
-
-# ============ 生成 history.html ============
 def render_history_html():
     return '''<!DOCTYPE html>
 <html lang="en">
@@ -1120,13 +980,7 @@ def render_history_html():
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 * { box-sizing: border-box; }
-body {
-    font-family: "Georgia", serif;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 24px 20px 60px;
-    background: #fafaf7;
-}
+body { font-family: "Georgia", serif; max-width: 860px; margin: 0 auto; padding: 24px 20px 60px; background: #fafaf7; }
 header { border-bottom: 3px double #333; padding-bottom: 16px; margin-bottom: 28px; }
 h1 { font-size: 24px; margin: 0 0 6px; }
 h2 { font-size: 18px; margin: 32px 0 16px; padding-left: 12px; border-left: 4px solid #1a4d8f; }
@@ -1151,17 +1005,14 @@ button.danger { background: #c62828; }
 </head>
 <body>
 <a href="index.html" class="back-link">← Back to Reading</a>
-<header>
-    <h1>READING PROGRESS</h1>
-    <div class="subtitle">Daily reading practice history</div>
-</header>
+<header><h1>READING PROGRESS</h1><div class="subtitle">Practice history</div></header>
 <div id="content"></div>
 <script>
 function render() {
     const sessions = JSON.parse(localStorage.getItem('reading_sessions') || '[]');
     const content = document.getElementById('content');
     if (sessions.length === 0) {
-        content.innerHTML = '<div class="empty-state"><h2 style="border:none;padding:0;">📊 No sessions yet</h2><p>Complete a reading session to start tracking progress.</p></div>';
+        content.innerHTML = '<div class="empty-state"><h2 style="border:none;padding:0;">📊 No sessions yet</h2><p>Complete a reading to start tracking.</p></div>';
         return;
     }
     const totalQ = sessions.reduce((s, x) => s + x.total, 0);
@@ -1190,36 +1041,19 @@ function render() {
         const time = new Date(s.timestamp).toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
         const dur = Math.floor(s.duration_sec/60) + 'm' + (s.duration_sec%60) + 's';
         const accColor = s.accuracy >= 80 ? '#27ae60' : (s.accuracy >= 60 ? '#f57c00' : '#c62828');
-        html += '<tr>' +
-            '<td>' + s.date + '<br><span style="color:#999;font-size:10px;">' + time + '</span></td>' +
-            '<td>' + (s.title || '-') + '</td>' +
-            '<td>' + (s.genre || '-') + '</td>' +
+        html += '<tr><td>' + s.date + '<br><span style="color:#999;font-size:10px;">' + time + '</span></td>' +
+            '<td>' + (s.title || '-') + '</td><td>' + (s.genre || '-') + '</td>' +
             '<td>' + s.correct + '/' + s.total + '</td>' +
             '<td style="color:' + accColor + ';font-weight:bold;">' + s.accuracy + '%</td>' +
-            '<td>' + dur + '</td>' +
-            '</tr>';
+            '<td>' + dur + '</td></tr>';
     });
     html += '</tbody></table><div class="clear-section"><button class="danger" onclick="if(confirm(\\'Clear all?\\')){localStorage.removeItem(\\'reading_sessions\\');render();}">Clear All History</button></div>';
     content.innerHTML = html;
-
     const ctx = document.getElementById('acc-chart');
     new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: sessions.map(s => s.date),
-            datasets: [{
-                label: 'Accuracy',
-                data: sessions.map(s => s.accuracy),
-                borderColor: '#1a4d8f',
-                backgroundColor: 'rgba(26,77,143,0.1)',
-                borderWidth: 2.5, pointRadius: 5, tension: 0.3, fill: true
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } }
-        }
+        data: { labels: sessions.map(s => s.date), datasets: [{ label: 'Accuracy', data: sessions.map(s => s.accuracy), borderColor: '#1a4d8f', backgroundColor: 'rgba(26,77,143,0.1)', borderWidth: 2.5, pointRadius: 5, tension: 0.3, fill: true }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } } }
     });
 }
 render();
@@ -1228,95 +1062,109 @@ render();
 </html>'''
 
 
-# ============ 生成 mistakes.html（生词回顾页）============
 def render_mistakes_html():
-    """这个版本只显示所有 data/ 里出现过的 vocab 词，作为复习页"""
-    # 我们读所有 data/*.json，汇总所有 vocab
-    all_vocab = {}
-    for jf in DATA_DIR.glob("*.json"):
-        try:
-            with open(jf, encoding="utf-8") as f:
-                d = json.load(f)
-            for v in d.get("vocab", []):
-                word = v["word"]
-                if word not in all_vocab:
-                    all_vocab[word] = {
-                        "word": word,
-                        "definition": v["definition"],
-                        "first_seen": d.get("timestamp", ""),
-                        "title": d.get("title", "")
-                    }
-        except Exception:
-            continue
-
-    vocab_data_json = json.dumps(list(all_vocab.values()), ensure_ascii=False)
-
-    return f'''<!DOCTYPE html>
+    """All vocabulary from articles.json"""
+    return '''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading Vocabulary</title>
+<title>Vocabulary Library</title>
 <style>
-* {{ box-sizing: border-box; }}
-body {{ font-family: "Georgia", serif; max-width: 760px; margin: 0 auto; padding: 24px 20px 60px; background: #fafaf7; }}
-header {{ border-bottom: 3px double #333; padding-bottom: 16px; margin-bottom: 28px; }}
-h1 {{ font-size: 24px; margin: 0 0 6px; }}
-.subtitle {{ font-size: 13px; color: #555; font-style: italic; }}
-.back-link {{ display: inline-block; margin-bottom: 20px; color: #1a4d8f; text-decoration: none; font-family: Arial, sans-serif; font-size: 14px; }}
-.stats {{ background: white; padding: 14px 18px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 24px; font-family: Arial, sans-serif; font-size: 14px; }}
-.vocab-card {{ background: white; padding: 14px 18px; margin-bottom: 10px; border-left: 4px solid #1a4d8f; border-radius: 0 4px 4px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }}
-.vocab-word {{ font-size: 18px; font-weight: bold; color: #1a4d8f; }}
-.vocab-def {{ color: #333; font-size: 14px; margin-top: 4px; }}
-.vocab-source {{ font-size: 11px; color: #999; margin-top: 6px; font-family: Arial, sans-serif; font-style: italic; }}
-.empty-state {{ text-align: center; padding: 60px 20px; color: #888; }}
+* { box-sizing: border-box; }
+body { font-family: "Georgia", serif; max-width: 760px; margin: 0 auto; padding: 24px 20px 60px; background: #fafaf7; }
+header { border-bottom: 3px double #333; padding-bottom: 16px; margin-bottom: 28px; }
+h1 { font-size: 24px; margin: 0 0 6px; }
+.subtitle { font-size: 13px; color: #555; font-style: italic; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #1a4d8f; text-decoration: none; font-family: Arial, sans-serif; font-size: 14px; }
+.stats { background: white; padding: 14px 18px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 24px; font-family: Arial, sans-serif; font-size: 14px; }
+.vocab-card { background: white; padding: 14px 18px; margin-bottom: 10px; border-left: 4px solid #1a4d8f; border-radius: 0 4px 4px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.vocab-word { font-size: 18px; font-weight: bold; color: #1a4d8f; }
+.vocab-def { color: #333; font-size: 14px; margin-top: 4px; }
+.vocab-source { font-size: 11px; color: #999; margin-top: 6px; font-family: Arial, sans-serif; font-style: italic; }
+.empty-state { text-align: center; padding: 60px 20px; color: #888; }
 </style>
 </head>
 <body>
 <a href="index.html" class="back-link">← Back to Reading</a>
-<header>
-    <h1>VOCABULARY COLLECTED</h1>
-    <div class="subtitle">All words you've encountered in daily readings</div>
-</header>
+<header><h1>VOCABULARY LIBRARY</h1><div class="subtitle">All words from the article library</div></header>
 <div id="content"></div>
 <script>
-const VOCAB = {vocab_data_json};
-const content = document.getElementById('content');
-if (VOCAB.length === 0) {{
-    content.innerHTML = '<div class="empty-state"><p>No words yet. Complete some readings first.</p></div>';
-}} else {{
-    let html = '<div class="stats"><strong>' + VOCAB.length + '</strong> words collected from daily readings</div>';
-    VOCAB.sort((a, b) => a.word.localeCompare(b.word));
-    VOCAB.forEach(v => {{
-        html += '<div class="vocab-card">' +
-            '<div class="vocab-word">' + v.word + '</div>' +
-            '<div class="vocab-def">' + v.definition + '</div>' +
-            (v.title ? '<div class="vocab-source">From: ' + v.title + '</div>' : '') +
-            '</div>';
-    }});
-    content.innerHTML = html;
-}}
+async function load() {
+    try {
+        const res = await fetch('articles.json?v=' + Date.now());
+        const data = await res.json();
+        const articles = data.articles || [];
+        const wordMap = {};
+        articles.forEach(a => {
+            (a.vocab || []).forEach(v => {
+                if (!wordMap[v.word]) {
+                    wordMap[v.word] = { word: v.word, definition: v.definition, source: a.title };
+                }
+            });
+        });
+        const VOCAB = Object.values(wordMap);
+        const content = document.getElementById('content');
+        if (VOCAB.length === 0) {
+            content.innerHTML = '<div class="empty-state"><p>No vocabulary yet. Generate articles first.</p></div>';
+            return;
+        }
+        VOCAB.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+        let html = '<div class="stats"><strong>' + VOCAB.length + '</strong> unique words across ' + articles.length + ' articles</div>';
+        VOCAB.forEach(v => {
+            html += '<div class="vocab-card"><div class="vocab-word">' + v.word + '</div>' +
+                '<div class="vocab-def">' + v.definition + '</div>' +
+                '<div class="vocab-source">From: ' + v.source + '</div></div>';
+        });
+        content.innerHTML = html;
+    } catch (err) {
+        document.getElementById('content').innerHTML = '<div class="empty-state"><p>Error loading vocabulary.</p></div>';
+    }
+}
+load();
 </script>
 </body>
 </html>'''
 
 
-# ============ 写入所有 HTML ============
-with open(INDEX_FILE, "w", encoding="utf-8") as f:
-    f.write(render_index_html())
+# ============ Entry Point ============
+if __name__ == "__main__":
+    # Parse argument
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].lower()
+        if arg == "reset":
+            confirm = input("⚠️  This will delete articles.json. Continue? (yes/no): ")
+            if confirm.lower() == "yes":
+                if ARTICLES_FILE.exists():
+                    ARTICLES_FILE.unlink()
+                    print("✅ articles.json deleted. Run 'uv run main.py' to regenerate.")
+                else:
+                    print("articles.json doesn't exist.")
+            else:
+                print("Cancelled.")
+            sys.exit(0)
+        try:
+            batch_size = int(arg)
+        except ValueError:
+            print(f"⚠️  Invalid argument '{arg}'. Use a number or 'reset'.")
+            sys.exit(1)
+    else:
+        batch_size = DEFAULT_BATCH_SIZE
 
-with open(HISTORY_PAGE, "w", encoding="utf-8") as f:
-    f.write(render_history_html())
+    # Run batch
+    articles = run_batch(batch_size)
 
-with open(MISTAKES_FILE_HTML, "w", encoding="utf-8") as f:
-    f.write(render_mistakes_html())
+    # Write HTML files
+    with open(INDEX_FILE, "w", encoding="utf-8") as f:
+        f.write(render_index_html(len(articles)))
+    with open(HISTORY_PAGE, "w", encoding="utf-8") as f:
+        f.write(render_history_html())
+    with open(MISTAKES_FILE_HTML, "w", encoding="utf-8") as f:
+        f.write(render_mistakes_html())
 
-# ============ 总结输出 ============
-print(f"📄 Files generated:")
-print(f"   - {INDEX_FILE}     (today's reading)")
-print(f"   - {HISTORY_PAGE}   (progress + chart)")
-print(f"   - {MISTAKES_FILE_HTML}  (vocab collected)")
-print(f"   - {data_file}      (session data)")
-print(f"\n📊 Total readings completed: {history['session_count']}")
-print(f"   Topics remaining: {len(topics) - len(history['used_topic_ids'])} / {len(topics)}")
-print(f"\n✅ Done! Open index.html to start reading.")
+    print(f"📄 HTML files generated:")
+    print(f"   - {INDEX_FILE}")
+    print(f"   - {HISTORY_PAGE}")
+    print(f"   - {MISTAKES_FILE_HTML}")
+    print(f"   - {ARTICLES_FILE}  ({len(articles)} articles)")
+    print(f"\n✅ Done! Open {INDEX_FILE} or push to GitHub.")
