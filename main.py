@@ -590,6 +590,166 @@ footer a {{ color: #888; text-decoration: none; }}
     font-family: "Helvetica Neue", Arial, sans-serif;
 }}
 .all-done button.secondary {{ background: #6c757d; }}
+
+/* ===== PRINT STYLES (Save as PDF) ===== */
+@media print {{
+    @page {{ margin: 18mm 16mm; size: A4; }}
+    body {{
+        background: white !important;
+        padding: 0 !important;
+        font-size: 12pt;
+        max-width: 100% !important;
+        color: black !important;
+        line-height: 1.6;
+    }}
+    /* 隐藏所有非打印元素 */
+    .start-overlay,
+    .meta-bar,
+    #submit-section,
+    .new-test-section,
+    .action-links,
+    .score-summary,
+    footer,
+    #print-btn,
+    .badge {{ display: none !important; }}
+    /* 头部精简 */
+    .reading-header {{
+        border-bottom: 2px solid black;
+        padding-bottom: 8mm;
+        margin-bottom: 8mm;
+    }}
+    .reading-header h1 {{
+        font-size: 20pt;
+        margin-bottom: 4mm;
+        page-break-after: avoid;
+    }}
+    #print-meta-line {{
+        display: block !important;
+        font-size: 10pt;
+        color: #555;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        margin-bottom: 4mm;
+    }}
+    /* 文章主体 */
+    .passage-section {{
+        background: white !important;
+        padding: 0 !important;
+        border-left: none !important;
+        box-shadow: none !important;
+        margin-bottom: 8mm;
+    }}
+    .passage-section p {{
+        margin-bottom: 4mm;
+        text-align: justify;
+        orphans: 3;
+        widows: 3;
+    }}
+    /* 生词只显示下划线，不显示 hover */
+    .vocab {{
+        color: black !important;
+        border-bottom: 1px solid black !important;
+        font-weight: normal !important;
+    }}
+    .vocab::after, .vocab::before {{ display: none !important; }}
+    /* 题目区 */
+    h2.section-title {{
+        font-size: 14pt;
+        padding-left: 0;
+        border-left: none;
+        border-top: 2px solid black;
+        padding-top: 4mm;
+        margin-top: 8mm;
+        page-break-after: avoid;
+    }}
+    .question {{
+        background: white !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        margin-bottom: 6mm;
+        page-break-inside: avoid;
+    }}
+    .q-type {{ display: none !important; }}
+    .q-number {{ font-size: 12pt; }}
+    .q-stem {{ font-size: 11pt; margin-bottom: 3mm; }}
+    .option {{
+        border: none !important;
+        padding: 1mm 0 1mm 8mm !important;
+        background: none !important;
+        font-size: 11pt;
+    }}
+    .option input {{ display: none !important; }}
+    /* 答案区强制翻页 */
+    #print-answer-section {{
+        display: block !important;
+        page-break-before: always;
+    }}
+    #print-answer-section h2 {{
+        font-size: 16pt;
+        text-align: center;
+        border: none;
+        border-top: 3px double black;
+        border-bottom: 3px double black;
+        padding: 4mm 0;
+        margin: 0 0 6mm 0;
+    }}
+    #print-answer-section .answer-item {{
+        margin-bottom: 4mm;
+        page-break-inside: avoid;
+    }}
+    #print-answer-section .ans-num {{
+        font-weight: bold;
+        font-size: 11pt;
+    }}
+    #print-answer-section .ans-correct {{
+        font-size: 11pt;
+        margin: 1mm 0;
+    }}
+    #print-answer-section .ans-why {{
+        font-size: 10pt;
+        color: #333;
+        font-style: italic;
+        margin-left: 6mm;
+    }}
+    /* Glossary */
+    #print-glossary {{
+        display: block !important;
+        margin-top: 8mm;
+        page-break-inside: avoid;
+    }}
+    #print-glossary h3 {{
+        font-size: 13pt;
+        border-bottom: 1px solid black;
+        padding-bottom: 2mm;
+        margin-bottom: 4mm;
+    }}
+    #print-glossary .gloss-item {{
+        margin-bottom: 2mm;
+        font-size: 10pt;
+    }}
+    #print-glossary .gloss-word {{
+        font-weight: bold;
+        text-decoration: underline;
+    }}
+    /* Footer 用 @page */
+    body::after {{
+        content: "ISEE Reading Daily";
+        position: fixed;
+        bottom: 5mm;
+        right: 0;
+        font-size: 8pt;
+        color: #999;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+    }}
+    /* 默认隐藏的打印元素 */
+    #print-meta-line,
+    #print-answer-section,
+    #print-glossary {{ display: none; }}
+}}
+/* 非打印时也隐藏 */
+#print-meta-line,
+#print-answer-section,
+#print-glossary {{ display: none; }}
+
 @media (max-width: 600px) {{
     body {{ padding: 18px 14px 60px; font-size: 16px; }}
     .reading-header h1 {{ font-size: 22px; }}
@@ -882,7 +1042,8 @@ function submitQuiz() {{
     const resultsHtml =
         '<div class="new-test-section">' +
         '<button class="start-new-btn" onclick="nextArticle()">📖 Next Article</button>' +
-        '<p style="color:#666;font-size:12px;margin-top:8px;">Marks this article as complete, randomly picks next</p>' +
+        '<button class="start-new-btn" style="background:#8b6914;margin-left:10px;" onclick="savePDF()">💾 Save as PDF</button>' +
+        '<p style="color:#666;font-size:12px;margin-top:8px;">Save: download offline copy with answer key on page 2</p>' +
         '</div>' +
         '<div class="score-summary">' +
         '<div class="score-item"><span class="score-value">' + correctCount + '/' + CURRENT.questions.length + '</span><span class="score-label">Score</span></div>' +
@@ -955,6 +1116,67 @@ function showGenerateMore() {{
         "git add . && git commit -m 'More articles' && git push\\n\\n" +
         "Refresh this page to see new articles."
     );
+}}
+
+function savePDF() {{
+    // 动态构建打印专用 DOM
+    buildPrintElements();
+
+    // 触发打印
+    setTimeout(() => {{
+        window.print();
+    }}, 100);
+}}
+
+function buildPrintElements() {{
+    // 1. 头部 meta 信息
+    let metaLine = document.getElementById('print-meta-line');
+    if (!metaLine) {{
+        metaLine = document.createElement('div');
+        metaLine.id = 'print-meta-line';
+        document.querySelector('.reading-header').appendChild(metaLine);
+    }}
+    metaLine.textContent =
+        CURRENT.category + ' · ' + CURRENT.genre + ' · ' + CURRENT.length +
+        ' · ' + new Date().toISOString().split('T')[0];
+
+    // 2. 答案区（强制换页到第二页）
+    let answerSection = document.getElementById('print-answer-section');
+    if (answerSection) answerSection.remove();
+    answerSection = document.createElement('div');
+    answerSection.id = 'print-answer-section';
+    let answerHTML = '<h2>ANSWER KEY &amp; EXPLANATIONS</h2>';
+    CURRENT.questions.forEach((q, i) => {{
+        const letters = ['A', 'B', 'C', 'D'];
+        const correctLetter = letters[q.correct_index];
+        const correctText = q.options[q.correct_index];
+        answerHTML += '<div class="answer-item">' +
+            '<div class="ans-num">' + (i+1) + '. ' + q.stem + '</div>' +
+            '<div class="ans-correct"><strong>Correct: ' + correctLetter + '.</strong> ' + correctText + '</div>' +
+            '<div class="ans-why"><strong>Why:</strong> ' + q.explanation + '</div>' +
+            '</div>';
+    }});
+    answerSection.innerHTML = answerHTML;
+    document.body.appendChild(answerSection);
+
+    // 3. Glossary（生词表）
+    let glossary = document.getElementById('print-glossary');
+    if (glossary) glossary.remove();
+    glossary = document.createElement('div');
+    glossary.id = 'print-glossary';
+    if (CURRENT.vocab && CURRENT.vocab.length > 0) {{
+        let glossHTML = '<h3>VOCABULARY GLOSSARY</h3>';
+        // 按字母排序
+        const sortedVocab = [...CURRENT.vocab].sort((a, b) =>
+            a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+        sortedVocab.forEach(v => {{
+            glossHTML += '<div class="gloss-item">' +
+                '<span class="gloss-word">' + v.word + '</span> &mdash; ' + v.definition +
+                '</div>';
+        }});
+        glossary.innerHTML = glossHTML;
+        answerSection.appendChild(glossary);
+    }}
 }}
 
 function showError(msg) {{
