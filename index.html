@@ -197,13 +197,15 @@ footer a { color: #888; text-decoration: none; }
         color: black !important;
         line-height: 1.6;
     }
-    /* 隐藏所有非打印元素 */
+/* 隐藏所有非打印元素 */
     .start-overlay,
     .meta-bar,
     #submit-section,
     .new-test-section,
     .action-links,
     .score-summary,
+    .explanation-block,
+    #results h3,
     footer,
     #print-btn,
     .badge { display: none !important; }
@@ -637,7 +639,7 @@ function submitQuiz() {
     const resultsHtml =
         '<div class="new-test-section">' +
         '<button class="start-new-btn" onclick="nextArticle()">📖 Next Article</button>' +
-        '<button class="start-new-btn" style="background:#8b6914;margin-left:10px;" onclick="savePDF()">💾 Save as PDF</button>' +
+        '<button class="start-new-btn" style="background:#546e7a;margin-left:10px;" onclick="savePDF()">💾 Save as PDF</button>' +
         '<p style="color:#666;font-size:12px;margin-top:8px;">Save: download offline copy with answer key on page 2</p>' +
         '</div>' +
         '<div class="score-summary">' +
