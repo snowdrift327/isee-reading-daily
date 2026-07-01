@@ -29,7 +29,7 @@ INDEX_FILE = Path("index.html")
 HISTORY_PAGE = Path("history.html")
 MISTAKES_FILE_HTML = Path("mistakes.html")
 
-DEFAULT_BATCH_SIZE = 50
+DEFAULT_BATCH_SIZE = 100
 
 GENRES = [
     {
@@ -342,8 +342,7 @@ def run_batch(target_count):
     genres_cycle = genres_cycle[:to_generate]
     random.shuffle(genres_cycle)
 
-    lengths_cycle = (["short"] * (to_generate // 2 + 1) + ["long"] * (to_generate // 2 + 1))[:to_generate]
-    random.shuffle(lengths_cycle)
+    lengths_cycle = ["long"] * to_generate  # 100% long — matches ISEE Lower Level real test (~350-400 words)
 
     q5_cycle = []
     while len(q5_cycle) < to_generate:
