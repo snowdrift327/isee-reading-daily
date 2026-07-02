@@ -74,10 +74,42 @@ Q5_INSTRUCTIONS = {
    - "The tone of the passage is mainly..."
    - "Which word best describes how the author feels about [X]?"
 
-   Options MUST be specific tone adjectives. Choose 4 from:
-   admiring, neutral, skeptical, informative, cautionary, reverent,
-   sympathetic, critical, enthusiastic, contemplative, ironic,
-   curious, appreciative, concerned, matter-of-fact """,
+   CRITICAL DISTRACTOR DESIGN — since most passages have a positive tone
+   (admiring, reverent, appreciative), you must design distractors that
+   force the reader to distinguish BETWEEN SIMILAR POSITIVE TONES, not
+   between positive and negative.
+
+   Choose 4 options from this list, ensuring they are TONALLY CLOSE but
+   distinguishable:
+
+   POSITIVE FAMILY (use 3-4 from here when passage is positive):
+   - admiring (recognizing outstanding qualities)
+   - reverent (deep respect with a sense of awe)
+   - appreciative (recognizing value and being grateful)
+   - respectful (dignified acknowledgment, less emotional)
+   - enthusiastic (excited energy)
+   - celebratory (openly praising achievement)
+   - sympathetic (understanding hardship)
+   - contemplative (thoughtful, reflective)
+
+   NEUTRAL FAMILY (use 1 from here as a distractor):
+   - informative (explaining without emotion)
+   - matter-of-fact (straightforward, no emotion)
+   - objective (balanced observer)
+
+   AVOID including obviously wrong tones like "critical", "skeptical",
+   "sarcastic", "indifferent" as distractors — they are too easy to
+   eliminate. The challenge should be choosing between similar positive
+   tones.
+
+   The correct answer must be supported by SPECIFIC WORD CHOICES in the
+   passage. For example:
+   - Words like "heroically", "remarkable" → admiring
+   - Words like "sacred", "monumental", "revered" → reverent
+   - Words like "grateful", "invaluable" → appreciative
+   - Words like "quiet dignity", "steadfast" → respectful
+
+   In your explanation, cite the specific words/phrases that reveal the tone.""",
 
     "advanced_detail": """Q5 (Advanced Detail / Synthesis): MUST use one of these formats:
    - "Which statement best summarizes the relationship between X and Y?"
